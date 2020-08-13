@@ -2,6 +2,6 @@
 {
     public interface IBehaviourNode
     {
-        BehaviourTree.Result Execute();
+        BaseNode.Result Execute();
     }
 }

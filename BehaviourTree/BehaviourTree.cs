@@ -14,13 +14,6 @@ namespace Coffee.BehaviourTree
         private IBehaviourNode root;
         public IBehaviourNode Root => root;
         
-        public enum Result
-        {
-            Failure,
-            Success,
-            Running
-        }
-
         public void Awake()
         {
             Blackboard = new Dictionary<string, object>();
@@ -35,7 +28,7 @@ namespace Coffee.BehaviourTree
                     new IBehaviourNode[] { new LeafTesterNode(this) }));
             
             int breaksafe = 0;
-            while (root.Execute() == Result.Running)
+            while (root.Execute() == BaseNode.Result.Running)
             {
                 breaksafe++;
                 if (breaksafe > 100)

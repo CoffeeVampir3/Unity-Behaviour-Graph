@@ -8,10 +8,10 @@ namespace Coffee.BehaviourTree.Leaf
         {
         }
 
-        public override BehaviourTree.Result Execute()
+        public override Result Execute()
         {
             Debug.Log("Reached the leaf!");
-            return BehaviourTree.Result.Success;
+            return Result.Success;
         }
     }
 }

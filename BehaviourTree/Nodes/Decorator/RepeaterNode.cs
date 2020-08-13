@@ -8,10 +8,10 @@ namespace Coffee.BehaviourTree.Decorator
         {
         }
 
-        public override BehaviourTree.Result Execute()
+        public override Result Execute()
         {
             Debug.Log("Repeater repeated with value: " + Child.Execute());
-            return BehaviourTree.Result.Running;
+            return Result.Running;
         }
     }
 }

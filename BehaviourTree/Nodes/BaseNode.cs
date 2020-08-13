@@ -3,12 +3,19 @@
     public abstract class BaseNode : IBehaviourNode
     {
         private BehaviourTree parentTree;
-
+        
+        public enum Result
+        {
+            Failure,
+            Success,
+            Running
+        }
+        
         public BaseNode(BehaviourTree tree)
         {
             parentTree = tree;
         }
 
-        public abstract BehaviourTree.Result Execute();
+        public abstract Result Execute();
     }
 }

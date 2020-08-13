@@ -1,14 +1,14 @@
-﻿//Sequencer returns success if and only if ALL children were successful.
-
+﻿//Selector returns success if any children were successful.
 namespace Coffee.BehaviourTree.Composite
 {
-    public class SequencerNode : CompositeNode
+    public class SelectorNode : CompositeNode
     {
         private int currentNode = 0;
-        public SequencerNode(BehaviourTree tree, IBehaviourNode[] children) : base(tree, children)
+        
+        public SelectorNode(BehaviourTree tree, IBehaviourNode[] children) : base(tree, children)
         {
         }
-
+        
         public override Result Execute()
         {
             if (currentNode < childNodes.Length)
@@ -19,7 +19,7 @@ namespace Coffee.BehaviourTree.Composite
                 {
                     case Result.Running:
                         return result;
-                    case Result.Failure:
+                    case Result.Success:
                         currentNode = 0;
                         return result;
                 }
@@ -30,8 +30,7 @@ namespace Coffee.BehaviourTree.Composite
             }
 
             currentNode = 0;
-            return Result.Success;
+            return Result.Failure;
         }
-        
     }
 }
