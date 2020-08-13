@@ -26,28 +26,30 @@ namespace Coffee.BehaviourTree
             Blackboard = new Dictionary<string, object>();
 
             startedBehaviour = false;
-            
+        }
+
+        private void ExecuteTestTree()
+        {
             root = new RepeaterNode(this,
                 new SequencerNode(this,
                     new IBehaviourNode[] { new LeafTesterNode(this) }));
-        }
-
-        private void ExecuteTree()
-        {
+            
             int breaksafe = 0;
             while (root.Execute() == Result.Running)
             {
                 breaksafe++;
                 if (breaksafe > 100)
                 {
-                    Debug.Log("Infinite");
                     break;
                 }
-
-                
             }
 
             startedBehaviour = false;
+        }
+
+        private void ExecuteTree()
+        {
+            ExecuteTestTree();
         }
 
         public void Tick()
