@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using XNode;
 
-namespace Coffee.BehaviourGraph
+namespace Coffee.Behaviour
 {
+    [CreateAssetMenu]
     public class BehaviourGraph : NodeGraph
     {
         [SerializeField]
