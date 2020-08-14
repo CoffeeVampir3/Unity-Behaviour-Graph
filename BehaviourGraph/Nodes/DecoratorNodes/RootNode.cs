@@ -7,7 +7,8 @@ namespace Coffee.Behaviour.Nodes.Private
         protected override void Init()
         {
             base.Init();
-            thisNode = new TreeRootNode(parentTree);
+            thisTreeNode = new TreeRootNode(parentTree);
+            parentTree.nodes.Add(thisTreeNode);
         }
     }
 }

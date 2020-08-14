@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Coffee.BehaviourTree.Leaf
 {
+    [Serializable]
     public class TreeLeafDebugNode : TreeLeafNode
     {
-        public string debugMessage;
+        public string debugMessage = "Default Debug Leaf Messages";
 
         public override Result Execute()
         {

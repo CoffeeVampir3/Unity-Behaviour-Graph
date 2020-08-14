@@ -1,7 +1,12 @@
-﻿namespace Coffee.BehaviourTree
+﻿using System;
+using UnityEngine;
+
+namespace Coffee.BehaviourTree
 {
+    [Serializable]
     public abstract class TreeBaseNode : ITreeBehaviourNode
     {
+        [SerializeField]
         private BehaviourTree parentTree;
         
         public enum Result

@@ -7,7 +7,8 @@ namespace Coffee.Behaviour.Nodes.DecoratorNodes
         protected override void Init()
         {
             base.Init();
-            thisNode = new TreeRepeaterNode(parentTree);
+            thisTreeNode = new TreeRepeaterNode(parentTree);
+            parentTree.nodes.Add(thisTreeNode);
         }
     }
 }

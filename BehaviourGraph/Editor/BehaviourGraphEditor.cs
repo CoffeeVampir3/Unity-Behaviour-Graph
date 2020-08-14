@@ -1,4 +1,5 @@
-﻿using XNode;
+﻿using UnityEngine;
+using XNode;
 using XNodeEditor;
 
 namespace Coffee.Behaviour.Editor
@@ -6,8 +7,6 @@ namespace Coffee.Behaviour.Editor
     [CustomNodeGraphEditor(typeof(BehaviourGraph))]
     public class BehaviourGraphEditor : NodeGraphEditor
     {
-        private bool isDirty = false;
-
         public override string GetNodeMenuName(System.Type type) {
             if (type.Namespace.Contains("Coffee.Behaviour.Nodes.Private"))
             {
@@ -22,20 +21,10 @@ namespace Coffee.Behaviour.Editor
             return null;
         }
 
-        public void SetDirty()
+        public override void OnCreate()
         {
-            isDirty = true;
+            (target as BehaviourGraph).Init();
+            base.OnCreate();
         }
-
-        public override void OnGUI()
-        {
-            base.OnGUI();
-            BehaviourGraph graph = target as BehaviourGraph;
-            graph.Init();
-
-            if(isDirty)
-                window.Repaint();
-        }
-
     }
 }

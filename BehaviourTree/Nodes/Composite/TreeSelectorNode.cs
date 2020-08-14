@@ -1,8 +1,14 @@
 ﻿//Selector returns success if any children were successful.
+
+using System;
+using UnityEngine;
+
 namespace Coffee.BehaviourTree.Composite
 {
+    [Serializable]
     public class TreeSelectorNode : TreeCompositeNode
     {
+        [SerializeField]
         private int currentNode = 0;
         
         public TreeSelectorNode(BehaviourTree tree) : base(tree)

@@ -1,6 +1,7 @@
 ﻿using System;
 using Coffee.Behaviour.Nodes;
 using Coffee.Behaviour.Nodes.Private;
+using Coffee.BehaviourTree;
 using UnityEditor;
 using UnityEngine;
 using XNode;
@@ -12,20 +13,33 @@ namespace Coffee.Behaviour
     {
         [SerializeField]
         private GameObject pawn;
+        [SerializeField]
         private BaseNode root;
-        internal BehaviourTree.BehaviourTree tree;
-
-        private bool isInitialized = false;
+        [SerializeField]
+        public BehaviourTree.BehaviourTree tree;
+        
         public void Init()
         {
-            if (!isInitialized)
-            {
-                tree = new BehaviourTree.BehaviourTree();
-                root = AddNode<RootNode>();
-                root.name = "Root Node";
-                AssetDatabase.AddObjectToAsset(root, this);
-                isInitialized = true;
-            }
+            if (tree != null)
+                return;
+            
+            tree = CreateInstance<BehaviourTree.BehaviourTree>();
+            tree.Init();
+            root = AddNode<RootNode>();
+            root.name = "Root Node";
+            tree.name = "Behaviour Tree";
+
+            tree.root = root.thisTreeNode;
+            
+            AssetDatabase.SaveAssets();
+            AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(this));
+            AssetDatabase.Refresh();
+            AssetDatabase.AddObjectToAsset(root, this);
+            AssetDatabase.AddObjectToAsset(tree, this);
+            AssetDatabase.SaveAssets();
+            AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(root));
+            AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(tree));
+            AssetDatabase.Refresh();
         }
     }
 

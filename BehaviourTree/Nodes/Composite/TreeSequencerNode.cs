@@ -1,9 +1,14 @@
 ﻿//Sequencer returns success if and only if ALL children were successful.
 
+using System;
+using UnityEngine;
+
 namespace Coffee.BehaviourTree.Composite
 {
+    [Serializable]
     public class TreeSequencerNode : TreeCompositeNode
     {
+        [SerializeField]
         private int currentNode = 0;
         
         public TreeSequencerNode(BehaviourTree tree) : base(tree)

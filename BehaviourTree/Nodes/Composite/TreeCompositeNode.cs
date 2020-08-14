@@ -1,8 +1,13 @@
-﻿namespace Coffee.BehaviourTree.Composite
+﻿using System;
+using UnityEngine;
+
+namespace Coffee.BehaviourTree.Composite
 {
+    [Serializable]
     public abstract class TreeCompositeNode : TreeBaseNode
     {
-        public ITreeBehaviourNode[] childNodes;
+        [SerializeField]
+        public TreeBaseNode[] childNodes;
 
         protected TreeCompositeNode(BehaviourTree tree) : base(tree)
         {
