@@ -2,16 +2,16 @@
 
 namespace Coffee.BehaviourTree.Decorator
 {
-    public class RepeaterNode : DecoratorNode
+    public class TreeRepeaterNode : TreeDecoratorNode
     {
-        public RepeaterNode(BehaviourTree tree, IBehaviourNode child) : base(tree, child)
-        {
-        }
-
         public override Result Execute()
         {
             Debug.Log("Repeater repeated with value: " + child.Execute());
             return Result.Running;
+        }
+
+        public TreeRepeaterNode(BehaviourTree tree) : base(tree)
+        {
         }
     }
 }

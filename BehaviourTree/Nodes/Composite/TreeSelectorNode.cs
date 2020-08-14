@@ -1,14 +1,14 @@
 ﻿//Selector returns success if any children were successful.
 namespace Coffee.BehaviourTree.Composite
 {
-    public class SelectorNode : CompositeNode
+    public class TreeSelectorNode : TreeCompositeNode
     {
         private int currentNode = 0;
         
-        public SelectorNode(BehaviourTree tree, IBehaviourNode[] children) : base(tree, children)
+        public TreeSelectorNode(BehaviourTree tree) : base(tree)
         {
         }
-        
+
         public override Result Execute()
         {
             if (currentNode < childNodes.Length)

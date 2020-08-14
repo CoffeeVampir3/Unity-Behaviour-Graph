@@ -2,10 +2,11 @@
 
 namespace Coffee.BehaviourTree.Composite
 {
-    public class SequencerNode : CompositeNode
+    public class TreeSequencerNode : TreeCompositeNode
     {
         private int currentNode = 0;
-        public SequencerNode(BehaviourTree tree, IBehaviourNode[] children) : base(tree, children)
+        
+        public TreeSequencerNode(BehaviourTree tree) : base(tree)
         {
         }
 
@@ -32,6 +33,5 @@ namespace Coffee.BehaviourTree.Composite
             currentNode = 0;
             return Result.Success;
         }
-        
     }
 }

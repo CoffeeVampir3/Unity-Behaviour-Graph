@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
+using Coffee.Behaviour.Nodes;
+using Coffee.Behaviour.Nodes.Private;
+using UnityEditor;
+using UnityEngine;
 using XNode;
 
 namespace Coffee.Behaviour
@@ -8,14 +12,20 @@ namespace Coffee.Behaviour
     {
         [SerializeField]
         private GameObject pawn;
+        private BaseNode root;
+        internal BehaviourTree.BehaviourTree tree;
 
-        public void Init(GameObject owner)
+        private bool isInitialized = false;
+        public void Init()
         {
-            pawn = owner;
-        }
-
-        public void CompileGraph()
-        {
+            if (!isInitialized)
+            {
+                tree = new BehaviourTree.BehaviourTree();
+                root = AddNode<RootNode>();
+                root.name = "Root Node";
+                AssetDatabase.AddObjectToAsset(root, this);
+                isInitialized = true;
+            }
         }
     }
 

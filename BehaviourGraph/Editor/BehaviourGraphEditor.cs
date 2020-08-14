@@ -9,9 +9,14 @@ namespace Coffee.Behaviour.Editor
         private bool isDirty = false;
 
         public override string GetNodeMenuName(System.Type type) {
-            if (type.Namespace.Contains("Coffee.BehaviourGraph"))
+            if (type.Namespace.Contains("Coffee.Behaviour.Nodes.Private"))
             {
-                return base.GetNodeMenuName(type).Replace("BehaviourGraph/", "");
+                return null;
+            }
+            
+            if (type.Namespace.Contains("Coffee.Behaviour.Nodes"))
+            {
+                return base.GetNodeMenuName(type).Replace("Coffee/Behaviour/Nodes/", "Nodes/");
             }
 
             return null;
@@ -25,6 +30,9 @@ namespace Coffee.Behaviour.Editor
         public override void OnGUI()
         {
             base.OnGUI();
+            BehaviourGraph graph = target as BehaviourGraph;
+            graph.Init();
+
             if(isDirty)
                 window.Repaint();
         }

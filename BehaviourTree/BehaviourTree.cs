@@ -6,13 +6,13 @@ using UnityEngine;
 
 namespace Coffee.BehaviourTree
 {
-    public class BehaviourTree : MonoBehaviour
+    public class BehaviourTree
     {
         private bool startedBehaviour;
         public Dictionary<string, object> Blackboard { get; set; }
 
-        private IBehaviourNode root;
-        public IBehaviourNode Root => root;
+        private ITreeBehaviourNode root;
+        public ITreeBehaviourNode Root => root;
         
         public void Awake()
         {
@@ -23,12 +23,8 @@ namespace Coffee.BehaviourTree
 
         private void ExecuteTestTree()
         {
-            root = new RepeaterNode(this,
-                new SequencerNode(this,
-                    new IBehaviourNode[] { new LeafTesterNode(this) }));
-            
             int breaksafe = 0;
-            while (root.Execute() == BaseNode.Result.Running)
+            while (root.Execute() == TreeBaseNode.Result.Running)
             {
                 breaksafe++;
                 if (breaksafe > 100)

@@ -1,6 +1,6 @@
 ﻿namespace Coffee.BehaviourTree
 {
-    public abstract class BaseNode : IBehaviourNode
+    public abstract class TreeBaseNode : ITreeBehaviourNode
     {
         private BehaviourTree parentTree;
         
@@ -11,7 +11,7 @@
             Running
         }
         
-        public BaseNode(BehaviourTree tree)
+        protected TreeBaseNode(BehaviourTree tree)
         {
             parentTree = tree;
         }
