@@ -15,8 +15,7 @@ namespace Coffee.BehaviourGraph
 
         public void CompileGraph()
         {
-            
         }
-
     }
+
 }

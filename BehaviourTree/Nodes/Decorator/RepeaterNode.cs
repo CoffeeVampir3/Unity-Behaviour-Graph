@@ -10,7 +10,7 @@ namespace Coffee.BehaviourTree.Decorator
 
         public override Result Execute()
         {
-            Debug.Log("Repeater repeated with value: " + Child.Execute());
+            Debug.Log("Repeater repeated with value: " + child.Execute());
             return Result.Running;
         }
     }

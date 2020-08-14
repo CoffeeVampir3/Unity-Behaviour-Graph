@@ -2,8 +2,7 @@
 {
     public abstract class DecoratorNode : BaseNode
     {
-        private readonly IBehaviourNode child;
-        public IBehaviourNode Child => child;
+        public IBehaviourNode child;
 
         public DecoratorNode(BehaviourTree tree, IBehaviourNode child) : base(tree)
         {
