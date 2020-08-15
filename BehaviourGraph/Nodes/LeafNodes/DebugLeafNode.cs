@@ -8,9 +8,8 @@ namespace Coffee.Behaviour.Nodes.LeafNodes
         [SerializeField]
         public string debugMessage;
         
-        protected override void Init()
+        protected override void OnCreation()
         {
-            base.Init();
             thisTreeNode = new TreeLeafDebugNode(parentTree);
             parentTree.nodes.Add(thisTreeNode);
         }

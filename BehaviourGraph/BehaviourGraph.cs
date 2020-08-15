@@ -1,7 +1,5 @@
-﻿using System;
-using Coffee.Behaviour.Nodes;
+﻿using Coffee.Behaviour.Nodes;
 using Coffee.Behaviour.Nodes.Private;
-using Coffee.BehaviourTree;
 using UnityEditor;
 using UnityEngine;
 using XNode;

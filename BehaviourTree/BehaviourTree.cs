@@ -5,11 +5,10 @@ using UnityEngine;
 
 namespace Coffee.BehaviourTree
 {
-    [Serializable]
     public class BehaviourTree : SerializedScriptableObject
     {
-        [SerializeField]
         private bool startedBehaviour;
+        //TODO:: Actual blackboard implementation.
         public Dictionary<string, object> Blackboard { get; set; }
         [SerializeField]
         public List<TreeBaseNode> nodes;
@@ -18,7 +17,6 @@ namespace Coffee.BehaviourTree
 
         public void Init()
         {
-            Debug.Log("Initialized tree.");
             Blackboard = new Dictionary<string, object>();
             nodes = new List<TreeBaseNode>();
             startedBehaviour = false;

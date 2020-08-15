@@ -4,9 +4,8 @@ namespace Coffee.Behaviour.Nodes.DecoratorNodes
 {
     public class RepeaterNode : DecoratorNode
     {
-        protected override void Init()
+        protected override void OnCreation()
         {
-            base.Init();
             thisTreeNode = new TreeRepeaterNode(parentTree);
             parentTree.nodes.Add(thisTreeNode);
         }

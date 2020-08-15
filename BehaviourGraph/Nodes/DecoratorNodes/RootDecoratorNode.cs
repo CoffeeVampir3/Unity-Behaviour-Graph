@@ -14,7 +14,6 @@ namespace Coffee.Behaviour.Nodes.Private
             TreeDecoratorNode decNode = thisTreeNode as TreeDecoratorNode;
             System.Diagnostics.Debug.Assert(
                 decNode != null, nameof(decNode) + " != null");
-            Debug.Log("Decorator set child.");
             
             decNode.child = incomingNode.thisTreeNode;
         }
@@ -26,7 +25,6 @@ namespace Coffee.Behaviour.Nodes.Private
             TreeDecoratorNode decNode = thisTreeNode as TreeDecoratorNode;
             System.Diagnostics.Debug.Assert(
                 decNode != null, nameof(decNode) + " != null");
-            Debug.Log("Decorator removed child.");
             
             decNode.child = null;
         }

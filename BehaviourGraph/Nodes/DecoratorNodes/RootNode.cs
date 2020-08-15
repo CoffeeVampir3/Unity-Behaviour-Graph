@@ -4,9 +4,8 @@ namespace Coffee.Behaviour.Nodes.Private
 {
     public class RootNode : RootDecoratorNode
     {
-        protected override void Init()
+        protected override void OnCreation()
         {
-            base.Init();
             thisTreeNode = new TreeRootNode(parentTree);
             parentTree.nodes.Add(thisTreeNode);
         }
