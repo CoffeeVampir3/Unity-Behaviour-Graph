@@ -1,4 +1,5 @@
-﻿using Coffee.Behaviour.Nodes;
+﻿using BehaviourGraph.Blackboard;
+using Coffee.Behaviour.Nodes;
 using Coffee.Behaviour.Nodes.Private;
 using UnityEditor;
 using UnityEngine;
@@ -15,6 +16,8 @@ namespace Coffee.Behaviour
         protected BaseNode root;
         [SerializeField]
         public BehaviourTree.BehaviourTree tree;
+        [SerializeField] 
+        public IBlackboard blackboard;
         
         public void Init()
         {
@@ -27,12 +30,19 @@ namespace Coffee.Behaviour
             root.name = "Root Node";
             tree.name = "Behaviour Tree";
             tree.root = root.thisTreeNode;
+
+            var bb = CreateInstance<Blackboard>();
+            bb.name = "Blackboard";
+            blackboard = bb;
+
+            tree.blackboard = bb;
             
             AssetDatabase.SaveAssets();
             AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(this));
             AssetDatabase.Refresh();
             AssetDatabase.AddObjectToAsset(root, this);
             AssetDatabase.AddObjectToAsset(tree, this);
+            AssetDatabase.AddObjectToAsset(bb, this);
             AssetDatabase.SaveAssets();
             AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(root));
             AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(tree));

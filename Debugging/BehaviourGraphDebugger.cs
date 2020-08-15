@@ -14,7 +14,7 @@ namespace Coffee.Behaviour.Debugging
             if (graph.tree != null)
             {
                 graph.tree.Tick();
-            }
+            } 
         }
     }
 }

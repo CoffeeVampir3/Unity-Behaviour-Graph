@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using BehaviourGraph.Blackboard;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -9,15 +10,14 @@ namespace Coffee.BehaviourTree
     {
         [SerializeField]
         private bool startedBehaviour;
-        //TODO:: Actual blackboard implementation.
-        public Dictionary<string, object> Blackboard { get; set; }
+        [SerializeField]
+        public IBlackboard blackboard;
         [SerializeField]
         [HideInInspector]
         public TreeBaseNode root;
 
         public void Init()
         {
-            Blackboard = new Dictionary<string, object>();
             startedBehaviour = false;
         }
 
