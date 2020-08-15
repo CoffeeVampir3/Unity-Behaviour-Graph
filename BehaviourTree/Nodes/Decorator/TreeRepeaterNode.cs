@@ -1,5 +1,4 @@
 ﻿using System;
-using UnityEngine;
 
 namespace Coffee.BehaviourTree.Decorator
 {
@@ -8,9 +7,13 @@ namespace Coffee.BehaviourTree.Decorator
     {
         public override Result Execute()
         {
-            Debug.Log("Repeater executing");
             child.Execute();
             return Result.Running;
+        }
+
+        public override void Reset()
+        {
+            child.Reset();
         }
 
         public TreeRepeaterNode(BehaviourTree tree) : base(tree)

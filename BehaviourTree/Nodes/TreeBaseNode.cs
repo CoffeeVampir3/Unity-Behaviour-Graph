@@ -23,5 +23,7 @@ namespace Coffee.BehaviourTree
         }
 
         public abstract Result Execute();
+
+        public abstract void Reset();
     }
 }

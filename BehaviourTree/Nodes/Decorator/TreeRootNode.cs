@@ -8,15 +8,17 @@ namespace Coffee.BehaviourTree.Decorator
     {
         public override Result Execute()
         {
-            Debug.Log("Root executing.");
-
             if (child == null)
             {
-                Debug.Log("No child for root.");
                 return Result.Failure;
             }
 
             return child.Execute();
+        }
+
+        public override void Reset()
+        {
+            child.Reset();
         }
 
         public TreeRootNode(BehaviourTree tree) : base(tree)

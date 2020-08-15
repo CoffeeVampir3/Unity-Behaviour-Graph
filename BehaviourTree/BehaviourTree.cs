@@ -7,6 +7,7 @@ namespace Coffee.BehaviourTree
 {
     public class BehaviourTree : SerializedScriptableObject
     {
+        [SerializeField]
         private bool startedBehaviour;
         //TODO:: Actual blackboard implementation.
         public Dictionary<string, object> Blackboard { get; set; }
@@ -26,6 +27,7 @@ namespace Coffee.BehaviourTree
             if(root == null)
                 Debug.Log("Null root.");
             
+            root.Reset();
             Debug.Log("Executing 100 cycle test.");
             while (root.Execute() == TreeBaseNode.Result.Running)
             {

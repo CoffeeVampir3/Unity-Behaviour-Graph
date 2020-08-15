@@ -15,6 +15,11 @@ namespace Coffee.BehaviourTree.Leaf
             return Result.Success;
         }
 
+        public override void Reset()
+        {
+            //Emptu
+        }
+
         public TreeLeafDebugNode(BehaviourTree tree) : base(tree)
         {
         }

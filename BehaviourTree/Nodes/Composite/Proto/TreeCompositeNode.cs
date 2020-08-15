@@ -9,6 +9,8 @@ namespace Coffee.BehaviourTree.Composite
     {
         [SerializeField]
         public TreeBaseNode[] childNodes;
+        [SerializeField]
+        protected int currentNode = 0;
 
         public void SetChildren(List<TreeBaseNode> nodes)
         {
@@ -17,6 +19,15 @@ namespace Coffee.BehaviourTree.Composite
 
         protected TreeCompositeNode(BehaviourTree tree) : base(tree)
         {
+        }
+
+        public override void Reset()
+        {
+            currentNode = 0;
+            for (int i = childNodes.Length - 1; i >= 0; i--)
+            {
+                childNodes[i].Reset();
+            }
         }
     }
 }
