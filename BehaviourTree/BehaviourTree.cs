@@ -26,6 +26,7 @@ namespace Coffee.BehaviourTree
             if(root == null)
                 Debug.Log("Null root.");
             
+            Debug.Log("Executing 100 cycle test.");
             while (root.Execute() == TreeBaseNode.Result.Running)
             {
                 breaksafe++;
