@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using XNode;
-using XNodeEditor;
+﻿using XNodeEditor;
+using Debug = System.Diagnostics.Debug;
 
 namespace Coffee.Behaviour.Editor
 {
@@ -23,7 +22,10 @@ namespace Coffee.Behaviour.Editor
 
         public override void OnCreate()
         {
-            (target as BehaviourGraph).Init();
+            BehaviourGraph bg = target as BehaviourGraph;
+
+            Debug.Assert(bg != null, nameof(bg) + " != null");
+            bg.Init();
             base.OnCreate();
         }
     }
