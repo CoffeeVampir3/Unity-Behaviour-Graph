@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Coffee.BehaviourTree.Composite
@@ -8,6 +9,11 @@ namespace Coffee.BehaviourTree.Composite
     {
         [SerializeField]
         public TreeBaseNode[] childNodes;
+
+        public void SetChildren(List<TreeBaseNode> nodes)
+        {
+            childNodes = nodes.ToArray();
+        }
 
         protected TreeCompositeNode(BehaviourTree tree) : base(tree)
         {

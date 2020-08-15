@@ -26,7 +26,6 @@ namespace Coffee.Behaviour
             root = AddNode<RootNode>();
             root.name = "Root Node";
             tree.name = "Behaviour Tree";
-
             tree.root = root.thisTreeNode;
             
             AssetDatabase.SaveAssets();
