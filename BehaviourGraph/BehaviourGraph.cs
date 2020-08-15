@@ -10,9 +10,9 @@ namespace Coffee.Behaviour
     public class BehaviourGraph : NodeGraph
     {
         [SerializeField]
-        private GameObject pawn;
+        protected GameObject pawn;
         [SerializeField]
-        private BaseNode root;
+        protected BaseNode root;
         [SerializeField]
         public BehaviourTree.BehaviourTree tree;
         

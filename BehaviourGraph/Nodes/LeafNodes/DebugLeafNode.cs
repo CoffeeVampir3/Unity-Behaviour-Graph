@@ -8,7 +8,7 @@ namespace Coffee.Behaviour.Nodes.LeafNodes
     public class DebugLeafNode : LeafNode
     {
         [SerializeField]
-        private TreeLeafDebugNode debugNode;
+        protected TreeLeafDebugNode debugNode;
         
         protected override void OnCreation()
         {

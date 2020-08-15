@@ -9,7 +9,7 @@ namespace Coffee.Behaviour.Nodes.CompositeNodes
     {
         [SerializeField] 
         [HideInInspector]
-        private TreeSelectorNode selectorNode;
+        protected TreeSelectorNode selectorNode;
         
         protected override void OnCreation()
         {
