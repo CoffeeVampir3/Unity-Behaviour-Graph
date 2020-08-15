@@ -6,7 +6,7 @@ using UnityEngine;
 namespace BehaviourGraph.Blackboard
 {
     [Serializable]
-    public class BlackboardBase : IBlackboard
+    public class BlackboardDefaultDataContainer : IBlackboard
     {
         private object[] blackboard = new object[100];
         [SerializeField]
@@ -29,6 +29,7 @@ namespace BehaviourGraph.Blackboard
 
         public void ReleaseId(int id)
         {
+            blackboard[id] = null;
             hangingIndices.Push(id);
         }
 

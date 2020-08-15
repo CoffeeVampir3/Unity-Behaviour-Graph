@@ -3,5 +3,6 @@
     public interface ITreeBehaviourNode
     {
         TreeBaseNode.Result Execute();
+        void Reset();
     }
 }

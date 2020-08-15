@@ -5,7 +5,7 @@ namespace BehaviourGraph.Blackboard
     public class Blackboard : ScriptableObject, IBlackboard
     {
         [SerializeField]
-        private BlackboardBase blackboard = new BlackboardBase();
+        private BlackboardDefaultDataContainer blackboard = new BlackboardDefaultDataContainer();
         
         public T GetItem<T>(int index)
         {

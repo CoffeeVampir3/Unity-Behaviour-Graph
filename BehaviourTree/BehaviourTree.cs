@@ -14,11 +14,13 @@ namespace Coffee.BehaviourTree
         public IBlackboard blackboard;
         [SerializeField]
         [HideInInspector]
-        public TreeBaseNode root;
+        protected ITreeBehaviourNode root;
 
-        public void Init()
+        public void Init(ITreeBehaviourNode rootNode, IBlackboard blackboard)
         {
             startedBehaviour = false;
+            root = rootNode;
+            this.blackboard = blackboard;
         }
 
         private void ExecuteTestTree()
@@ -32,7 +34,7 @@ namespace Coffee.BehaviourTree
             while (root.Execute() == TreeBaseNode.Result.Running)
             {
                 breaksafe++;
-                if (breaksafe > 100)
+                if (breaksafe > 99)
                 {
                     break;
                 }
