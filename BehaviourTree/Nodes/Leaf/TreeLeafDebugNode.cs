@@ -6,7 +6,8 @@ namespace Coffee.BehaviourTree.Leaf
     [Serializable]
     public class TreeLeafDebugNode : TreeLeafNode
     {
-        public string debugMessage = "Default Debug Leaf Messages";
+        [SerializeField]
+        public string debugMessage;
 
         public override Result Execute()
         {

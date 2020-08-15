@@ -1,17 +1,19 @@
-﻿using Coffee.BehaviourTree.Leaf;
+﻿using System;
+using Coffee.BehaviourTree.Leaf;
 using UnityEngine;
 
 namespace Coffee.Behaviour.Nodes.LeafNodes
 {
+    [Serializable]
     public class DebugLeafNode : LeafNode
     {
         [SerializeField]
-        public string debugMessage;
+        private TreeLeafDebugNode debugNode;
         
         protected override void OnCreation()
         {
-            thisTreeNode = new TreeLeafDebugNode(parentTree);
-            parentTree.nodes.Add(thisTreeNode);
+            debugNode = new TreeLeafDebugNode(parentTree);
+            thisTreeNode = debugNode;
         }
     }
 }

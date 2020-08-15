@@ -11,14 +11,12 @@ namespace Coffee.BehaviourTree
         //TODO:: Actual blackboard implementation.
         public Dictionary<string, object> Blackboard { get; set; }
         [SerializeField]
-        public List<TreeBaseNode> nodes;
-        [SerializeField]
+        [HideInInspector]
         public TreeBaseNode root;
 
         public void Init()
         {
             Blackboard = new Dictionary<string, object>();
-            nodes = new List<TreeBaseNode>();
             startedBehaviour = false;
         }
 

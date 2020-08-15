@@ -7,6 +7,7 @@ namespace Coffee.BehaviourTree
     public abstract class TreeBaseNode : ITreeBehaviourNode
     {
         [SerializeField]
+        [HideInInspector]
         private BehaviourTree parentTree;
         
         public enum Result

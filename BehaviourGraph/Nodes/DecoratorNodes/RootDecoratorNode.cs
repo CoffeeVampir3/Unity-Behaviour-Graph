@@ -1,9 +1,11 @@
-﻿using Coffee.BehaviourTree.Decorator;
+﻿using System;
+using Coffee.BehaviourTree.Decorator;
 using UnityEngine;
 using XNode;
 
 namespace Coffee.Behaviour.Nodes.Private
 {
+    [Serializable]
     public abstract class RootDecoratorNode : BaseNode
     {
         [SerializeField]

@@ -1,9 +1,11 @@
-﻿using Coffee.BehaviourTree;
+﻿using System;
+using Coffee.BehaviourTree;
 using UnityEngine;
 using XNode;
 
 namespace Coffee.Behaviour.Nodes
 {
+    [Serializable]
     public abstract class BaseNode : Node
     {
         [SerializeField]
