@@ -13,7 +13,6 @@ namespace Coffee.Behaviour.Debugging
         {
             if (graph.tree != null)
             {
-                Debug.Log("Running graphs!");
                 graph.tree.Tick();
             }
         }
