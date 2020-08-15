@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using BehaviourGraph.Blackboard;
+﻿using BehaviourGraph.Blackboard;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -9,9 +7,10 @@ namespace Coffee.BehaviourTree
     public class BehaviourTree : SerializedScriptableObject
     {
         [SerializeField]
-        private bool startedBehaviour;
+        protected bool startedBehaviour;
         [SerializeField]
-        public IBlackboard blackboard;
+        protected IBlackboard blackboard;
+        public IBlackboard Blackboard => blackboard;
         [SerializeField]
         [HideInInspector]
         protected ITreeBehaviourNode root;

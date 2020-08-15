@@ -8,7 +8,7 @@ namespace Coffee.BehaviourTree
     {
         [SerializeField]
         [HideInInspector]
-        private BehaviourTree parentTree;
+        protected BehaviourTree parentTree;
         
         public enum Result
         {

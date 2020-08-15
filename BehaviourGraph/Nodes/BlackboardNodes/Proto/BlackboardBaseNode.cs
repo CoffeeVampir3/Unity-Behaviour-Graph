@@ -1,25 +1,19 @@
 ﻿using System;
-using Coffee.BehaviourTree;
 using UnityEngine;
 using XNode;
 using Debug = System.Diagnostics.Debug;
 
-namespace Coffee.Behaviour.Nodes
+namespace Coffee.Behaviour.Nodes.BlackboardNodes
 {
     [Serializable]
-    public abstract class BaseNode : Node
+    public abstract class BlackboardBaseNode : Node
     {
-        [SerializeField]
-        [HideInInspector]
-        public TreeBaseNode thisTreeNode;
         [SerializeField]
         [HideInInspector]
         protected BehaviourGraph parentGraph;
         [SerializeField]
         [HideInInspector]
         protected BehaviourTree.BehaviourTree parentTree;
-
-        protected abstract void OnCreation();
 
         [SerializeField]
         [HideInInspector]
@@ -35,13 +29,6 @@ namespace Coffee.Behaviour.Nodes
             
             parentTree = parentGraph.tree;
             initialized = true;
-
-            OnCreation();
-        }
-        
-        public override object GetValue(NodePort port)
-        {
-            return thisTreeNode;
         }
     }
 }
