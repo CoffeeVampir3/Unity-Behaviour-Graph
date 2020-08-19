@@ -1,18 +1,25 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
+using BehaviourGraph.Debugging;
+using Coffee.BehaviourTree;
+using Coffee.BehaviourTree.Decorator;
 using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 using Sirenix.Utilities;
 using UnityEngine;
 
 namespace BehaviourGraph.Conditionals
 {
     [ExecuteAlways]
-    public class ConditionalTester : MonoBehaviour
+    public class ConditionalTester : SerializedMonoBehaviour
     {
         [Button]
         public void TestCachedConditions()
         {
             MethodInfo[] methods;
             FieldInfo[] fields;
+            
+            ConditionalCache.InitializeCache();
 
             if (ConditionalCache.TryGetCondition(GetType(), out fields))
             {
@@ -36,7 +43,7 @@ namespace BehaviourGraph.Conditionals
         public bool proceedIfTrue = false;
 
         [Condition]
-        public bool mooses0 = true;
+        public bool mooses02 = true;
         [Condition]
         public bool mooses1 = true;
         [Condition]

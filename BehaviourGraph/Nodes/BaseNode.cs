@@ -1,13 +1,15 @@
 ﻿using System;
 using Coffee.BehaviourTree;
+using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 using UnityEngine;
 using XNode;
-using Debug = System.Diagnostics.Debug;
 
 namespace Coffee.Behaviour.Nodes
 {
     [Serializable]
-    public abstract class BaseNode : Node
+    [ShowOdinSerializedPropertiesInInspector]
+    public abstract class BaseNode : Node, ISerializationCallbackReceiver
     {
         [SerializeField]
         [HideInInspector]
@@ -42,6 +44,19 @@ namespace Coffee.Behaviour.Nodes
         public override object GetValue(NodePort port)
         {
             return thisTreeNode;
+        }
+
+        [OdinSerialize]
+        [HideInInspector]
+        private SerializationData serializationData;
+        public void OnBeforeSerialize()
+        {
+            UnitySerializationUtility.SerializeUnityObject(this, ref serializationData);
+        }
+
+        public void OnAfterDeserialize()
+        {
+            UnitySerializationUtility.DeserializeUnityObject(this, ref serializationData);
         }
     }
 }

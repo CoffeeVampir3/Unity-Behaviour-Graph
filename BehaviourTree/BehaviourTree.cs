@@ -15,11 +15,10 @@ namespace Coffee.BehaviourTree
         [HideInInspector]
         protected ITreeBehaviourNode root;
 
-        public void Init(ITreeBehaviourNode rootNode, IBlackboard blackboard)
+        public void Init(ITreeBehaviourNode rootNode)
         {
             startedBehaviour = false;
             root = rootNode;
-            this.blackboard = blackboard;
         }
 
         private void ExecuteTestTree()

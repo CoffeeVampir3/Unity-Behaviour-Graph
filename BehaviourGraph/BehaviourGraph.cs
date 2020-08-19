@@ -1,7 +1,9 @@
-﻿using BehaviourGraph.Blackboard;
+﻿using System;
+using BehaviourGraph.Blackboard;
 using Coffee.Behaviour.Nodes;
 using Coffee.Behaviour.Nodes.Private;
-using Coffee.BehaviourTree;
+using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 using UnityEditor;
 using UnityEngine;
 using XNode;
@@ -9,7 +11,8 @@ using XNode;
 namespace Coffee.Behaviour
 {
     [CreateAssetMenu]
-    public class BehaviourGraph : NodeGraph
+    [ShowOdinSerializedPropertiesInInspector]
+    public class BehaviourGraph : NodeGraph, ISerializationCallbackReceiver
     {
         [SerializeField]
         protected GameObject pawn;
@@ -17,7 +20,8 @@ namespace Coffee.Behaviour
         protected BaseNode root;
         [SerializeField]
         public BehaviourTree.BehaviourTree tree;
-        [SerializeField] 
+        [NonSerialized, OdinSerialize]
+        [ShowInInspector]
         public IBlackboard blackboard;
         
         public void Init()
@@ -30,22 +34,30 @@ namespace Coffee.Behaviour
             root.name = "Root Node";
             tree.name = "Behaviour Tree";
 
-            var bb = CreateInstance<Blackboard>();
-            bb.name = "Blackboard";
-            blackboard = bb;
-
-            tree.Init(root.thisTreeNode, bb);
+            tree.Init(root.thisTreeNode);
             
             AssetDatabase.SaveAssets();
             AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(this));
             AssetDatabase.Refresh();
             AssetDatabase.AddObjectToAsset(root, this);
             AssetDatabase.AddObjectToAsset(tree, this);
-            AssetDatabase.AddObjectToAsset(bb, this);
             AssetDatabase.SaveAssets();
             AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(root));
             AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(tree));
             AssetDatabase.Refresh();
+        }
+
+        [OdinSerialize]
+        [HideInInspector]
+        private SerializationData serializationData;
+        public void OnBeforeSerialize()
+        {
+            UnitySerializationUtility.SerializeUnityObject(this, ref serializationData);
+        }
+
+        public void OnAfterDeserialize()
+        {
+            UnitySerializationUtility.DeserializeUnityObject(this, ref serializationData);
         }
     }
 

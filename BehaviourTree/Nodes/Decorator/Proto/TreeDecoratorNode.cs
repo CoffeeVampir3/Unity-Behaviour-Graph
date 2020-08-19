@@ -7,6 +7,7 @@ namespace Coffee.BehaviourTree.Decorator
     public abstract class TreeDecoratorNode : TreeBaseNode
     {
         [SerializeField]
+        [HideInInspector]
         public TreeBaseNode child;
 
         protected TreeDecoratorNode(BehaviourTree tree) : base(tree)
