@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using Sirenix.OdinInspector;
 using UnityEditor;
 
 namespace BehaviourGraph.Conditionals
@@ -32,8 +31,17 @@ namespace BehaviourGraph.Conditionals
         
         private static Dictionary<Type, MethodInfo[]> conditionalMethods;
         private static Dictionary<Type, FieldInfo[]> conditionalFields;
-        
+
         private static List<Type> classesWithConditions;
+
+        public static List<Type> ClassesWithCondition
+        {
+            get
+            {
+                InitializeCache();
+                return classesWithConditions;
+            }
+        }
 
         private static void AddNameToClassList(Type decType)
         {
@@ -41,22 +49,6 @@ namespace BehaviourGraph.Conditionals
             {
                 classesWithConditions.Add(decType);
             }
-        }
-        
-        private static ValueDropdownList<Type> filterList;
-        public static ValueDropdownList<Type> GetDropdownListOfClassesWithConditions() {
-            InitializeCache();
-
-            if (filterList == null)
-            {
-                filterList = new ValueDropdownList<Type>();
-                var typeList = classesWithConditions;
-                foreach (var listedType in typeList) {
-                    filterList.Add(listedType.Name, listedType);
-                }
-                filterList.Sort((val1, val2) => String.Compare(val1.Text, val2.Text, StringComparison.Ordinal));
-            }
-            return filterList;
         }
 
         //TODO:: Potentially very slow/high cost array re-allocations in big projects.

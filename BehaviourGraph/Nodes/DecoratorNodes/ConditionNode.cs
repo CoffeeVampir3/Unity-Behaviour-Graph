@@ -1,6 +1,8 @@
 ﻿using System;
+using BehaviourGraph.Blackboard;
 using Coffee.BehaviourTree.Decorator;
 using Sirenix.Serialization;
+using UnityEngine;
 
 namespace Coffee.Behaviour.Nodes.DecoratorNodes
 {
@@ -8,7 +10,10 @@ namespace Coffee.Behaviour.Nodes.DecoratorNodes
     public class ConditionNode : DecoratorNode
     {
         [OdinSerialize]
+        protected BlackboardReference blackboardReferenceTarget;
+        [OdinSerialize, HideInInspector]
         protected TreeConditionNode conditionNode;
+
         protected override void OnCreation()
         {
             conditionNode = new TreeConditionNode(parentTree);

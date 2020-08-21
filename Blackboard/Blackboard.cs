@@ -30,7 +30,7 @@ namespace BehaviourGraph.Blackboard
             blackboard.Initialize(blackboardInitialDataAllocationSize);
         }
         
-        public void OnEnable()
+        public void Reset()
         {
             AllocateNewBlackboard();
         }

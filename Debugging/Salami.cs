@@ -6,6 +6,6 @@ namespace BehaviourGraph.Debugging
     public class Salami : MonoBehaviour
     {
         [Condition] 
-        public bool Mesesssese;
+        public bool Messsssese;
     }
 }

@@ -1,20 +1,10 @@
 ﻿using System;
-using BehaviourGraph.Conditionals;
-using Sirenix.OdinInspector;
-using Sirenix.Serialization;
 
 namespace Coffee.BehaviourTree.Decorator
 {
     [Serializable]
     public class TreeConditionNode : TreeDecoratorNode
     {
-        [NonSerialized, OdinSerialize]
-        [ValueDropdown("GetFilteredTypeList")]
-        public Type typeSelector;
-
-        private ValueDropdownList<Type> GetFilteredTypeList =>
-            ConditionalCache.GetDropdownListOfClassesWithConditions();
-        
         public TreeConditionNode(BehaviourTree tree) : base(tree)
         {
         }
