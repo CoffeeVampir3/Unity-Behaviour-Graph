@@ -3,6 +3,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using BehaviourGraph.Conditionals;
+using UnityEngine;
 
 namespace BehaviourGraph.Blackboard
 {
@@ -10,62 +11,58 @@ namespace BehaviourGraph.Blackboard
     public class BlackboardRuntimeCondition
     {
         private bool isMethod = false;
+        private Type conditionType;
         private MethodInfo method;
         private FieldInfo field;
-        private Delegate cachedMethodDelegate;
+        private Func<bool> cachedConditionFunction;
 
         private int cachedObjectHash = -1;
-        public bool EvaluateAs(object o)
+        private Component cachedConditionComponent;
+        public bool EvaluateAs(GameObject obj)
         {
-            if (o == null)
+            if (obj == null)
                 return false;
+            
+            if (cachedObjectHash != obj.GetHashCode())
+            {
+                cachedObjectHash = obj.GetHashCode();
+                SetupCachedVersionFor(obj);
+            }
             
             if (isMethod)
             {
-                if (cachedObjectHash != o.GetHashCode())
-                {
-                    cachedObjectHash = o.GetHashCode();
-                    SetupCachedVersionFor(o);
-                }
-
-                return (bool)cachedMethodDelegate.DynamicInvoke();
+                return cachedConditionFunction.Invoke();
             }
 
-            return (bool)field.GetValue(o);
+            return (bool)field.GetValue(cachedConditionComponent);
         }
 
-        public void SetupCachedVersionFor(object o)
+        public void SetupCachedVersionFor(GameObject obj)
         {
+            if (!obj.TryGetComponent(conditionType, out cachedConditionComponent))
+            {
+                throw new Exception("Unable to find condition " + conditionType.Name + " in " + obj.name);
+            }
             if (isMethod)
             {
-                cachedMethodDelegate = CreateDelegate(method, o);
+                cachedConditionFunction = CreateConditionFunction(method, cachedConditionComponent);
             }
         }
         
-        public Delegate CreateDelegate(MethodInfo methodInfo, object target) {
+        public Func<bool> CreateConditionFunction(MethodInfo methodInfo, object target) {
             Func<Type[], Type> getType;
-            var isAction = methodInfo.ReturnType == typeof(void);
-            var types = methodInfo.GetParameters().Select(p => p.ParameterType);
+            
+            getType = Expression.GetFuncType;
+            var types = new[] {methodInfo.ReturnType};
 
-            if (isAction) {
-                getType = Expression.GetActionType;
-            }
-            else {
-                getType = Expression.GetFuncType;
-                types = types.Concat(new[] { methodInfo.ReturnType });
-            }
-
-            if (methodInfo.IsStatic) {
-                return Delegate.CreateDelegate(getType(types.ToArray()), methodInfo);
-            }
-
-            return Delegate.CreateDelegate(getType(types.ToArray()), target, methodInfo.Name);
+            return (Func<bool>)Delegate.CreateDelegate(getType(types.ToArray()), target, methodInfo.Name);
         }
         
         public void RuntimeCacheSetup(ConditionalSelector selector, Type selectedConditionType)
         {
             isMethod = selector.isMethod;
-
+            conditionType = selectedConditionType;
+            
             if (isMethod)
             {
                 method = selector.methodSelector;
