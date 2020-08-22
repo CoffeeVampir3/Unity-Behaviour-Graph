@@ -4,7 +4,7 @@ using System.Linq;
 using Sirenix.Serialization;
 using UnityEngine;
 
-namespace BehaviourGraph.Blackboard
+namespace BehaviourGraph.Blackboard.Deprecated
 {
     [Serializable]
     public class BlackboardDefaultDataContainer : IBlackboard

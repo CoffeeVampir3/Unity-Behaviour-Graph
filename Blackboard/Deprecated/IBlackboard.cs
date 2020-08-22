@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BehaviourGraph.Blackboard
+namespace BehaviourGraph.Blackboard.Deprecated
 {
     public interface IBlackboard
     {

@@ -22,7 +22,7 @@ namespace Coffee.Behaviour
         public BehaviourTree.BehaviourTree tree;
         [NonSerialized, OdinSerialize]
         [ShowInInspector]
-        public IBlackboard blackboard;
+        public Blackboard blackboard;
         
         public void Init()
         {

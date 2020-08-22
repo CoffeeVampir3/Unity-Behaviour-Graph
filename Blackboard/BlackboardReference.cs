@@ -6,14 +6,10 @@ using UnityEngine;
 namespace BehaviourGraph.Blackboard
 {
     [CreateAssetMenu]
-    public class BlackboardReference : SerializedScriptableObject
+    public class BlackboardReference : SerializedScriptableObject, IBlackboardReference
     {
         [NonSerialized, OdinSerialize] 
-        private GameObject referencedObject;
-        public GameObject ReferencedObject
-        {
-            set => referencedObject = value;
-        }
+        protected GameObject referencedObject;
 
         [Button]
         public void TestReference()
@@ -23,12 +19,12 @@ namespace BehaviourGraph.Blackboard
         }
 
         [NonSerialized, OdinSerialize]
-        private ConditionalSelector editorTimeCondition = new ConditionalSelector();
+        protected ConditionalSelector editorTimeCondition = new ConditionalSelector();
         
         [NonSerialized]
-        public BlackboardRuntimeCondition runtimeCondition = new BlackboardRuntimeCondition();
+        protected BlackboardRuntimeCondition runtimeCondition = new BlackboardRuntimeCondition();
 
-        private void OnValidate()
+        protected void OnValidate()
         {
             editorTimeCondition.Validate(this);
         }
@@ -36,6 +32,16 @@ namespace BehaviourGraph.Blackboard
         public bool Evaluate()
         {
             return referencedObject != null && runtimeCondition.EvaluateAs(referencedObject);
+        }
+
+        public GameObject GetReference()
+        {
+            return referencedObject;
+        }
+
+        public void SetReference(GameObject go)
+        {
+            referencedObject = go;
         }
 
         public void CacheRuntimeValues()

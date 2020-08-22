@@ -9,8 +9,8 @@ namespace Coffee.BehaviourTree
         [SerializeField]
         protected bool startedBehaviour;
         [SerializeField]
-        protected IBlackboard blackboard;
-        public IBlackboard Blackboard => blackboard;
+        protected Blackboard blackboard;
+        public Blackboard Blackboard => blackboard;
         [SerializeField]
         [HideInInspector]
         protected ITreeBehaviourNode root;
