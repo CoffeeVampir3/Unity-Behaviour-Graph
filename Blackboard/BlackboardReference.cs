@@ -8,8 +8,19 @@ namespace BehaviourGraph.Blackboard
     [CreateAssetMenu]
     public class BlackboardReference : SerializedScriptableObject
     {
-        [NonSerialized, OdinSerialize, HideInInspector]
-        public GameObject referencedObject;
+        [NonSerialized, OdinSerialize] 
+        private GameObject referencedObject;
+        public GameObject ReferencedObject
+        {
+            set => referencedObject = value;
+        }
+
+        [Button]
+        public void TestReference()
+        {
+            CacheRuntimeValues();
+            Debug.Log(Evaluate());
+        }
 
         [NonSerialized, OdinSerialize]
         private ConditionalSelector editorTimeCondition = new ConditionalSelector();
@@ -20,6 +31,16 @@ namespace BehaviourGraph.Blackboard
         private void OnValidate()
         {
             editorTimeCondition.Validate(this);
+        }
+
+        public bool Evaluate()
+        {
+            return referencedObject != null && runtimeCondition.EvaluateAs(referencedObject);
+        }
+
+        public void CacheRuntimeValues()
+        {
+            runtimeCondition.RuntimeCacheSetup(editorTimeCondition);   
         }
     }
 }

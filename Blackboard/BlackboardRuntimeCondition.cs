@@ -58,10 +58,10 @@ namespace BehaviourGraph.Blackboard
             return (Func<bool>)Delegate.CreateDelegate(getType(types.ToArray()), target, methodInfo.Name);
         }
         
-        public void RuntimeCacheSetup(ConditionalSelector selector, Type selectedConditionType)
+        public void RuntimeCacheSetup(ConditionalSelector selector)
         {
             isMethod = selector.isMethod;
-            conditionType = selectedConditionType;
+            conditionType = selector.conditionClassSelector;
             
             if (isMethod)
             {
@@ -72,13 +72,13 @@ namespace BehaviourGraph.Blackboard
                 int fieldIndex = selector.fieldSelector;
 
                 FieldInfo[] fields;
-                if (ConditionalCache.TryGetCondition(selectedConditionType, out fields))
+                if (ConditionalCache.TryGetCondition(conditionType, out fields))
                 {
                     field = fields[fieldIndex];
                 }
                 else
                 {
-                    throw new Exception("Unable to create field info for type: " + selectedConditionType.Name +
+                    throw new Exception("Unable to create field info for type: " + conditionType.Name +
                                         " with index: " + fieldIndex);
                 }
             }
