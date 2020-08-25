@@ -1,21 +1,41 @@
 ﻿using System;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
+using UnityEditor;
 using UnityEngine;
 
 namespace BehaviourGraph.Blackboard
 {
     [CreateAssetMenu]
-    public class BlackboardReference : SerializedScriptableObject, IBlackboardReference
+    public class BlackboardReference : SerializedScriptableObject
     {
-        [NonSerialized, OdinSerialize] 
-        protected GameObject referencedObject;
-
-        [Button]
-        public void TestReference()
+        [NonSerialized] 
+        private GameObject referencedObject;
+        public GameObject ReferencedObject
         {
-            CacheRuntimeValues();
-            Debug.Log(Evaluate());
+            set
+            {
+                referencedObject = value;
+            }
+        }
+
+        [SerializeField, HideInInspector]
+        public SharedBlackboard parentBlackboard;
+        [Button(ButtonSizes.Gigantic)]
+        public void DeleteReference()
+        {
+            parentBlackboard.RemoveReference(this);
+            DestroyImmediate(this, true);
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+        }
+
+        public bool TryGetDisplayName(out string outputString)
+        {
+            if (!editorTimeCondition.TryGetConditionDisplayValue(out outputString))
+                return false;
+            outputString = outputString.Insert(0, name + ", ");
+            return true;
         }
 
         [NonSerialized, OdinSerialize]
@@ -32,16 +52,6 @@ namespace BehaviourGraph.Blackboard
         public bool Evaluate()
         {
             return referencedObject != null && runtimeCondition.EvaluateAs(referencedObject);
-        }
-
-        public GameObject GetReference()
-        {
-            return referencedObject;
-        }
-
-        public void SetReference(GameObject go)
-        {
-            referencedObject = go;
         }
 
         public void CacheRuntimeValues()

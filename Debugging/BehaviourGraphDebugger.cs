@@ -17,6 +17,7 @@ namespace Coffee.Behaviour.Debugging
         {
             if (graph.tree != null)
             {
+                graph.tree.RuntimeSetup(this.gameObject);
                 graph.tree.Tick();
             } 
         }

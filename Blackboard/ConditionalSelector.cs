@@ -57,6 +57,38 @@ namespace BehaviourGraph.Blackboard
             fieldSelector = -1;
         }
 
+        public bool TryGetConditionDisplayValue(out string outputString)
+        {
+            outputString = "";
+            if (conditionClassSelector == null)
+            {
+                return false;
+            }
+            outputString += conditionClassSelector.Name + ", ";
+            if (isMethod)
+            {
+                if (methodSelector == null)
+                {
+                    return false;
+                }
+                outputString += methodSelector.Name;
+            }
+            else
+            {
+                if (!ConditionalCache.TryGetCondition(conditionClassSelector, out FieldInfo[] fields))
+                {
+                    return false;
+                }
+                if (fields[fieldSelector] == null)
+                {
+                    return false;
+                }
+                outputString += fields[fieldSelector].Name; 
+            }
+
+            return true;
+        }
+
         private bool ShowMethods => !isMethod;
         private bool ShowFields => isMethod;
 

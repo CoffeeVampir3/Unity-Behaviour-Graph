@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using BehaviourGraph.Blackboard;
 using Coffee.Behaviour.Nodes;
 using Coffee.Behaviour.Nodes.Private;
@@ -20,10 +21,11 @@ namespace Coffee.Behaviour
         protected BaseNode root;
         [SerializeField]
         public BehaviourTree.BehaviourTree tree;
-        [NonSerialized, OdinSerialize]
-        [ShowInInspector]
-        public Blackboard blackboard;
-        
+        [ShowInInspector, SerializeField]
+        public LocalBlackboard localBlackboard;
+        [SerializeField]
+        public List<SharedBlackboard> blackboards = new List<SharedBlackboard>();
+
         public void Init()
         {
             if (tree != null)
@@ -31,23 +33,27 @@ namespace Coffee.Behaviour
             
             tree = CreateInstance<BehaviourTree.BehaviourTree>();
             root = AddNode<RootNode>();
+            localBlackboard = CreateInstance<LocalBlackboard>();
+            localBlackboard.name = "Local Blackboard";
+            
             root.name = "Root Node";
             tree.name = "Behaviour Tree";
-
-            tree.Init(root.thisTreeNode);
             
-            AssetDatabase.SaveAssets();
+            tree.Init(root.thisTreeNode, ref localBlackboard, ref blackboards);
+            
             AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(this));
             AssetDatabase.Refresh();
             AssetDatabase.AddObjectToAsset(root, this);
+            AssetDatabase.AddObjectToAsset(localBlackboard, this);
             AssetDatabase.AddObjectToAsset(tree, this);
             AssetDatabase.SaveAssets();
             AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(root));
             AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(tree));
+            AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(localBlackboard));
             AssetDatabase.Refresh();
         }
 
-        [OdinSerialize]
+        [SerializeField]
         [HideInInspector]
         private SerializationData serializationData;
         public void OnBeforeSerialize()

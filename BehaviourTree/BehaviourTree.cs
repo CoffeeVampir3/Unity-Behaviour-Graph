@@ -1,24 +1,38 @@
-﻿using BehaviourGraph.Blackboard;
+﻿using System;
+using System.Collections.Generic;
+using BehaviourGraph.Blackboard;
 using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 using UnityEngine;
 
 namespace Coffee.BehaviourTree
 {
     public class BehaviourTree : SerializedScriptableObject
     {
-        [SerializeField]
+        [NonSerialized] 
+        protected GameObject owner;
+        [SerializeField, HideInInspector]
         protected bool startedBehaviour;
         [SerializeField]
-        protected Blackboard blackboard;
-        public Blackboard Blackboard => blackboard;
-        [SerializeField]
+        public LocalBlackboard localBlackboard;
+        [SerializeField] 
+        public List<SharedBlackboard> blackboards;
+        [NonSerialized, OdinSerialize]
         [HideInInspector]
         protected ITreeBehaviourNode root;
 
-        public void Init(ITreeBehaviourNode rootNode)
+        public void Init(ITreeBehaviourNode rootNode, ref LocalBlackboard localBb, ref List<SharedBlackboard> sharedBb)
         {
             startedBehaviour = false;
             root = rootNode;
+            localBlackboard = localBb;
+            blackboards = sharedBb;
+        }
+
+        public void RuntimeSetup(GameObject owner)
+        {
+            this.owner = owner;
+            localBlackboard.RuntimeInitialize(owner);
         }
 
         private void ExecuteTestTree()
