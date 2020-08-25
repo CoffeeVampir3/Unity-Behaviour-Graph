@@ -18,9 +18,7 @@ namespace BehaviourGraph.Conditionals
         {
             MethodInfo[] methods;
             FieldInfo[] fields;
-            
-            ConditionalCache.InitializeCache();
-            
+
             var testThing = testObj.GetComponent<ConditionalTester>();
             if (ConditionalCache.TryGetCondition(testThing.GetType(), out fields))
             {

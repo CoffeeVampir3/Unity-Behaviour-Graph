@@ -8,7 +8,7 @@ namespace BehaviourGraph.Conditionals
     public static class ConditionalCache
     {
         private static bool initialized = false;
-        public static void InitializeCache()
+        private static void InitializeCache()
         {
             if (initialized)
                 return;
@@ -21,11 +21,13 @@ namespace BehaviourGraph.Conditionals
         
         public static bool TryGetCondition(Type type, out MethodInfo[] outItem)
         {
+            InitializeCache();
             return conditionalMethods.TryGetValue(type, out outItem);
         }
         
         public static bool TryGetCondition(Type type, out FieldInfo[] outItem)
         {
+            InitializeCache();
             return conditionalFields.TryGetValue(type, out outItem);
         }
         

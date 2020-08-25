@@ -52,6 +52,20 @@ namespace Coffee.Behaviour
             AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(localBlackboard));
             AssetDatabase.Refresh();
         }
+        
+        public ValueDropdownList<BlackboardReference> GetAllBlackboardReferences()
+        {
+            ValueDropdownList<BlackboardReference> refs = new ValueDropdownList<BlackboardReference>();
+            
+            refs.AddRange(localBlackboard?.GetBlackboardReferences());
+
+            foreach (var bb in blackboards)
+            {
+                refs.AddRange(bb?.GetBlackboardReferences());
+            }
+
+            return refs;
+        }
 
         [SerializeField]
         [HideInInspector]

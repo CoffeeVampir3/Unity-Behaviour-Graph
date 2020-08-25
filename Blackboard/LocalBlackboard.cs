@@ -45,9 +45,9 @@ namespace BehaviourGraph.Blackboard
             }
         }
         
-        protected override ValueDropdownList<BlackboardReference> GetAllBlackboardReferences()
+        public override ValueDropdownList<BlackboardReference> GetBlackboardReferences()
         {
-            ValueDropdownList<BlackboardReference> allReferences = base.GetAllBlackboardReferences();
+            ValueDropdownList<BlackboardReference> allReferences = base.GetBlackboardReferences();
             var temp = GetListOfReferencesFor(selfReferences, ref selectableSelfReferences);
             if(temp != null)
                 allReferences.AddRange(temp);

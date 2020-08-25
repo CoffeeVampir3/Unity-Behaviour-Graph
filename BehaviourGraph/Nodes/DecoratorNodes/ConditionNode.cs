@@ -7,10 +7,8 @@ using UnityEngine;
 namespace Coffee.Behaviour.Nodes.DecoratorNodes
 {
     [Serializable]
-    public class ConditionNode : DecoratorNode
+    public partial class ConditionNode : DecoratorNode
     {
-        [OdinSerialize]
-        protected BlackboardReference blackboardReferenceTarget;
         [OdinSerialize, HideInInspector]
         protected TreeConditionNode conditionNode;
 

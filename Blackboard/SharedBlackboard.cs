@@ -35,10 +35,7 @@ namespace BehaviourGraph.Blackboard
         }
 
         private ValueDropdownList<BlackboardReference> selectableExternalReferences;
-        [ValueDropdown("GetAllBlackboardReferences", DropdownHeight = 900, DropdownWidth = 600)]
-        public BlackboardReference refTester;
-        
-        protected virtual ValueDropdownList<BlackboardReference> GetAllBlackboardReferences()
+        public virtual ValueDropdownList<BlackboardReference> GetBlackboardReferences()
         {
             ValueDropdownList<BlackboardReference> allReferences = 
                 GetListOfReferencesFor(externalReferences, ref selectableExternalReferences);
