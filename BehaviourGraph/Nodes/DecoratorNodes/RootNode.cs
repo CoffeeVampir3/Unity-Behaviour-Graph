@@ -23,17 +23,7 @@ namespace Coffee.Behaviour.Nodes.Private
         {
             var treeRoot = rootNode;
             treeRoot.parentTree = tree;
-            var p = GetOutputPort("childNode");
-
-            BaseNode b = p.Connection.node as BaseNode;
-            if (b == null)
-            {
-                Debug.LogError("Behaviour graph: Root was not connected to a child.", this);
-                throw new NullReferenceException("Behaviour graph could not build into a valid tree due to null children.");
-            }
-
-            treeRoot.child = b.WalkGraphToCreateTree(tree);
-            return treeRoot;
+            return WalkDecoratorNode(tree, treeRoot);
         }
     }
 }

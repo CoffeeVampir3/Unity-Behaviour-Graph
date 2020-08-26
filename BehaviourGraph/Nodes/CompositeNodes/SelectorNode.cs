@@ -23,7 +23,6 @@ namespace Coffee.Behaviour.Nodes.CompositeNodes
         {
             var node = selectorNode;
             node.parentTree = tree;
-            
             WalkCompositeNodeChildren(node, tree);
             return node;
         }

@@ -1,15 +1,9 @@
-﻿using System;
-using Sirenix.OdinInspector;
-using Sirenix.Serialization;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Coffee.BehaviourTree.Leaf
 {
-    [Serializable]
-    [ShowOdinSerializedPropertiesInInspector]
     public class TreeLeafDebugNode : TreeLeafNode
     {
-        [NonSerialized, OdinSerialize]
         public string debugMessage;
 
         public override Result Execute()

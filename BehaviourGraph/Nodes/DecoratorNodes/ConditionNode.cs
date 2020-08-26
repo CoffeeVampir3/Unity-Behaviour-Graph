@@ -20,20 +20,10 @@ namespace Coffee.Behaviour.Nodes.DecoratorNodes
         
         public override TreeBaseNode WalkGraphToCreateTree(BehaviourTree.BehaviourTree tree)
         {
-            var node = conditionNode;
+            TreeConditionNode node = conditionNode;
             node.parentTree = tree;
             node.reference = blackboardReferenceTarget;
-            var p = GetOutputPort("childNode");
-
-            BaseNode b = p.Connection.node as BaseNode;
-            if (b == null)
-            {
-                Debug.LogError("Behaviour graph node: " + this.name + " was not connected to a child.", this);
-                throw new NullReferenceException("Behaviour graph could not build into a valid tree due to null children.");
-            }
-
-            node.child = b.WalkGraphToCreateTree(tree);
-            return node;
+            return WalkDecoratorNode(tree, node);
         }
     }
 }

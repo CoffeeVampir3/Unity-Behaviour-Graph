@@ -12,6 +12,22 @@ namespace Coffee.Behaviour.Nodes.Private
         [SerializeField]
         [Output(ShowBackingValue.Never, ConnectionType.Override)] public BaseNode childNode;
         
+        protected TreeDecoratorNode WalkDecoratorNode(BehaviourTree.BehaviourTree tree, TreeDecoratorNode node)
+        {
+            node.parentTree = tree;
+            var p = GetOutputPort("childNode");
+
+            BaseNode b = p.Connection.node as BaseNode;
+            if (b == null)
+            {
+                Debug.LogError("Behaviour graph node: " + this.name + " was not connected to a child.", this);
+                throw new NullReferenceException("Behaviour graph could not build into a valid tree due to null children.");
+            }
+
+            node.child = b.WalkGraphToCreateTree(tree);
+            return node;
+        }
+        
         protected void SetDecoratorNodeChild(BaseNode incomingNode)
         {
             TreeDecoratorNode decNode = thisTreeNode as TreeDecoratorNode;

@@ -23,17 +23,7 @@ namespace Coffee.Behaviour.Nodes.DecoratorNodes
         {
             var node = repeaterNode;
             node.parentTree = tree;
-            var p = GetOutputPort("childNode");
-
-            BaseNode b = p.Connection.node as BaseNode;
-            if (b == null)
-            {
-                Debug.LogError("Behaviour graph node: " + this.name + " was not connected to a child.", this);
-                throw new NullReferenceException("Behaviour graph could not build into a valid tree due to null children.");
-            }
-
-            node.child = b.WalkGraphToCreateTree(tree);
-            return node;
+            return WalkDecoratorNode(tree, node);
         }
     }
 }

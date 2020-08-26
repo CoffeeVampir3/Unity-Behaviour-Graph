@@ -6,11 +6,11 @@ namespace Coffee.BehaviourTree
 {
     public class BehaviourTree
     {
-        protected GameObject owner;
-        protected bool startedBehaviour;
-        public LocalBlackboard localBlackboard;
-        public List<SharedBlackboard> blackboards;
-        protected ITreeBehaviourNode root;
+        private GameObject owner;
+        private bool startedBehaviour;
+        private LocalBlackboard localBlackboard;
+        private List<SharedBlackboard> blackboards;
+        private ITreeBehaviourNode root;
 
         public void Init(ITreeBehaviourNode rootNode, ref LocalBlackboard localBb, ref List<SharedBlackboard> sharedBb)
         {
@@ -57,11 +57,11 @@ namespace Coffee.BehaviourTree
 
         public void Tick()
         {
-            if (!startedBehaviour)
-            {
-                startedBehaviour = true;
-                ExecuteTree();
-            }
+            if (startedBehaviour) 
+                return;
+            
+            startedBehaviour = true;
+            ExecuteTree();
         }
     }
 }
