@@ -28,13 +28,13 @@ namespace BehaviourGraph.Conditionals
                 AddNameToClassList);
         }
         
-        public static bool TryGetCondition(Type type, out MethodInfo[] outItem)
+        public static bool TryGetConditionsFor(Type type, out MethodInfo[] outItem)
         {
             InitializeCache();
             return conditionalMethods.TryGetValue((type, typeof(Condition)), out outItem);
         }
         
-        public static bool TryGetCondition(Type type, out FieldInfo[] outItem)
+        public static bool TryGetConditionsFor(Type type, out FieldInfo[] outItem)
         {
             InitializeCache();
             return conditionalFields.TryGetValue((type, typeof(Condition)), out outItem);

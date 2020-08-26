@@ -72,7 +72,7 @@ namespace BehaviourGraph.Blackboard
                 int fieldIndex = selector.fieldSelector;
 
                 FieldInfo[] fields;
-                if (ConditionalCache.TryGetCondition(conditionType, out fields))
+                if (ConditionalCache.TryGetConditionsFor(conditionType, out fields))
                 {
                     field = fields[fieldIndex];
                 }

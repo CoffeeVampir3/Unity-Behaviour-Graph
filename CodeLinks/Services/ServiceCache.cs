@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using BehaviourGraph.Conditionals;
 using UnityEditor;
 
-namespace BehaviourGraph.CodeLinks.Services
+namespace BehaviourGraph.Services
 {
     public class ServiceCache
     {
@@ -24,7 +23,7 @@ namespace BehaviourGraph.CodeLinks.Services
                 AddNameToClassList);
         }
         
-        public static bool TryGetService(Type type, out MethodInfo[] outItem)
+        public static bool TryGetServicesFor(Type type, out MethodInfo[] outItem)
         {
             InitializeCache();
             return serviceMethods.TryGetValue((type, typeof(Service)), out outItem);

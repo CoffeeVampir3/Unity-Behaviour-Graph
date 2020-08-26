@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BehaviourGraph.Conditionals
+namespace BehaviourGraph.Services
 {
     [AttributeUsage(AttributeTargets.Method)]
     public class Service : Attribute

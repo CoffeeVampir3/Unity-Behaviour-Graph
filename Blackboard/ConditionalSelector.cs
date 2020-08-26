@@ -75,7 +75,7 @@ namespace BehaviourGraph.Blackboard
             }
             else
             {
-                if (!ConditionalCache.TryGetCondition(conditionClassSelector, out FieldInfo[] fields))
+                if (!ConditionalCache.TryGetConditionsFor(conditionClassSelector, out FieldInfo[] fields))
                 {
                     return false;
                 }
@@ -121,7 +121,7 @@ namespace BehaviourGraph.Blackboard
             {
                 previouslySelectedMethodType = conditionClassSelector;
                 methodSelectorDropdown = new ValueDropdownList<MethodInfo>();
-                if (ConditionalCache.TryGetCondition(conditionClassSelector, out MethodInfo[] methods))
+                if (ConditionalCache.TryGetConditionsFor(conditionClassSelector, out MethodInfo[] methods))
                 {
                     foreach (var method in methods) {
                         methodSelectorDropdown.Add(method.Name, method);
@@ -148,7 +148,7 @@ namespace BehaviourGraph.Blackboard
             {
                 previouslySelectedFieldType = conditionClassSelector;
                 fieldSelectorDropdown = new ValueDropdownList<int>();
-                if (ConditionalCache.TryGetCondition(conditionClassSelector, out FieldInfo[] fields))
+                if (ConditionalCache.TryGetConditionsFor(conditionClassSelector, out FieldInfo[] fields))
                 {
                     for (int i = 0; i < fields.Length; i++)
                     {

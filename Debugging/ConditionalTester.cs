@@ -20,7 +20,7 @@ namespace BehaviourGraph.Conditionals
             FieldInfo[] fields;
 
             var testThing = testObj.GetComponent<ConditionalTester>();
-            if (ConditionalCache.TryGetCondition(testThing.GetType(), out fields))
+            if (ConditionalCache.TryGetConditionsFor(testThing.GetType(), out fields))
             {
                 foreach (var q in fields)
                 {
@@ -29,7 +29,7 @@ namespace BehaviourGraph.Conditionals
                 }
             }
             
-            if (ConditionalCache.TryGetCondition(testThing.GetType(), out methods))
+            if (ConditionalCache.TryGetConditionsFor(testThing.GetType(), out methods))
             {
                 foreach (var q in methods)
                 {
@@ -42,9 +42,7 @@ namespace BehaviourGraph.Conditionals
         }
 
         private Func<bool> CreateConditionFunction(MethodInfo methodInfo, object target) {
-            Func<Type[], Type> getType;
-            
-            getType = Expression.GetFuncType;
+            Func<Type[], Type> getType = Expression.GetFuncType;
             var types = new[] {methodInfo.ReturnType};
 
             return (Func<bool>)Delegate.CreateDelegate(getType(types.ToArray()), target, methodInfo.Name);

@@ -4,9 +4,9 @@ using System.Reflection;
 
 namespace BehaviourGraph
 {
-    public static class AttributeCacheFactory
+    internal static class AttributeCacheFactory
     {
-        public static void CacheMemberInfo<CachingItem, Attr>(
+        internal static void CacheMemberInfo<CachingItem, Attr>(
             ref Dictionary<(Type, Type), CachingItem[]> cacheDictionary, CachingItem[] itemSelection,
             Action<CachingItem> perItemCallback) 
             where CachingItem : MemberInfo 
