@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Coffee.Behaviour.Nodes;
 using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
@@ -36,12 +37,14 @@ namespace BehaviourGraph.Blackboard
             }
         }
 
-        public void RuntimeInitialize(GameObject owner)
+        public override void RuntimeInitialize(GameObject owner)
         {
+            base.RuntimeInitialize(owner);
             this.owner = owner;
             for (int i = 0; i < selfReferences.Count; i++)
             {
                 selfReferences[i].ReferencedObject = owner;
+                selfReferences[i].CacheRuntimeValues();
             }
         }
         

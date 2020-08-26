@@ -25,6 +25,14 @@ namespace BehaviourGraph.Blackboard
             AssetDatabase.Refresh();
             externalReferences.Add(newRef);
         }
+        
+        public virtual void RuntimeInitialize(GameObject owner)
+        {
+            for (int i = 0; i < externalReferences.Count; i++)
+            {
+                externalReferences[i].CacheRuntimeValues();
+            }
+        }
 
         public virtual void RemoveReference(BlackboardReference reference)
         {

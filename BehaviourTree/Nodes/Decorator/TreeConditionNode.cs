@@ -18,19 +18,14 @@ namespace Coffee.BehaviourTree.Decorator
 
         public override Result Execute()
         {
-            Debug.Log("????");
-            if (child == null)
-                Debug.Log("Null child");
             if (reference == null)
             {
-                Debug.Log("Failed to execute, null");
                 return Result.Failure;
             }
 
             if (reference.Evaluate())
                 return child.Execute();
             
-            Debug.Log("Eval false.");
             return Result.Failure;
         }
 

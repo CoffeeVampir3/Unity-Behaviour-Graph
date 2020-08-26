@@ -9,14 +9,13 @@ namespace Coffee.Behaviour.Nodes.DecoratorNodes
     [Serializable]
     public partial class ConditionNode : DecoratorNode
     {
-        [NonSerialized, OdinSerialize]
+        [NonSerialized, OdinSerialize, HideInInspector]
         protected TreeConditionNode conditionNode;
 
         protected override void OnCreation()
         {
             conditionNode = new TreeConditionNode(null);
             thisTreeNode = conditionNode;
-            conditionNode.reference = blackboardReferenceTarget;
         }
         
         public override TreeBaseNode WalkGraphToCreateTree(BehaviourTree.BehaviourTree tree)
