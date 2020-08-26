@@ -11,7 +11,7 @@ namespace Coffee.Behaviour.Debugging
         [Button]
         private void RunGraph()
         {
-            tg.Execute(this.gameObject);
+            tg.Test(this.gameObject);
         }
     }
 }

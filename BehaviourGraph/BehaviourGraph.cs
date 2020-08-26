@@ -59,6 +59,20 @@ namespace Coffee.Behaviour
 
             behaviourTree.Tick();
         }
+
+        public void Test(GameObject executingOn)
+        {
+            if (behaviourTree == null)
+            {
+                behaviourTree = new BehaviourTree.BehaviourTree();
+                TreeBaseNode treeRoot = root.WalkGraphToCreateTree(behaviourTree);
+                behaviourTree.Init(treeRoot, ref localBlackboard, ref blackboards);
+                
+                behaviourTree.RuntimeSetup(executingOn);
+            }
+
+            behaviourTree.ExecuteTestTree();
+        }
         
         public ValueDropdownList<BlackboardReference> GetAllBlackboardReferences()
         {

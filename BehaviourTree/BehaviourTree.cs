@@ -26,7 +26,7 @@ namespace Coffee.BehaviourTree
             localBlackboard.RuntimeInitialize(owner);
         }
 
-        private void ExecuteTestTree()
+        public void ExecuteTestTree()
         {
             int breaksafe = 0;
             if(root == null)
@@ -50,7 +50,9 @@ namespace Coffee.BehaviourTree
 
         private void ExecuteTree()
         {
-            ExecuteTestTree();
+            while (root.Execute() == TreeBaseNode.Result.Running)
+            {
+            }
         }
 
         public void Tick()

@@ -1,5 +1,4 @@
-﻿using System;
-using BehaviourGraph.Blackboard;
+﻿using BehaviourGraph.Blackboard;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
