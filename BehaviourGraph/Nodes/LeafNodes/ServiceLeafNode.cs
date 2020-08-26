@@ -7,7 +7,7 @@ using UnityEngine.Events;
 
 namespace Coffee.Behaviour.Nodes.LeafNodes
 {
-    public class ServiceLeafNode : LeafNode
+    internal class ServiceLeafNode : LeafNode
     {
         [SerializeField] 
         public UnityEvent service;

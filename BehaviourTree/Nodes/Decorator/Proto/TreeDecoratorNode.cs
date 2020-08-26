@@ -6,7 +6,7 @@ namespace Coffee.BehaviourTree.Decorator
 {
     [Serializable]
     [ShowOdinSerializedPropertiesInInspector]
-    public abstract class TreeDecoratorNode : TreeBaseNode
+    internal abstract class TreeDecoratorNode : TreeBaseNode
     {
         [NonSerialized, OdinSerialize]
         //[HideInInspector]

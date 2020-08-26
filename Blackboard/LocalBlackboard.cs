@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Coffee.Behaviour.Nodes;
 using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
@@ -15,7 +14,7 @@ namespace BehaviourGraph.Blackboard
         public List<BlackboardReference> selfReferences = new List<BlackboardReference>();
         
         [Button]
-        public void CreateSelfReference()
+        internal void CreateSelfReference()
         {
             var newRef = CreateInstance<BlackboardReference>();
             newRef.name = "Self Reference " + selfReferences.Count;
@@ -28,7 +27,7 @@ namespace BehaviourGraph.Blackboard
             selfReferences.Add(newRef);
         }
         
-        public override void RemoveReference(BlackboardReference reference)
+        internal override void RemoveReference(BlackboardReference reference)
         {
             base.RemoveReference(reference);
             if (selfReferences.Contains(reference))
@@ -37,7 +36,7 @@ namespace BehaviourGraph.Blackboard
             }
         }
 
-        public override void RuntimeInitialize(GameObject owner)
+        internal override void RuntimeInitialize(GameObject owner)
         {
             base.RuntimeInitialize(owner);
             this.owner = owner;
@@ -48,7 +47,7 @@ namespace BehaviourGraph.Blackboard
             }
         }
         
-        public override ValueDropdownList<BlackboardReference> GetBlackboardReferences()
+        internal override ValueDropdownList<BlackboardReference> GetBlackboardReferences()
         {
             ValueDropdownList<BlackboardReference> allReferences = base.GetBlackboardReferences();
             var temp = GetListOfReferencesFor(selfReferences, ref selectableSelfReferences);

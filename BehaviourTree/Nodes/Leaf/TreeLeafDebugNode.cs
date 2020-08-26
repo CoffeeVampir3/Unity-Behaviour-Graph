@@ -2,7 +2,7 @@
 
 namespace Coffee.BehaviourTree.Leaf
 {
-    public class TreeLeafDebugNode : TreeLeafNode
+    internal class TreeLeafDebugNode : TreeLeafNode
     {
         public string debugMessage;
 

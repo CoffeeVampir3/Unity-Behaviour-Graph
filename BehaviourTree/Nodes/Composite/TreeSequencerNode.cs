@@ -4,7 +4,7 @@ namespace Coffee.BehaviourTree.Composite
 {
     //Sequencer returns success if and only if ALL children were successful.
     [Serializable]
-    public class TreeSequencerNode : TreeCompositeNode
+    internal class TreeSequencerNode : TreeCompositeNode
     {
         public TreeSequencerNode(BehaviourTree tree) : base(tree)
         {

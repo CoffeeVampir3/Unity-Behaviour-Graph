@@ -9,10 +9,10 @@ namespace Coffee.Behaviour.Nodes
 {
     [Serializable]
     [ShowOdinSerializedPropertiesInInspector]
-    public abstract class BaseNode : Node, ISerializationCallbackReceiver
+    internal abstract class BaseNode : Node, ISerializationCallbackReceiver
     {
         [SerializeField, HideInInspector]
-        public TreeBaseNode thisTreeNode;
+        internal TreeBaseNode thisTreeNode;
         [SerializeField, HideInInspector]
         protected BehaviourGraph parentGraph;
 

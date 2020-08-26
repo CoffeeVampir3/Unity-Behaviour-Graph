@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Coffee.Behaviour.Nodes.CompositeNodes
 {
     [Serializable]
-    public class SelectorNode : CompositeNode
+    internal class SelectorNode : CompositeNode
     {
         [NonSerialized, OdinSerialize]
         [HideInInspector]

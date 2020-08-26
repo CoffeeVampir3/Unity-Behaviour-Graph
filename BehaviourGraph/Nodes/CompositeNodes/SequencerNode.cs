@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Coffee.Behaviour.Nodes.CompositeNodes
 {
     [Serializable]
-    public class SequencerNode : CompositeNode
+    internal class SequencerNode : CompositeNode
     {
         [NonSerialized, OdinSerialize]
         [HideInInspector]

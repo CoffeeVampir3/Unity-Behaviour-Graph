@@ -18,7 +18,7 @@ namespace Coffee.Behaviour
         [SerializeField]
         protected GameObject pawn;
         [SerializeField]
-        protected BaseNode root;
+        internal BaseNode root;
         [ShowInInspector, SerializeField]
         public LocalBlackboard localBlackboard;
         [SerializeField] 

@@ -13,7 +13,7 @@ namespace BehaviourGraph.Blackboard
         public List<BlackboardReference> externalReferences = new List<BlackboardReference>();
         
         [Button]
-        public void CreateExternalReference()
+        internal void CreateExternalReference()
         {
             var newRef = CreateInstance<BlackboardReference>();
             newRef.name = "External Reference " + externalReferences.Count;
@@ -26,7 +26,7 @@ namespace BehaviourGraph.Blackboard
             externalReferences.Add(newRef);
         }
         
-        public virtual void RuntimeInitialize(GameObject owner)
+        internal virtual void RuntimeInitialize(GameObject owner)
         {
             for (int i = 0; i < externalReferences.Count; i++)
             {
@@ -34,7 +34,7 @@ namespace BehaviourGraph.Blackboard
             }
         }
 
-        public virtual void RemoveReference(BlackboardReference reference)
+        internal virtual void RemoveReference(BlackboardReference reference)
         {
             if (externalReferences.Contains(reference))
             {
@@ -43,7 +43,7 @@ namespace BehaviourGraph.Blackboard
         }
 
         private ValueDropdownList<BlackboardReference> selectableExternalReferences;
-        public virtual ValueDropdownList<BlackboardReference> GetBlackboardReferences()
+        internal virtual ValueDropdownList<BlackboardReference> GetBlackboardReferences()
         {
             ValueDropdownList<BlackboardReference> allReferences = 
                 GetListOfReferencesFor(externalReferences, ref selectableExternalReferences);

@@ -7,7 +7,7 @@ namespace Coffee.BehaviourTree.Decorator
 {
     [Serializable]
     [ShowOdinSerializedPropertiesInInspector]
-    public class TreeConditionNode : TreeDecoratorNode
+    internal class TreeConditionNode : TreeDecoratorNode
     {
         [NonSerialized, OdinSerialize]
         public BlackboardReference reference;

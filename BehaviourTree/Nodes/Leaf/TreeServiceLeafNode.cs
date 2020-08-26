@@ -2,7 +2,7 @@
 
 namespace Coffee.BehaviourTree.Leaf
 {
-    public class TreeServiceLeafNode : TreeLeafNode
+    internal class TreeServiceLeafNode : TreeLeafNode
     {
         public UnityEvent serviceEvent;
         

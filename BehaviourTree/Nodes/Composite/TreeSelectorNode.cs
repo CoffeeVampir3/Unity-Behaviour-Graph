@@ -4,7 +4,7 @@ namespace Coffee.BehaviourTree.Composite
 {
     [Serializable]
     //Selector returns success if any children were successful.
-    public class TreeSelectorNode : TreeCompositeNode
+    internal class TreeSelectorNode : TreeCompositeNode
     {
         public TreeSelectorNode(BehaviourTree tree) : base(tree)
         {

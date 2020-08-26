@@ -9,7 +9,7 @@ using XNode;
 namespace Coffee.Behaviour.Nodes.CompositeNodes
 {
     [Serializable]
-    public abstract class CompositeNode : BaseNode
+    internal abstract class CompositeNode : BaseNode
     {
         [SerializeField]
         [InputAttribute(ShowBackingValue.Never)] public BaseNode[] parents;

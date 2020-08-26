@@ -1,6 +1,6 @@
 ﻿namespace Coffee.BehaviourTree
 {
-    public interface ITreeBehaviourNode
+    internal interface ITreeBehaviourNode
     {
         TreeBaseNode.Result Execute();
         void Reset();

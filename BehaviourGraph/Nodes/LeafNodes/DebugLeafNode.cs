@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Coffee.Behaviour.Nodes.LeafNodes
 {
     [Serializable]
-    public class DebugLeafNode : LeafNode
+    internal class DebugLeafNode : LeafNode
     {
         [SerializeField] 
         public string debugNote;

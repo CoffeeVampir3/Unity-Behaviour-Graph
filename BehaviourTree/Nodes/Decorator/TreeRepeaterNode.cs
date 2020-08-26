@@ -3,7 +3,7 @@
 namespace Coffee.BehaviourTree.Decorator
 {
     [Serializable]
-    public class TreeRepeaterNode : TreeDecoratorNode
+    internal class TreeRepeaterNode : TreeDecoratorNode
     {
         public override Result Execute()
         {

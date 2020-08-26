@@ -8,7 +8,7 @@ namespace Coffee.BehaviourTree.Composite
 {
     [Serializable]
     [ShowOdinSerializedPropertiesInInspector]
-    public abstract class TreeCompositeNode : TreeBaseNode
+    internal abstract class TreeCompositeNode : TreeBaseNode
     {
         [NonSerialized, OdinSerialize]
         public TreeBaseNode[] childNodes;

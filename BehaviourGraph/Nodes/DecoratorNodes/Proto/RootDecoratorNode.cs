@@ -7,7 +7,7 @@ using XNode;
 namespace Coffee.Behaviour.Nodes.Private
 {
     [Serializable]
-    public abstract class RootDecoratorNode : BaseNode
+    internal abstract class RootDecoratorNode : BaseNode
     {
         [SerializeField]
         [Output(ShowBackingValue.Never, ConnectionType.Override)] public BaseNode childNode;

@@ -8,11 +8,11 @@ using UnityEngine;
 namespace BehaviourGraph.Blackboard
 {
     [Serializable]
-    public class ConditionalSelector
+    internal class ConditionalSelector
     {
         [NonSerialized, OdinSerialize]
         [ValueDropdown("GetDropdownListOfClassesWithConditions")]
-        public Type conditionClassSelector;
+        public Type conditionClassSelector = null;
         
         [HideIf("ShowSelectors")]
         [OnValueChanged("SelectorTypeSwapped")]

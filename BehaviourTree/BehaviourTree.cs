@@ -12,7 +12,7 @@ namespace Coffee.BehaviourTree
         private List<SharedBlackboard> blackboards;
         private ITreeBehaviourNode root;
 
-        public void Init(ITreeBehaviourNode rootNode, ref LocalBlackboard localBb, ref List<SharedBlackboard> sharedBb)
+        internal void Init(ITreeBehaviourNode rootNode, ref LocalBlackboard localBb, ref List<SharedBlackboard> sharedBb)
         {
             startedBehaviour = false;
             root = rootNode;
@@ -20,7 +20,7 @@ namespace Coffee.BehaviourTree
             blackboards = sharedBb;
         }
 
-        public void RuntimeSetup(GameObject owner)
+        internal void RuntimeSetup(GameObject owner)
         {
             this.owner = owner;
             localBlackboard.RuntimeInitialize(owner);

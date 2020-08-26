@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Coffee.Behaviour.Nodes.DecoratorNodes
 {
-    public partial class ConditionNode
+    internal partial class ConditionNode
     {
         #if UNITY_EDITOR
         [ValueDropdown("GetBlackboardConditions", DropdownHeight = 500, DropdownWidth = 500, NumberOfItemsBeforeEnablingSearch = 2)]

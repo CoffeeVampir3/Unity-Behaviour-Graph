@@ -20,7 +20,7 @@ namespace BehaviourGraph.Blackboard
         }
 
         [SerializeField, HideInInspector]
-        public SharedBlackboard parentBlackboard;
+        internal SharedBlackboard parentBlackboard;
         [Button(ButtonSizes.Gigantic)]
         public void DeleteReference()
         {
@@ -39,10 +39,10 @@ namespace BehaviourGraph.Blackboard
         }
 
         [NonSerialized, OdinSerialize]
-        protected ConditionalSelector editorTimeCondition = new ConditionalSelector();
+        internal ConditionalSelector editorTimeCondition = new ConditionalSelector();
         
-        [NonSerialized]
-        protected BlackboardRuntimeCondition runtimeCondition = new BlackboardRuntimeCondition();
+        [NonSerialized] 
+        private BlackboardRuntimeCondition runtimeCondition = new BlackboardRuntimeCondition();
 
         protected void OnValidate()
         {
@@ -54,7 +54,7 @@ namespace BehaviourGraph.Blackboard
             return referencedObject != null && runtimeCondition.EvaluateAs(referencedObject);
         }
 
-        public void CacheRuntimeValues()
+        internal void CacheRuntimeValues()
         {
             runtimeCondition.RuntimeCacheSetup(editorTimeCondition);   
         }

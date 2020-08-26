@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Coffee.Behaviour.Nodes.Private
 {
     [Serializable]
-    public class RootNode : RootDecoratorNode
+    internal class RootNode : RootDecoratorNode
     {
         [NonSerialized, OdinSerialize]
         [HideInInspector]

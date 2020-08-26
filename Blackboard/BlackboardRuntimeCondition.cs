@@ -8,7 +8,7 @@ using UnityEngine;
 namespace BehaviourGraph.Blackboard
 {
     [Serializable]
-    public class BlackboardRuntimeCondition
+    internal class BlackboardRuntimeCondition
     {
         private bool isMethod = false;
         private Type conditionType;

@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Coffee.Behaviour.Nodes.DecoratorNodes
 {
     [Serializable]
-    public class RepeaterNode : DecoratorNode
+    internal class RepeaterNode : DecoratorNode
     {
         [NonSerialized, OdinSerialize]
         [HideInInspector]

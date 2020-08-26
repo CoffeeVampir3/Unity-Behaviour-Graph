@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Coffee.BehaviourTree
 {
     [Serializable]
-    public abstract class TreeBaseNode : ITreeBehaviourNode
+    internal abstract class TreeBaseNode : ITreeBehaviourNode
     {
         [NonSerialized, OdinSerialize]
         [HideInInspector]

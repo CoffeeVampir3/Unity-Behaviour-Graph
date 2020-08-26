@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Coffee.Behaviour.Nodes.DecoratorNodes
 {
     [Serializable]
-    public partial class ConditionNode : DecoratorNode
+    internal partial class ConditionNode : DecoratorNode
     {
         [NonSerialized, OdinSerialize, HideInInspector]
         protected TreeConditionNode conditionNode;
