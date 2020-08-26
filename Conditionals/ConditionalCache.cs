@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using UnityEditor;
-using Attribute = System.Attribute;
 
 namespace BehaviourGraph.Conditionals
 {
@@ -18,10 +17,15 @@ namespace BehaviourGraph.Conditionals
             initialized = true;
             classesWithConditions = new List<Type>();
             
-            CacheMemberInfo<FieldInfo, Condition>(ref conditionalFields, 
-                TypeCache.GetFieldsWithAttribute<Condition>().ToArray());
-            CacheMemberInfo<MethodInfo, Condition>(ref conditionalMethods, 
-                TypeCache.GetMethodsWithAttribute<Condition>().ToArray());
+            AttributeCacheFactory.CacheMemberInfo<FieldInfo, Condition>(
+                ref conditionalFields, 
+                TypeCache.GetFieldsWithAttribute<Condition>().ToArray(),
+                AddNameToClassList);
+            
+            AttributeCacheFactory.CacheMemberInfo<MethodInfo, Condition>(
+                ref conditionalMethods, 
+                TypeCache.GetMethodsWithAttribute<Condition>().ToArray(),
+                AddNameToClassList);
         }
         
         public static bool TryGetCondition(Type type, out MethodInfo[] outItem)
@@ -50,43 +54,13 @@ namespace BehaviourGraph.Conditionals
             }
         }
 
-        private static void AddNameToClassList(Type decType)
+        private static void AddNameToClassList(MemberInfo item)
         {
-            if (!classesWithConditions.Contains(decType))
+            if (!classesWithConditions.Contains(item.DeclaringType))
             {
-                classesWithConditions.Add(decType);
+                classesWithConditions.Add(item.DeclaringType);
             }
         }
-        
-        private static void CacheMemberInfo<CachingItem, Attr>(
-            ref Dictionary<(Type, Type), CachingItem[]> cacheDictionary, CachingItem[] itemSelection) 
-            where CachingItem : MemberInfo 
-            where Attr : Attribute
-        {
-            cacheDictionary = new Dictionary<(Type, Type), CachingItem[]>();
 
-            foreach (CachingItem item in itemSelection)
-            {
-                var dictionaryIndex = (item.DeclaringType, typeof(Attr));
-                if (!cacheDictionary.TryGetValue(dictionaryIndex, out var info))
-                {
-                    info = new CachingItem[1];
-                }
-                else
-                {
-                    var temp = info;
-                    info = new CachingItem[info.Length + 1];
-                    temp.CopyTo(info, 0);
-                }
-                
-                info[info.Length - 1] = item;
-                cacheDictionary.Remove(dictionaryIndex);
-                cacheDictionary.Add(dictionaryIndex, info);
-
-                AddNameToClassList(item.DeclaringType);
-            }
-        }
-        
-        
     }
 }
