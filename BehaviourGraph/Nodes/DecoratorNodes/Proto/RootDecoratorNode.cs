@@ -1,6 +1,6 @@
 ﻿using System;
 using Coffee.BehaviourTree.Decorator;
-using UnityEditor;
+using Sirenix.Serialization;
 using UnityEngine;
 using XNode;
 
@@ -17,6 +17,10 @@ namespace Coffee.Behaviour.Nodes.Private
             TreeDecoratorNode decNode = thisTreeNode as TreeDecoratorNode;
             Debug.Assert(
                 decNode != null, nameof(decNode) + " != null");
+            
+            Debug.Log("Set");
+            if(incomingNode.thisTreeNode == null)
+                Debug.Log("null");
             
             decNode.child = incomingNode.thisTreeNode;
         }

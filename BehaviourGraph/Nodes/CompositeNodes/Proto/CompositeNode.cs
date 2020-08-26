@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Coffee.BehaviourTree;
 using Coffee.BehaviourTree.Composite;
+using Sirenix.Serialization;
 using UnityEngine;
 using XNode;
 
@@ -45,6 +46,27 @@ namespace Coffee.Behaviour.Nodes.CompositeNodes
                 return;
             
             BuildChildConnections(port);
+        }
+
+        protected void WalkCompositeNodeChildren(TreeCompositeNode composite, BehaviourTree.BehaviourTree tree)
+        {
+            var childrenPort = GetOutputPort("children");
+            var connections = childrenPort.GetConnections();
+            List<TreeBaseNode> treeNodes = new List<TreeBaseNode>();
+
+            foreach (var connector in connections)
+            {
+                BaseNode bn = connector.node as BaseNode;
+                if (bn == null)
+                {
+                    Debug.LogError("Behaviour graph node: " + this.name + " was not connected to a child.", this);
+                    throw new NullReferenceException("Behaviour graph could not build into a valid tree due to null children.");
+                }
+                
+                treeNodes.Add(bn.WalkGraphToCreateTree(tree));
+            }
+            
+            composite.SetChildren(treeNodes);
         }
     }
 }

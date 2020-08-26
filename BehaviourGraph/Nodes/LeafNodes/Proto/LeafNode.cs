@@ -1,4 +1,5 @@
 ﻿using System;
+using Sirenix.Serialization;
 using UnityEngine;
 
 namespace Coffee.Behaviour.Nodes.LeafNodes

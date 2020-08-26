@@ -2,7 +2,9 @@
     "name": "Debugging",
     "references": [
         "GUID:1bd9068613d5c754493d99fcc33d2561",
-        "GUID:61d5295b1c664db468415fcc6739956c"
+        "GUID:61d5295b1c664db468415fcc6739956c",
+        "GUID:b8e24fd1eb19b4226afebb2810e3c19b",
+        "GUID:002c1bbed08fa44d282ef34fd5edb138"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

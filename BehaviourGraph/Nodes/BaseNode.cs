@@ -11,19 +11,16 @@ namespace Coffee.Behaviour.Nodes
     [ShowOdinSerializedPropertiesInInspector]
     public abstract class BaseNode : Node, ISerializationCallbackReceiver
     {
-        [SerializeField]
+        [NonSerialized, OdinSerialize]
         [HideInInspector]
         public TreeBaseNode thisTreeNode;
-        [SerializeField]
+        [NonSerialized, OdinSerialize]
         [HideInInspector]
         protected BehaviourGraph parentGraph;
-        [SerializeField]
-        [HideInInspector]
-        protected BehaviourTree.BehaviourTree parentTree;
 
         protected abstract void OnCreation();
 
-        [SerializeField]
+        [NonSerialized, OdinSerialize]
         [HideInInspector]
         private bool initialized = false;
         protected override void Init()
@@ -35,7 +32,6 @@ namespace Coffee.Behaviour.Nodes
             parentGraph = graph as BehaviourGraph;
             Debug.Assert(parentGraph != null, nameof(parentGraph) + " != null");
             
-            parentTree = parentGraph.tree;
             initialized = true;
 
             OnCreation();
@@ -45,6 +41,8 @@ namespace Coffee.Behaviour.Nodes
         {
             return thisTreeNode;
         }
+
+        public abstract TreeBaseNode WalkGraphToCreateTree(BehaviourTree.BehaviourTree tree);
 
         [OdinSerialize]
         [HideInInspector]

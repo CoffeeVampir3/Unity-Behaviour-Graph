@@ -25,7 +25,7 @@ namespace Coffee.Behaviour.Editor
             BehaviourGraph bg = target as BehaviourGraph;
 
             Debug.Assert(bg != null, nameof(bg) + " != null");
-            bg.Init();
+            bg.EditorTimeInitialization();
             base.OnCreate();
         }
     }

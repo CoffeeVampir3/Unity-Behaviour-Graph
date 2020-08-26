@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using BehaviourGraph.Blackboard;
 using Coffee.Behaviour.Nodes;
 using Coffee.Behaviour.Nodes.Private;
+using Coffee.BehaviourTree;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEditor;
@@ -19,38 +19,45 @@ namespace Coffee.Behaviour
         protected GameObject pawn;
         [SerializeField]
         protected BaseNode root;
-        [SerializeField]
-        public BehaviourTree.BehaviourTree tree;
         [ShowInInspector, SerializeField]
         public LocalBlackboard localBlackboard;
-        [SerializeField]
+        [SerializeField] 
         public List<SharedBlackboard> blackboards = new List<SharedBlackboard>();
 
-        public void Init()
+        protected BehaviourTree.BehaviourTree behaviourTree;
+        
+        public void EditorTimeInitialization()
         {
-            if (tree != null)
+            if (localBlackboard != null)
                 return;
             
-            tree = CreateInstance<BehaviourTree.BehaviourTree>();
             root = AddNode<RootNode>();
             localBlackboard = CreateInstance<LocalBlackboard>();
             localBlackboard.name = "Local Blackboard";
-            
             root.name = "Root Node";
-            tree.name = "Behaviour Tree";
-            
-            tree.Init(root.thisTreeNode, ref localBlackboard, ref blackboards);
-            
+
             AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(this));
             AssetDatabase.Refresh();
             AssetDatabase.AddObjectToAsset(root, this);
             AssetDatabase.AddObjectToAsset(localBlackboard, this);
-            AssetDatabase.AddObjectToAsset(tree, this);
             AssetDatabase.SaveAssets();
             AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(root));
-            AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(tree));
             AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(localBlackboard));
             AssetDatabase.Refresh();
+        }
+
+        public void Execute(GameObject executingOn)
+        {
+            if (behaviourTree == null)
+            {
+                behaviourTree = new BehaviourTree.BehaviourTree();
+                TreeBaseNode treeRoot = root.WalkGraphToCreateTree(behaviourTree);
+                behaviourTree.Init(treeRoot, ref localBlackboard, ref blackboards);
+                
+                behaviourTree.RuntimeSetup(executingOn);
+            }
+
+            behaviourTree.Tick();
         }
         
         public ValueDropdownList<BlackboardReference> GetAllBlackboardReferences()

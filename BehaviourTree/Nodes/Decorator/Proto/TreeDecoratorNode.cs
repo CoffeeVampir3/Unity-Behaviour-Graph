@@ -1,13 +1,15 @@
 ﻿using System;
-using UnityEngine;
+using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 
 namespace Coffee.BehaviourTree.Decorator
 {
     [Serializable]
+    [ShowOdinSerializedPropertiesInInspector]
     public abstract class TreeDecoratorNode : TreeBaseNode
     {
-        [SerializeField]
-        [HideInInspector]
+        [NonSerialized, OdinSerialize]
+        //[HideInInspector]
         public TreeBaseNode child;
 
         protected TreeDecoratorNode(BehaviourTree tree) : base(tree)

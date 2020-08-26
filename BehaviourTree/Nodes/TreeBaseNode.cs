@@ -1,4 +1,5 @@
 ﻿using System;
+using Sirenix.Serialization;
 using UnityEngine;
 
 namespace Coffee.BehaviourTree
@@ -6,9 +7,9 @@ namespace Coffee.BehaviourTree
     [Serializable]
     public abstract class TreeBaseNode : ITreeBehaviourNode
     {
-        [SerializeField]
+        [NonSerialized, OdinSerialize]
         [HideInInspector]
-        protected BehaviourTree parentTree;
+        public BehaviourTree parentTree;
         
         public enum Result
         {

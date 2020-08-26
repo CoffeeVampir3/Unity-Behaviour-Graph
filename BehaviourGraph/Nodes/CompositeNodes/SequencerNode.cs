@@ -1,5 +1,7 @@
 ﻿using System;
+using Coffee.BehaviourTree;
 using Coffee.BehaviourTree.Composite;
+using Sirenix.Serialization;
 using UnityEngine;
 
 namespace Coffee.Behaviour.Nodes.CompositeNodes
@@ -7,14 +9,23 @@ namespace Coffee.Behaviour.Nodes.CompositeNodes
     [Serializable]
     public class SequencerNode : CompositeNode
     {
-        [SerializeField] 
+        [NonSerialized, OdinSerialize]
         [HideInInspector]
         protected TreeSequencerNode sequencerNode;
         
         protected override void OnCreation()
         {
-            sequencerNode = new TreeSequencerNode(parentTree);
+            sequencerNode = new TreeSequencerNode(null);
             thisTreeNode = sequencerNode;
+        }
+
+        public override TreeBaseNode WalkGraphToCreateTree(BehaviourTree.BehaviourTree tree)
+        {
+            var node = sequencerNode;
+            node.parentTree = tree;
+            
+            WalkCompositeNodeChildren(node, tree);
+            return node;
         }
     }
 }

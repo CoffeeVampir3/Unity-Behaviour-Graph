@@ -1,5 +1,7 @@
 ﻿using System;
+using Coffee.BehaviourTree;
 using Coffee.BehaviourTree.Leaf;
+using Sirenix.Serialization;
 using UnityEngine;
 
 namespace Coffee.Behaviour.Nodes.LeafNodes
@@ -7,13 +9,23 @@ namespace Coffee.Behaviour.Nodes.LeafNodes
     [Serializable]
     public class DebugLeafNode : LeafNode
     {
-        [SerializeField]
+        [SerializeField] 
+        public string debugNote;
+        [NonSerialized, OdinSerialize, HideInInspector]
         protected TreeLeafDebugNode debugNode;
         
         protected override void OnCreation()
         {
-            debugNode = new TreeLeafDebugNode(parentTree);
+            debugNode = new TreeLeafDebugNode(null);
             thisTreeNode = debugNode;
+        }
+        
+        public override TreeBaseNode WalkGraphToCreateTree(BehaviourTree.BehaviourTree tree)
+        {
+            var node = debugNode;
+            debugNode.debugMessage = debugNote;
+            node.parentTree = tree;
+            return node;
         }
     }
 }

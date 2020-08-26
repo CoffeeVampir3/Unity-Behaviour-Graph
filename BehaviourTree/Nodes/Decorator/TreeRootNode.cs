@@ -17,7 +17,7 @@ namespace Coffee.BehaviourTree.Decorator
 
         public override void Reset()
         {
-            child.Reset();
+            child?.Reset();
         }
 
         public TreeRootNode(BehaviourTree tree) : base(tree)

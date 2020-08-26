@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 using UnityEngine;
 
 namespace Coffee.BehaviourTree.Composite
 {
     [Serializable]
+    [ShowOdinSerializedPropertiesInInspector]
     public abstract class TreeCompositeNode : TreeBaseNode
     {
-        [SerializeField]
+        [NonSerialized, OdinSerialize]
         public TreeBaseNode[] childNodes;
-        [SerializeField]
+        [NonSerialized, OdinSerialize]
         protected int currentNode = 0;
 
         public void SetChildren(List<TreeBaseNode> nodes)
