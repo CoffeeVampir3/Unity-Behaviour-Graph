@@ -1,7 +1,7 @@
 ﻿using System;
 using BehaviourGraph.Blackboard;
 using Sirenix.OdinInspector;
-using Sirenix.Serialization;
+using UnityEngine;
 
 namespace Coffee.Behaviour.Nodes.DecoratorNodes
 {
@@ -10,7 +10,7 @@ namespace Coffee.Behaviour.Nodes.DecoratorNodes
         #if UNITY_EDITOR
         [ValueDropdown("GetBlackboardConditions", DropdownHeight = 500, DropdownWidth = 500, NumberOfItemsBeforeEnablingSearch = 2)]
         #endif
-        [NonSerialized, OdinSerialize]
+        [SerializeField]
         protected BlackboardReference blackboardReferenceTarget;
         
         #if UNITY_EDITOR

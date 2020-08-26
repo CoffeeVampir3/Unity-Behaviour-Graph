@@ -2,7 +2,6 @@
 using BehaviourGraph.Blackboard;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
-using UnityEngine;
 
 namespace Coffee.BehaviourTree.Decorator
 {
