@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using UnityEditor;
+using Attribute = System.Attribute;
 
 namespace BehaviourGraph.Conditionals
 {
@@ -15,24 +17,27 @@ namespace BehaviourGraph.Conditionals
             
             initialized = true;
             classesWithConditions = new List<Type>();
-            CacheFields();
-            CacheMethods();
+            
+            CacheMemberInfo<FieldInfo, Condition>(ref conditionalFields, 
+                TypeCache.GetFieldsWithAttribute<Condition>().ToArray());
+            CacheMemberInfo<MethodInfo, Condition>(ref conditionalMethods, 
+                TypeCache.GetMethodsWithAttribute<Condition>().ToArray());
         }
         
         public static bool TryGetCondition(Type type, out MethodInfo[] outItem)
         {
             InitializeCache();
-            return conditionalMethods.TryGetValue(type, out outItem);
+            return conditionalMethods.TryGetValue((type, typeof(Condition)), out outItem);
         }
         
         public static bool TryGetCondition(Type type, out FieldInfo[] outItem)
         {
             InitializeCache();
-            return conditionalFields.TryGetValue(type, out outItem);
+            return conditionalFields.TryGetValue((type, typeof(Condition)), out outItem);
         }
-        
-        private static Dictionary<Type, MethodInfo[]> conditionalMethods;
-        private static Dictionary<Type, FieldInfo[]> conditionalFields;
+
+        private static Dictionary<(Type, Type), MethodInfo[]> conditionalMethods;
+        private static Dictionary<(Type, Type), FieldInfo[]> conditionalFields;
 
         private static List<Type> classesWithConditions;
 
@@ -52,54 +57,36 @@ namespace BehaviourGraph.Conditionals
                 classesWithConditions.Add(decType);
             }
         }
-
-        //TODO:: Potentially very slow/high cost array re-allocations in big projects.
-        //Ideally we'd use a dictionary of lists first while allocating,
-        //then finalize the method into arrays.
-        private static void CacheMethods()
+        
+        private static void CacheMemberInfo<CachingItem, Attr>(
+            ref Dictionary<(Type, Type), CachingItem[]> cacheDictionary, CachingItem[] itemSelection) 
+            where CachingItem : MemberInfo 
+            where Attr : Attribute
         {
-            conditionalMethods = new Dictionary<Type, MethodInfo[]>();
-            foreach (var m in TypeCache.GetMethodsWithAttribute<Condition>())
+            cacheDictionary = new Dictionary<(Type, Type), CachingItem[]>();
+
+            foreach (CachingItem item in itemSelection)
             {
-                if (!conditionalMethods.TryGetValue(m.DeclaringType, out var info))
+                var dictionaryIndex = (item.DeclaringType, typeof(Attr));
+                if (!cacheDictionary.TryGetValue(dictionaryIndex, out var info))
                 {
-                    info = new MethodInfo[1];
+                    info = new CachingItem[1];
                 }
                 else
                 {
                     var temp = info;
-                    info = new MethodInfo[info.Length + 1];
+                    info = new CachingItem[info.Length + 1];
                     temp.CopyTo(info, 0);
                 }
-                info[info.Length - 1] = m;
-                conditionalMethods.Remove(m.DeclaringType);
-                conditionalMethods.Add(m.DeclaringType, info);
+                
+                info[info.Length - 1] = item;
+                cacheDictionary.Remove(dictionaryIndex);
+                cacheDictionary.Add(dictionaryIndex, info);
 
-                AddNameToClassList(m.DeclaringType);
+                AddNameToClassList(item.DeclaringType);
             }
         }
-
-        private static void CacheFields()
-        {
-            conditionalFields = new Dictionary<Type, FieldInfo[]>();
-            foreach (var t in TypeCache.GetFieldsWithAttribute<Condition>())
-            {
-                if (!conditionalFields.TryGetValue(t.DeclaringType, out var info))
-                {
-                    info = new FieldInfo[1];
-                }
-                else
-                {
-                    var temp = info;
-                    info = new FieldInfo[info.Length + 1];
-                    temp.CopyTo(info, 0);
-                }
-                info[info.Length - 1] = t;
-                conditionalFields.Remove(t.DeclaringType);
-                conditionalFields.Add(t.DeclaringType, info);
-
-                AddNameToClassList(t.DeclaringType);
-            }
-        }
+        
+        
     }
 }
