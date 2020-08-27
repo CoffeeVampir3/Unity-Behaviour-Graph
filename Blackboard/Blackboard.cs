@@ -7,38 +7,45 @@ using UnityEngine;
 namespace BehaviourGraph.Blackboard
 {
     [CreateAssetMenu]
-    public class SharedBlackboard : SerializedScriptableObject
+    public class Blackboard : SerializedScriptableObject
     {
+        [NonSerialized]
+        protected GameObject owner;
         [SerializeField] 
-        public List<BlackboardReference> externalReferences = new List<BlackboardReference>();
+        public List<BlackboardReference> blackboardReferences = new List<BlackboardReference>();
         
         [Button]
-        internal void CreateExternalReference()
+        internal void CreateReference()
         {
             var newRef = CreateInstance<BlackboardReference>();
-            newRef.name = "External Reference " + externalReferences.Count;
+            newRef.name = "Blackboard Reference " + blackboardReferences.Count;
             newRef.parentBlackboard = this;
             AssetDatabase.AddObjectToAsset(newRef, this);
             AssetDatabase.SaveAssets();
             AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(newRef));
             AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(this));
             AssetDatabase.Refresh();
-            externalReferences.Add(newRef);
+            blackboardReferences.Add(newRef);
         }
         
         internal virtual void RuntimeInitialize(GameObject owner)
         {
-            for (int i = 0; i < externalReferences.Count; i++)
+            this.owner = owner;
+            for (int i = 0; i < blackboardReferences.Count; i++)
             {
-                externalReferences[i].CacheRuntimeValues();
+                if (blackboardReferences[i].referencesBlackboardOwner)
+                {
+                    blackboardReferences[i].ReferencedObject = owner;
+                }
+                blackboardReferences[i].CacheRuntimeValues();
             }
         }
 
         internal virtual void RemoveReference(BlackboardReference reference)
         {
-            if (externalReferences.Contains(reference))
+            if (blackboardReferences.Contains(reference))
             {
-                externalReferences.Remove(reference);
+                blackboardReferences.Remove(reference);
             }
         }
 
@@ -46,15 +53,14 @@ namespace BehaviourGraph.Blackboard
         internal virtual ValueDropdownList<BlackboardReference> GetBlackboardReferences()
         {
             ValueDropdownList<BlackboardReference> allReferences = 
-                GetListOfReferencesFor(externalReferences, ref selectableExternalReferences);
+                GetListOfReferencesFor(blackboardReferences, ref selectableExternalReferences);
 
             return allReferences;
         }
-        
+
         protected ValueDropdownList<BlackboardReference> GetListOfReferencesFor(
-            List<BlackboardReference> references, ref ValueDropdownList<BlackboardReference> cachedListOfReferences ) 
+            List<BlackboardReference> references, ref ValueDropdownList<BlackboardReference> cachedListOfReferences)
         {
-            
             if (cachedListOfReferences != null &&
                 cachedListOfReferences.Count == references.Count)
             {
@@ -65,11 +71,8 @@ namespace BehaviourGraph.Blackboard
 
             foreach (var bbRef in references)
             {
-                string formattedInfoString = "";
-                if (bbRef.TryGetDisplayName(out formattedInfoString))
-                {
-                    cachedListOfReferences.Add(formattedInfoString, bbRef);
-                }
+                cachedListOfReferences.Add(bbRef.name, bbRef);
+                
             }
             cachedListOfReferences.Sort(
                 (val1, 

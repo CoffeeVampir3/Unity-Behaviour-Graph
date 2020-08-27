@@ -19,10 +19,15 @@ namespace BehaviourGraph.Blackboard
             }
         }
 
+        public bool Evaluate()
+        {
+            return referencedObject != null && runtimeCondition.EvaluateAs(referencedObject);
+        }
+
         [SerializeField, HideInInspector]
-        internal SharedBlackboard parentBlackboard;
+        internal Blackboard parentBlackboard;
         [Button(ButtonSizes.Gigantic)]
-        public void DeleteReference()
+        private void DeleteReference()
         {
             parentBlackboard.RemoveReference(this);
             DestroyImmediate(this, true);
@@ -30,30 +35,14 @@ namespace BehaviourGraph.Blackboard
             AssetDatabase.Refresh();
         }
 
-        public bool TryGetDisplayName(out string outputString)
-        {
-            if (!editorTimeCondition.TryGetConditionDisplayValue(out outputString))
-                return false;
-            outputString = outputString.Insert(0, name + ", ");
-            return true;
-        }
-
         [NonSerialized, OdinSerialize]
         internal ConditionalSelector editorTimeCondition = new ConditionalSelector();
         
+        public bool referencesBlackboardOwner = true;
+        
         [NonSerialized] 
         private BlackboardRuntimeCondition runtimeCondition = new BlackboardRuntimeCondition();
-
-        protected void OnValidate()
-        {
-            editorTimeCondition.Validate(this);
-        }
-
-        public bool Evaluate()
-        {
-            return referencedObject != null && runtimeCondition.EvaluateAs(referencedObject);
-        }
-
+        
         internal void CacheRuntimeValues()
         {
             runtimeCondition.RuntimeCacheSetup(editorTimeCondition);   

@@ -19,10 +19,10 @@ namespace Coffee.Behaviour
         protected GameObject pawn;
         [SerializeField]
         internal BaseNode root;
-        [ShowInInspector, SerializeField]
-        public LocalBlackboard localBlackboard;
+        [HideInInspector, SerializeField]
+        public Blackboard localBlackboard;
         [SerializeField] 
-        public List<SharedBlackboard> blackboards = new List<SharedBlackboard>();
+        public List<Blackboard> blackboards = new List<Blackboard>();
 
         protected BehaviourTree.BehaviourTree behaviourTree;
         
@@ -32,9 +32,11 @@ namespace Coffee.Behaviour
                 return;
             
             root = AddNode<RootNode>();
-            localBlackboard = CreateInstance<LocalBlackboard>();
+            localBlackboard = CreateInstance<Blackboard>();
             localBlackboard.name = "Local Blackboard";
             root.name = "Root Node";
+            
+            blackboards.Add(localBlackboard);
 
             AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(this));
             AssetDatabase.Refresh();
@@ -52,7 +54,7 @@ namespace Coffee.Behaviour
             {
                 behaviourTree = new BehaviourTree.BehaviourTree();
                 TreeBaseNode treeRoot = root.WalkGraphToCreateTree(behaviourTree);
-                behaviourTree.Init(treeRoot, ref localBlackboard, ref blackboards);
+                behaviourTree.Init(treeRoot, ref blackboards);
                 
                 behaviourTree.RuntimeSetup(executingOn);
             }
@@ -66,7 +68,7 @@ namespace Coffee.Behaviour
             {
                 behaviourTree = new BehaviourTree.BehaviourTree();
                 TreeBaseNode treeRoot = root.WalkGraphToCreateTree(behaviourTree);
-                behaviourTree.Init(treeRoot, ref localBlackboard, ref blackboards);
+                behaviourTree.Init(treeRoot, ref blackboards);
                 
                 behaviourTree.RuntimeSetup(executingOn);
             }
@@ -78,8 +80,6 @@ namespace Coffee.Behaviour
         {
             ValueDropdownList<BlackboardReference> refs = new ValueDropdownList<BlackboardReference>();
             
-            refs.AddRange(localBlackboard?.GetBlackboardReferences());
-
             foreach (var bb in blackboards)
             {
                 refs.AddRange(bb?.GetBlackboardReferences());

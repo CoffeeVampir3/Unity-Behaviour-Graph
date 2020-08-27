@@ -61,26 +61,16 @@ namespace BehaviourGraph.Blackboard
         public void RuntimeCacheSetup(ConditionalSelector selector)
         {
             isMethod = selector.isMethod;
-            conditionType = selector.conditionClassSelector;
-            
+
+            var m = selector.MemberSelector;
+            conditionType = m.DeclaringType;
             if (isMethod)
             {
-                method = selector.methodSelector;
+                method = m as MethodInfo;
             }
             else
             {
-                int fieldIndex = selector.fieldSelector;
-
-                FieldInfo[] fields;
-                if (ConditionalCache.TryGetConditionsFor(conditionType, out fields))
-                {
-                    field = fields[fieldIndex];
-                }
-                else
-                {
-                    throw new Exception("Unable to create field info for type: " + conditionType.Name +
-                                        " with index: " + fieldIndex);
-                }
+                field = m as FieldInfo;
             }
         }
     }

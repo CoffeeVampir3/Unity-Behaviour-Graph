@@ -16,30 +16,41 @@ namespace BehaviourGraph.Conditionals
         [Button]
         public void TestCachedConditions()
         {
-            MethodInfo[] methods;
-            FieldInfo[] fields;
+            FieldInfo f = MemberSelector as FieldInfo;
+            Debug.Log((bool) f.GetValue(this) );
+        }
+        [HideInInspector]
+        public bool isMethod = false;
+        
+        [ValueDropdown("GetMembers", NumberOfItemsBeforeEnablingSearch = 2)]
+        [SerializeField]
+        public string memberSelector;
 
-            var testThing = testObj.GetComponent<ConditionalTester>();
-            if (ConditionalCache.TryGetConditionsFor(testThing.GetType(), out fields))
+        private MemberInfo selectedMember = null;
+        private string previousSelection;
+        public MemberInfo MemberSelector
+        {
+            get
             {
-                foreach (var q in fields)
+                if (selectedMember != null && previousSelection == memberSelector)
                 {
-                    Debug.Log(q.GetNiceName());
-                    Debug.Log(q.GetValue(testThing));
+                    return selectedMember;
                 }
-            }
-            
-            if (ConditionalCache.TryGetConditionsFor(testThing.GetType(), out methods))
-            {
-                foreach (var q in methods)
+                
+                if (ConditionalCache.GetCachedMemberViaLookupValue(memberSelector, out var temp))
                 {
-                    Debug.Log(q.GetNiceName());
-                    
-                    var k = CreateConditionFunction(q, testThing);
-                    Debug.Log(k.Invoke());
+                    isMethod = (temp.MemberType & MemberTypes.Method) != 0;
+
+                    selectedMember = temp;
+                    previousSelection = memberSelector;
+                    return selectedMember;
                 }
+
+                return null;
             }
         }
+
+        public ValueDropdownList<string> GetMembers => ConditionalCache.GetCachedMemberDropdown();
 
         private Func<bool> CreateConditionFunction(MethodInfo methodInfo, object target) {
             Func<Type[], Type> getType = Expression.GetFuncType;

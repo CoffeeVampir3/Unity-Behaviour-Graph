@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using BehaviourGraph.Blackboard;
 using UnityEngine;
 
@@ -8,22 +9,23 @@ namespace Coffee.BehaviourTree
     {
         private GameObject owner;
         private bool startedBehaviour;
-        private LocalBlackboard localBlackboard;
-        private List<SharedBlackboard> blackboards;
+        private List<Blackboard> blackboards;
         private ITreeBehaviourNode root;
 
-        internal void Init(ITreeBehaviourNode rootNode, ref LocalBlackboard localBb, ref List<SharedBlackboard> sharedBb)
+        internal void Init(ITreeBehaviourNode rootNode, ref List<Blackboard> sharedBb)
         {
             startedBehaviour = false;
             root = rootNode;
-            localBlackboard = localBb;
             blackboards = sharedBb;
         }
 
         internal void RuntimeSetup(GameObject owner)
         {
             this.owner = owner;
-            localBlackboard.RuntimeInitialize(owner);
+            for (int i = 0; i < blackboards.Count; i++)
+            {
+                blackboards[i].RuntimeInitialize(owner);
+            }
         }
 
         public void ExecuteTestTree()
