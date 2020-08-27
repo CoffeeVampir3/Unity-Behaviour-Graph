@@ -10,7 +10,7 @@ namespace Coffee.Behaviour.Nodes.LeafNodes
     internal class DebugLeafNode : LeafNode
     {
         [SerializeField] 
-        public string debugNote;
+        public string debugNote = "";
         [NonSerialized, OdinSerialize, HideInInspector]
         protected TreeLeafDebugNode debugNode;
         

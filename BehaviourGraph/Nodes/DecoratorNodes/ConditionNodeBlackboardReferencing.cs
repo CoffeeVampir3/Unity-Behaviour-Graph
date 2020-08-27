@@ -10,7 +10,7 @@ namespace Coffee.Behaviour.Nodes.DecoratorNodes
         [ValueDropdown("GetBlackboardConditions", DropdownHeight = 500, DropdownWidth = 500, NumberOfItemsBeforeEnablingSearch = 2)]
         #endif
         [SerializeField]
-        protected BlackboardReference blackboardReferenceTarget;
+        protected BlackboardReference blackboardReferenceTarget = null;
         
         #if UNITY_EDITOR
         protected ValueDropdownList<BlackboardReference> GetBlackboardConditions()

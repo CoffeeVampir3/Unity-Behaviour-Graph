@@ -12,9 +12,9 @@ namespace Coffee.Behaviour.Nodes.CompositeNodes
     internal abstract class CompositeNode : BaseNode
     {
         [SerializeField]
-        [InputAttribute(ShowBackingValue.Never)] public BaseNode[] parents;
+        [InputAttribute(ShowBackingValue.Never)] public BaseNode[] parents = null;
         [SerializeField]
-        [Output] public BaseNode[] children;
+        [Output] public BaseNode[] children = null;
 
         protected void BuildChildConnections(NodePort thisPort)
         {

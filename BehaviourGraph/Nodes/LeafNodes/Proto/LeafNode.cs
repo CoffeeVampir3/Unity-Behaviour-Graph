@@ -8,6 +8,6 @@ namespace Coffee.Behaviour.Nodes.LeafNodes
     internal abstract class LeafNode : BaseNode
     {
         [SerializeField]
-        [InputAttribute(ShowBackingValue.Never)] public BaseNode[] parents;
+        [InputAttribute(ShowBackingValue.Never)] public BaseNode[] parents = null;
     }
 }

@@ -9,8 +9,6 @@ namespace Coffee.Behaviour.Nodes.LeafNodes
 {
     internal class ServiceLeafNode : LeafNode
     {
-        [SerializeField] 
-        public UnityEvent service;
         [NonSerialized, OdinSerialize, HideInInspector]
         protected  TreeServiceLeafNode leafNode;
         
@@ -23,7 +21,7 @@ namespace Coffee.Behaviour.Nodes.LeafNodes
         public override TreeBaseNode WalkGraphToCreateTree(BehaviourTree.BehaviourTree tree)
         {
             var node = leafNode;
-            leafNode.serviceEvent = service;
+            //leafNode.serviceEvent = service;
             node.parentTree = tree;
             return node;
         }

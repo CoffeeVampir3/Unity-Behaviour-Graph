@@ -3,10 +3,12 @@ using System.Linq.Expressions;
 using System.Reflection;
 using BehaviourGraph.Services;
 using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 using UnityEngine;
 
 namespace BehaviourGraph.Debugging
 {
+    [ShowOdinSerializedPropertiesInInspector]
     public class ServiceTester : MonoBehaviour
     {
         [Button]
@@ -23,6 +25,24 @@ namespace BehaviourGraph.Debugging
                     k.Invoke(gameObject);
                 }
             }
+        }
+
+        [OdinSerialize]
+        [ValueDropdown("GetServices", NumberOfItemsBeforeEnablingSearch = 2)]
+        public MethodInfo targetMethod;
+
+        public ValueDropdownList<MethodInfo> GetServices()
+        {
+            MethodInfo[] methods;
+            ValueDropdownList<MethodInfo> servicesList = new ValueDropdownList<MethodInfo>();
+            if (ServiceCache.TryGetServicesFor(GetType(), out methods))
+            {
+                foreach (var m in methods)
+                {
+                    servicesList.Add(m.DeclaringType.Name + "/" + m.Name, m);
+                }
+            }
+            return servicesList;
         }
         
         static Type[] gameObjectArgumentType = { typeof(GameObject) };
