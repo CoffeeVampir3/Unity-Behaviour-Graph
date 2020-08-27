@@ -18,7 +18,7 @@ namespace BehaviourGraph.Blackboard
         internal void CreateReference()
         {
             var newRef = CreateInstance<BlackboardReference>();
-            newRef.name = "Blackboard Reference " + blackboardReferences.Count;
+            newRef.name = name + " reference " + blackboardReferences.Count;
             newRef.parentBlackboard = this;
             AssetDatabase.AddObjectToAsset(newRef, this);
             AssetDatabase.SaveAssets();
