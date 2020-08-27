@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEditor;
@@ -33,6 +34,17 @@ namespace BehaviourGraph.Blackboard
             DestroyImmediate(this, true);
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
+        }
+
+        public bool TryGetListName(out string listName)
+        {
+            listName = "";
+            MemberInfo m = editorTimeCondition.MemberSelector;
+            if (m == null)
+                return false;
+
+            listName = m.ReflectedType.Name + "/" + m.Name;
+            return true;
         }
 
         [NonSerialized, OdinSerialize]

@@ -71,8 +71,10 @@ namespace BehaviourGraph.Blackboard
 
             foreach (var bbRef in references)
             {
-                cachedListOfReferences.Add(bbRef.name, bbRef);
-                
+                if (bbRef.TryGetListName(out var listName))
+                {
+                    cachedListOfReferences.Add(name + "/" + listName, bbRef);
+                }
             }
             cachedListOfReferences.Sort(
                 (val1, 
