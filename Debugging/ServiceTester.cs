@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using BehaviourGraph.Services;
@@ -21,7 +23,7 @@ namespace BehaviourGraph.Debugging
                 {
                     Debug.Log(m.Name);
 
-                    var k = CreateServiceAction(m, this);
+                    var k = ServiceCreator.CreateServiceFunction(m, this);
                     k.Invoke(gameObject);
                 }
             }
@@ -30,36 +32,17 @@ namespace BehaviourGraph.Debugging
         [OdinSerialize]
         [ValueDropdown("GetServices", NumberOfItemsBeforeEnablingSearch = 2)]
         public MethodInfo targetMethod;
+        public ValueDropdownList<MethodInfo> GetServices => ServiceCache.GetListOfServices();
 
-        public ValueDropdownList<MethodInfo> GetServices()
-        {
-            MethodInfo[] methods;
-            ValueDropdownList<MethodInfo> servicesList = new ValueDropdownList<MethodInfo>();
-            if (ServiceCache.TryGetServicesFor(GetType(), out methods))
-            {
-                foreach (var m in methods)
-                {
-                    servicesList.Add(m.DeclaringType.Name + "/" + m.Name, m);
-                }
-            }
-            return servicesList;
-        }
-        
-        static Type[] gameObjectArgumentType = { typeof(GameObject) };
-        private Action<GameObject> CreateServiceAction(MethodInfo methodInfo, object target)
-        {
-            Func<Type[], Type> getType = Expression.GetActionType;
-            return (Action<GameObject>)Action.CreateDelegate(getType(gameObjectArgumentType), 
-                target, methodInfo.Name);
-        }
-        
         [Service]
-        public void DoThing(GameObject serviceExecutor) {
+        public IEnumerator DoThing(GameObject serviceExecutor) {
             Debug.Log(serviceExecutor.name);
+            return null;
         }
         [Service]
-        public void DontDoThing(GameObject serviceExecutor) {
+        public IEnumerator DontDoThing(GameObject serviceExecutor) {
             Debug.Log(serviceExecutor.name);
+            return null;
         }
         
     }

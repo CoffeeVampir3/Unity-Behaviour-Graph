@@ -50,9 +50,9 @@ namespace BehaviourGraph.Blackboard
         [NonSerialized, OdinSerialize]
         internal ConditionalSelector editorTimeCondition = new ConditionalSelector();
         
-        public bool referencesBlackboardOwner = true;
+        public bool referenceUsesGraphOwnerAsTarget = true;
         
-        [NonSerialized] 
+        [NonSerialized]
         private BlackboardRuntimeCondition runtimeCondition = new BlackboardRuntimeCondition();
         
         internal void CacheRuntimeValues()

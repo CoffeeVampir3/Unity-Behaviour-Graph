@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Sirenix.OdinInspector;
-using Sirenix.Utilities;
 using UnityEditor;
-using UnityEngine;
 
 namespace BehaviourGraph.Conditionals
 {
@@ -41,6 +38,8 @@ namespace BehaviourGraph.Conditionals
                     conditionalMembers.Add(members.ToArray());
                 }
             }
+
+            GetCachedMemberDropdown();
         }
 
         public static bool GetCachedMemberViaLookupValue(string value, out MemberInfo memberInfo)
@@ -50,8 +49,6 @@ namespace BehaviourGraph.Conditionals
             {
                 return true;
             }
-
-            memberInfo = null;
             return false;
         }
 

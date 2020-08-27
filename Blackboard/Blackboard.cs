@@ -33,7 +33,7 @@ namespace BehaviourGraph.Blackboard
             this.owner = owner;
             for (int i = 0; i < blackboardReferences.Count; i++)
             {
-                if (blackboardReferences[i].referencesBlackboardOwner)
+                if (blackboardReferences[i].referenceUsesGraphOwnerAsTarget)
                 {
                     blackboardReferences[i].ReferencedObject = owner;
                 }

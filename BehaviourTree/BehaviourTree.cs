@@ -7,7 +7,7 @@ namespace Coffee.BehaviourTree
 {
     public class BehaviourTree
     {
-        private GameObject owner;
+        internal GameObject owner;
         private bool startedBehaviour;
         private List<Blackboard> blackboards;
         private ITreeBehaviourNode root;
