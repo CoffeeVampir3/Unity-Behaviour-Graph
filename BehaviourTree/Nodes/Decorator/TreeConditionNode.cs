@@ -1,15 +1,9 @@
-﻿using System;
-using BehaviourGraph.Blackboard;
-using Sirenix.OdinInspector;
-using Sirenix.Serialization;
+﻿using BehaviourGraph.Blackboard;
 
 namespace Coffee.BehaviourTree.Decorator
 {
-    [Serializable]
-    [ShowOdinSerializedPropertiesInInspector]
     internal class TreeConditionNode : TreeDecoratorNode
     {
-        [NonSerialized, OdinSerialize]
         public BlackboardReference reference;
         public TreeConditionNode(BehaviourTree tree) : base(tree)
         {

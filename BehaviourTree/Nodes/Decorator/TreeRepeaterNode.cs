@@ -1,8 +1,5 @@
-﻿using System;
-
-namespace Coffee.BehaviourTree.Decorator
+﻿namespace Coffee.BehaviourTree.Decorator
 {
-    [Serializable]
     internal class TreeRepeaterNode : TreeDecoratorNode
     {
         public override Result Execute()

@@ -2,7 +2,6 @@
 
 namespace Coffee.BehaviourTree.Decorator
 {
-    [Serializable]
     internal class TreeRootNode : TreeDecoratorNode
     {
         public override Result Execute()

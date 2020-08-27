@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using BehaviourGraph.Blackboard;
 using UnityEngine;
 
@@ -52,17 +51,11 @@ namespace Coffee.BehaviourTree
 
         private void ExecuteTree()
         {
-            while (root.Execute() == TreeBaseNode.Result.Running)
-            {
-            }
+            var result = root.Execute();
         }
-
+        
         public void Tick()
         {
-            if (startedBehaviour) 
-                return;
-            
-            startedBehaviour = true;
             ExecuteTree();
         }
     }

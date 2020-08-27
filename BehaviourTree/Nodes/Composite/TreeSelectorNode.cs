@@ -1,8 +1,5 @@
-﻿using System;
-
-namespace Coffee.BehaviourTree.Composite
+﻿namespace Coffee.BehaviourTree.Composite
 {
-    [Serializable]
     //Selector returns success if any children were successful.
     internal class TreeSelectorNode : TreeCompositeNode
     {

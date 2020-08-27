@@ -55,7 +55,6 @@ namespace Coffee.Behaviour
                 behaviourTree = new BehaviourTree.BehaviourTree();
                 TreeBaseNode treeRoot = root.WalkGraphToCreateTree(behaviourTree);
                 behaviourTree.Init(treeRoot, ref blackboards);
-                
                 behaviourTree.RuntimeSetup(executingOn);
             }
 

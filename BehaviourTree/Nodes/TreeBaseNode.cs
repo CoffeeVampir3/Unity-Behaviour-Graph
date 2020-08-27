@@ -1,13 +1,9 @@
-﻿using System;
-using Sirenix.Serialization;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Coffee.BehaviourTree
 {
-    [Serializable]
     internal abstract class TreeBaseNode : ITreeBehaviourNode
     {
-        [NonSerialized, OdinSerialize]
         [HideInInspector]
         public BehaviourTree parentTree;
         
