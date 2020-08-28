@@ -24,6 +24,7 @@ namespace BehaviourGraph.Blackboard
             return referencedObject != null && runtimeCondition.EvaluateAs(referencedObject);
         }
 
+        #if UNITY_EDITOR
         [SerializeField, HideInInspector]
         internal Blackboard parentBlackboard;
         [Button(ButtonSizes.Gigantic)]
@@ -34,6 +35,7 @@ namespace BehaviourGraph.Blackboard
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
         }
+        #endif
 
         public bool TryGetListName(out string listName)
         {

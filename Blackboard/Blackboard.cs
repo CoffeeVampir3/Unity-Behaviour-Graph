@@ -14,6 +14,7 @@ namespace BehaviourGraph.Blackboard
         [SerializeField] 
         public List<BlackboardReference> blackboardReferences = new List<BlackboardReference>();
         
+        #if UNITY_EDITOR
         [Button]
         internal void CreateReference()
         {
@@ -27,6 +28,7 @@ namespace BehaviourGraph.Blackboard
             AssetDatabase.Refresh();
             blackboardReferences.Add(newRef);
         }
+        #endif
         
         internal virtual void RuntimeInitialize(GameObject owner)
         {

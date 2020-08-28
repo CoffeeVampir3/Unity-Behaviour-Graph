@@ -25,6 +25,7 @@ namespace Coffee.Behaviour
         [SerializeField] 
         public List<Blackboard> blackboards = new List<Blackboard>();
 
+        #if UNITY_EDITOR
         public void EditorTimeInitialization()
         {
             if (localBlackboard != null)
@@ -46,10 +47,10 @@ namespace Coffee.Behaviour
             AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(localBlackboard));
             AssetDatabase.Refresh();
         }
+        #endif
 
         public BehaviourTree.BehaviourTree GenerateBehaviourTree(GameObject executingOn)
         {
-            Debug.Log("Creating new tree.");
             var cloneTree = new BehaviourTree.BehaviourTree();
             TreeBaseNode treeRoot = root.WalkGraphToCreateTree(cloneTree);
             cloneTree.Init(treeRoot, ref blackboards);
