@@ -20,9 +20,7 @@ namespace Coffee.Behaviour.Nodes.DecoratorNodes
         
         public override TreeBaseNode WalkGraphToCreateTree(BehaviourTree.BehaviourTree tree)
         {
-            TreeConditionNode node = conditionNode;
-            node.parentTree = tree;
-            node.reference = blackboardReferenceTarget;
+            TreeConditionNode node = new TreeConditionNode(tree) {reference = blackboardReferenceTarget};
             return WalkDecoratorNode(tree, node);
         }
     }

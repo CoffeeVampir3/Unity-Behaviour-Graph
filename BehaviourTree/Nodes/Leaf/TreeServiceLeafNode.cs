@@ -27,7 +27,7 @@ namespace Coffee.BehaviourTree.Leaf
             if (controller.state == ServiceCoroutineExtension.CoroutineState.Running)
             {
                 context = new BehaviourContext(this, Result.Waiting);
-                return Result.Waiting;
+                return Result.Running;
             }
             
             context.Reset();

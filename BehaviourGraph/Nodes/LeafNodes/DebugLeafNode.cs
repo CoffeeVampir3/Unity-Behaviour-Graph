@@ -22,9 +22,7 @@ namespace Coffee.Behaviour.Nodes.LeafNodes
         
         public override TreeBaseNode WalkGraphToCreateTree(BehaviourTree.BehaviourTree tree)
         {
-            var node = debugNode;
-            debugNode.debugMessage = debugNote;
-            node.parentTree = tree;
+            var node = new TreeLeafDebugNode(tree) {debugMessage = debugNote};
             return node;
         }
     }

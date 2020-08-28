@@ -27,10 +27,7 @@ namespace Coffee.Behaviour.Nodes.LeafNodes
 
         public override TreeBaseNode WalkGraphToCreateTree(BehaviourTree.BehaviourTree tree)
         {
-            leafNode.targetMethod = targetMethod;
-            var node = leafNode;
-            //leafNode.serviceEvent = service;
-            node.parentTree = tree;
+            var node = new TreeServiceLeafNode(tree) {targetMethod = targetMethod};
             return node;
         }
     }

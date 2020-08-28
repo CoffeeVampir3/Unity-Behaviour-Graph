@@ -21,8 +21,7 @@ namespace Coffee.Behaviour.Nodes.Private
 
         public override TreeBaseNode WalkGraphToCreateTree(BehaviourTree.BehaviourTree tree)
         {
-            var treeRoot = rootNode;
-            treeRoot.parentTree = tree;
+            var treeRoot = new TreeRootNode(tree);
             return WalkDecoratorNode(tree, treeRoot);
         }
     }

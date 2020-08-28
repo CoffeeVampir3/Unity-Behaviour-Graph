@@ -7,7 +7,6 @@ using UnityEngine;
 
 namespace BehaviourGraph.Blackboard
 {
-    [CreateAssetMenu]
     public class BlackboardReference : SerializedScriptableObject
     {
         [NonSerialized] 

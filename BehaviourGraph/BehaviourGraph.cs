@@ -3,6 +3,7 @@ using BehaviourGraph.Blackboard;
 using Coffee.Behaviour.Nodes;
 using Coffee.Behaviour.Nodes.Private;
 using Coffee.BehaviourTree;
+using Coffee.BehaviourTree.Decorator;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEditor;
@@ -24,8 +25,6 @@ namespace Coffee.Behaviour
         [SerializeField] 
         public List<Blackboard> blackboards = new List<Blackboard>();
 
-        protected BehaviourTree.BehaviourTree behaviourTree;
-        
         public void EditorTimeInitialization()
         {
             if (localBlackboard != null)
@@ -48,33 +47,17 @@ namespace Coffee.Behaviour
             AssetDatabase.Refresh();
         }
 
-        public void Execute(GameObject executingOn)
+        public BehaviourTree.BehaviourTree GenerateBehaviourTree(GameObject executingOn)
         {
-            if (behaviourTree == null)
-            {
-                behaviourTree = new BehaviourTree.BehaviourTree();
-                TreeBaseNode treeRoot = root.WalkGraphToCreateTree(behaviourTree);
-                behaviourTree.Init(treeRoot, ref blackboards);
-                behaviourTree.RuntimeSetup(executingOn);
-            }
-            
-            behaviourTree.Tick();
+            Debug.Log("Creating new tree.");
+            var cloneTree = new BehaviourTree.BehaviourTree();
+            TreeBaseNode treeRoot = root.WalkGraphToCreateTree(cloneTree);
+            cloneTree.Init(treeRoot, ref blackboards);
+            cloneTree.RuntimeSetup(executingOn);
+
+            return cloneTree;
         }
 
-        public void Test(GameObject executingOn)
-        {
-            if (behaviourTree == null)
-            {
-                behaviourTree = new BehaviourTree.BehaviourTree();
-                TreeBaseNode treeRoot = root.WalkGraphToCreateTree(behaviourTree);
-                behaviourTree.Init(treeRoot, ref blackboards);
-                
-                behaviourTree.RuntimeSetup(executingOn);
-            }
-
-            behaviourTree.ExecuteTestTree();
-        }
-        
         public ValueDropdownList<BlackboardReference> GetAllBlackboardReferences()
         {
             ValueDropdownList<BlackboardReference> refs = new ValueDropdownList<BlackboardReference>();

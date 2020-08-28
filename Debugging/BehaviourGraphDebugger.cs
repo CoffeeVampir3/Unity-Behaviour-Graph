@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using Sirenix.OdinInspector;
 
 namespace Coffee.Behaviour.Debugging
 {
@@ -8,10 +7,7 @@ namespace Coffee.Behaviour.Debugging
         [SerializeField] 
         private BehaviourGraph tg = null;
 
-        [Button]
-        private void RunGraph()
-        {
-            tg.Execute(gameObject);
-        }
+        private BehaviourTree.BehaviourTree tree;
+        
     }
 }

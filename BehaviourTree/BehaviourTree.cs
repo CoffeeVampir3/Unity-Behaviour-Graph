@@ -28,39 +28,19 @@ namespace Coffee.BehaviourTree
             }
         }
 
-        public void ExecuteTestTree()
-        {
-            int breaksafe = 0;
-            if(root == null)
-                Debug.Log("Null root.");
-            
-            root.Reset();
-            Debug.Log("Executing 100 cycle test.");
-            while (root.Execute(ref context) == TreeBaseNode.Result.Running)
-            {
-                breaksafe++;
-                if (breaksafe > 99)
-                {
-                    break;
-                }
-            }
-            
-            Debug.Log("Done.");
-        }
-
         private void ExecuteTree()
         {
+            while (context?.node != null)
+            {
+                context.node.Execute(ref context);
+                if (context == null || context.result == TreeBaseNode.Result.Waiting)
+                    break;
+            }
+            
             if (context?.node == null)
             {
                 root.Reset();
                 root.Execute(ref context);
-            }
-            
-            while (context?.node != null)
-            {
-                if (context.result == TreeBaseNode.Result.Waiting)
-                    return;
-                context.node.Execute(ref context);
             }
         }
         

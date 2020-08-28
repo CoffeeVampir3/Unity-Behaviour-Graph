@@ -21,8 +21,7 @@ namespace Coffee.Behaviour.Nodes.DecoratorNodes
 
         public override TreeBaseNode WalkGraphToCreateTree(BehaviourTree.BehaviourTree tree)
         {
-            var node = repeaterNode;
-            node.parentTree = tree;
+            var node = new TreeRepeaterNode(tree);
             return WalkDecoratorNode(tree, node);
         }
     }

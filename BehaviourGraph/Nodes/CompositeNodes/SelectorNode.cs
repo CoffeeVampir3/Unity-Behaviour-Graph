@@ -21,8 +21,7 @@ namespace Coffee.Behaviour.Nodes.CompositeNodes
         
         public override TreeBaseNode WalkGraphToCreateTree(BehaviourTree.BehaviourTree tree)
         {
-            var node = selectorNode;
-            node.parentTree = tree;
+            var node = new TreeSelectorNode(tree);
             WalkCompositeNodeChildren(node, tree);
             return node;
         }
