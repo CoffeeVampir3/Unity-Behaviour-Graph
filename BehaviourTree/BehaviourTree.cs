@@ -39,7 +39,6 @@ namespace Coffee.BehaviourTree
             
             if (context?.node == null)
             {
-                root.Reset();
                 root.Execute(ref context);
             }
         }

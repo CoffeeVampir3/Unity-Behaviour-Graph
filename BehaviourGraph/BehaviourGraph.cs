@@ -55,7 +55,7 @@ namespace Coffee.Behaviour
             TreeBaseNode treeRoot = root.WalkGraphToCreateTree(cloneTree);
             cloneTree.Init(treeRoot, ref blackboards);
             cloneTree.RuntimeSetup(executingOn);
-
+            treeRoot.Reset();
             return cloneTree;
         }
 

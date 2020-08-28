@@ -61,7 +61,6 @@ namespace BehaviourGraph.Debugging
 
             moving = false;
             originalPosition = thisObject.transform.position;
-            yield return null;
         }
     }
 }

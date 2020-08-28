@@ -5,7 +5,7 @@ namespace Coffee.BehaviourTree.Leaf
 {
     
     //Thanks guys on stackoverflow <3
-    public class ServiceCoroutineExtension
+    internal class ServiceCoroutineExtension
     {
         public enum CoroutineState
         {
@@ -28,11 +28,6 @@ namespace Coffee.BehaviourTree.Leaf
  
             public void Start()
             {
-                if (state != CoroutineState.Ready)
-                {
-                    throw new System.InvalidOperationException("Unable to start coroutine in state: " + state);
-                }
- 
                 state = CoroutineState.Running;
                 coroutine = CoroutineHelper.Instance.StartCoroutine(RealRun());
             }
