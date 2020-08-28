@@ -50,13 +50,17 @@ namespace Coffee.BehaviourTree
 
         private void ExecuteTree()
         {
-            if (context != null && context.node != null && context.result == TreeBaseNode.Result.Running)
+            if (context?.node == null)
             {
-                context.node.Execute(ref context);
-            }
-            else
-            {
+                root.Reset();
                 root.Execute(ref context);
+            }
+            
+            while (context?.node != null)
+            {
+                if (context.result == TreeBaseNode.Result.Waiting)
+                    return;
+                context.node.Execute(ref context);
             }
         }
         

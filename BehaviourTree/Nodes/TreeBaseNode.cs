@@ -12,7 +12,8 @@ namespace Coffee.BehaviourTree
         {
             Failure,
             Success,
-            Running
+            Running,
+            Waiting
         }
         
         protected TreeBaseNode(BehaviourTree tree)

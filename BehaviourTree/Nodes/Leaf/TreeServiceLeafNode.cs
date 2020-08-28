@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Collections;
+using System.Reflection;
 using BehaviourGraph.Services;
 using Coffee.BehaviourTree.Context;
 using UnityEngine;
@@ -13,15 +14,26 @@ namespace Coffee.BehaviourTree.Leaf
         {
         }
 
+        ServiceCoroutineExtension.CoroutineController controller;
+
         public override Result Execute(ref BehaviourContext context)
         {
-            if (rtService.executable.Invoke(parentTree.owner) != null)
+            if (controller == null)
             {
-                context = new BehaviourContext(this, Result.Running);
-                return Result.Running;
+                ServiceCoroutineExtension.CoroutineHelper.Instance.StartCoroutineEx(
+                    rtService.executable(parentTree.owner), out controller);
+                
+                if(controller.state == ServiceCoroutineExtension.CoroutineState.Ready)
+                    controller.Start();
             }
-
+            if (controller.state == ServiceCoroutineExtension.CoroutineState.Running)
+            {
+                context = new BehaviourContext(this, Result.Waiting);
+                return Result.Waiting;
+            }
+            
             context.Reset();
+            controller = null;
             return Result.Success;
         }
 
@@ -37,6 +49,8 @@ namespace Coffee.BehaviourTree.Leaf
             }
             rtService = new RuntimeService();
             rtService.Initialize(targetMethod, parentTree.owner);
+
+            controller = null;
         }
     }
 }

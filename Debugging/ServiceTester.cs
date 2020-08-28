@@ -37,12 +37,12 @@ namespace BehaviourGraph.Debugging
         [Service]
         public IEnumerator DoThing(GameObject serviceExecutor) {
             Debug.Log(serviceExecutor.name);
-            return null;
+            yield return null;
         }
         [Service]
         public IEnumerator DontDoThing(GameObject serviceExecutor) {
             Debug.Log(serviceExecutor.name);
-            return null;
+            yield return null;
         }
         
     }
