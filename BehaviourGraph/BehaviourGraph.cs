@@ -57,7 +57,7 @@ namespace Coffee.Behaviour
                 behaviourTree.Init(treeRoot, ref blackboards);
                 behaviourTree.RuntimeSetup(executingOn);
             }
-
+            
             behaviourTree.Tick();
         }
 

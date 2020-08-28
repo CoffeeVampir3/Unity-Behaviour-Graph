@@ -14,7 +14,7 @@ namespace BehaviourGraph.Blackboard
         
         [ValueDropdown("GetMembers", NumberOfItemsBeforeEnablingSearch = 2)]
         [SerializeField]
-        private string memberSelector;
+        private string memberSelector = "";
 
         private MemberInfo selectedMember = null;
         private string previousSelection;

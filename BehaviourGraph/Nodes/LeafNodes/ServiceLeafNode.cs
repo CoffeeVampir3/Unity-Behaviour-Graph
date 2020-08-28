@@ -13,7 +13,7 @@ namespace Coffee.Behaviour.Nodes.LeafNodes
     {
         [OdinSerialize]
         [ValueDropdown("GetServices", NumberOfItemsBeforeEnablingSearch = 2)]
-        public MethodInfo targetMethod;
+        public MethodInfo targetMethod = null;
         public ValueDropdownList<MethodInfo> GetServices => ServiceCache.GetListOfServices();
         
         [NonSerialized, OdinSerialize, HideInInspector]
