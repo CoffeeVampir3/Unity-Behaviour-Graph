@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Coffee.BehaviourTree.Context;
+using UnityEngine;
 
 namespace Coffee.BehaviourTree
 {
@@ -19,7 +20,7 @@ namespace Coffee.BehaviourTree
             parentTree = tree;
         }
 
-        public abstract Result Execute();
+        public abstract Result Execute(ref BehaviourContext context);
 
         public abstract void Reset();
     }

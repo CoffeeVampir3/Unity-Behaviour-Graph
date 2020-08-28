@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using BehaviourGraph.Blackboard;
+using Coffee.BehaviourTree.Context;
 using UnityEngine;
 
 namespace Coffee.BehaviourTree
@@ -7,13 +8,12 @@ namespace Coffee.BehaviourTree
     public class BehaviourTree
     {
         internal GameObject owner;
-        private bool startedBehaviour;
         private List<Blackboard> blackboards;
         private ITreeBehaviourNode root;
+        private BehaviourContext context;
 
         internal void Init(ITreeBehaviourNode rootNode, ref List<Blackboard> sharedBb)
         {
-            startedBehaviour = false;
             root = rootNode;
             blackboards = sharedBb;
         }
@@ -21,6 +21,7 @@ namespace Coffee.BehaviourTree
         internal void RuntimeSetup(GameObject owner)
         {
             this.owner = owner;
+            context = new BehaviourContext();
             for (int i = 0; i < blackboards.Count; i++)
             {
                 blackboards[i].RuntimeInitialize(owner);
@@ -35,7 +36,7 @@ namespace Coffee.BehaviourTree
             
             root.Reset();
             Debug.Log("Executing 100 cycle test.");
-            while (root.Execute() == TreeBaseNode.Result.Running)
+            while (root.Execute(ref context) == TreeBaseNode.Result.Running)
             {
                 breaksafe++;
                 if (breaksafe > 99)
@@ -45,13 +46,18 @@ namespace Coffee.BehaviourTree
             }
             
             Debug.Log("Done.");
-
-            startedBehaviour = false;
         }
 
         private void ExecuteTree()
         {
-            var result = root.Execute();
+            if (context != null && context.node != null && context.result == TreeBaseNode.Result.Running)
+            {
+                context.node.Execute(ref context);
+            }
+            else
+            {
+                root.Execute(ref context);
+            }
         }
         
         public void Tick()

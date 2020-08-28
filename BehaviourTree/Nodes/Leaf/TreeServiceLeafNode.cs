@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using BehaviourGraph.Services;
+using Coffee.BehaviourTree.Context;
 using UnityEngine;
 
 namespace Coffee.BehaviourTree.Leaf
@@ -12,12 +13,15 @@ namespace Coffee.BehaviourTree.Leaf
         {
         }
 
-        public override Result Execute()
+        public override Result Execute(ref BehaviourContext context)
         {
             if (rtService.executable.Invoke(parentTree.owner) != null)
             {
+                context = new BehaviourContext(this, Result.Running);
                 return Result.Running;
             }
+
+            context.Reset();
             return Result.Success;
         }
 

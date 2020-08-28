@@ -1,10 +1,12 @@
-﻿namespace Coffee.BehaviourTree.Decorator
+﻿using Coffee.BehaviourTree.Context;
+
+namespace Coffee.BehaviourTree.Decorator
 {
     internal class TreeRepeaterNode : TreeDecoratorNode
     {
-        public override Result Execute()
+        public override Result Execute(ref BehaviourContext context)
         {
-            child?.Execute();
+            child?.Execute(ref context);
             return Result.Running;
         }
 

@@ -2,8 +2,8 @@
 {
     internal class BehaviourContext
     {
-        internal readonly TreeBaseNode node;
-        internal readonly TreeBaseNode.Result result;
+        internal TreeBaseNode node;
+        internal TreeBaseNode.Result result;
 
         internal BehaviourContext()
         {
@@ -15,6 +15,12 @@
         {
             this.node = node;
             this.result = result;
+        }
+
+        internal void Reset()
+        {
+            node = null;
+            result = TreeBaseNode.Result.Running;
         }
     }
 }

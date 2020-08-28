@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Coffee.BehaviourTree.Context;
+using UnityEngine;
 
 namespace Coffee.BehaviourTree.Leaf
 {
@@ -6,7 +7,7 @@ namespace Coffee.BehaviourTree.Leaf
     {
         public string debugMessage;
 
-        public override Result Execute()
+        public override Result Execute(ref BehaviourContext context)
         {
             Debug.Log(debugMessage);
             return Result.Success;

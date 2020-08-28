@@ -1,8 +1,10 @@
-﻿namespace Coffee.BehaviourTree
+﻿using Coffee.BehaviourTree.Context;
+
+namespace Coffee.BehaviourTree
 {
     internal interface ITreeBehaviourNode
     {
-        TreeBaseNode.Result Execute();
+        TreeBaseNode.Result Execute(ref BehaviourContext context);
         void Reset();
     }
 }
