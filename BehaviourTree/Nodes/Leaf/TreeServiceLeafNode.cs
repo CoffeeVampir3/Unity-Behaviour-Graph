@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Reflection;
+﻿using System.Reflection;
 using BehaviourGraph.Services;
 using Coffee.BehaviourTree.Context;
-using UnityEngine;
 
 namespace Coffee.BehaviourTree.Leaf
 {
@@ -39,18 +37,13 @@ namespace Coffee.BehaviourTree.Leaf
 
         public override void Reset()
         {
-            if (targetMethod == null)
-            {
-                Debug.Log("Null method.");
-            }
-            if (parentTree.owner == null)
-            {
-                Debug.Log("Null owner.");
-            }
-            rtService = new RuntimeService();
-            rtService.Initialize(targetMethod, parentTree.owner);
-
             controller = null;
+
+            if (rtService == null)
+            {
+                rtService = new RuntimeService();
+                rtService.Initialize(targetMethod, parentTree.owner);
+            }
         }
     }
 }
