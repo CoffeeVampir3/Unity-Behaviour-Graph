@@ -39,8 +39,8 @@ namespace BehaviourGraph.Debugging
             var q = fieldStore.RetreiveAsField();
             foreach (var f in q)
             {
-                if(f.DeclaringType == u.GetType())
-                    Debug.Log(f.GetValue(u));
+                if(f.DeclaringType == elk.GetType())
+                    Debug.Log(f.GetValue(elk));
             }
         }
         

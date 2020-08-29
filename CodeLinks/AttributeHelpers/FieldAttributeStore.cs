@@ -43,8 +43,6 @@ namespace BehaviourGraph
             FieldInfo[] fields = new FieldInfo[fieldNames.Length];
             for (int i = 0; i < fieldNames.Length; i++)
             {
-                Debug.Log(fieldNames[i]);
-                Debug.Log(fieldDeclTypes[i].Name);
                 fields[i] = fieldDeclTypes[i].GetField(fieldNames[i]);
             }
             return fields;
