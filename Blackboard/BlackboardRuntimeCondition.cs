@@ -32,7 +32,7 @@ namespace BehaviourGraph.Blackboard
             {
                 return cachedConditionFunction.Invoke();
             }
-
+            
             return (bool)field.GetValue(cachedConditionComponent);
         }
 

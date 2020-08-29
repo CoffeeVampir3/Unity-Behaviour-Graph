@@ -11,6 +11,7 @@ namespace BehaviourGraph.Services
     public class ServiceCache
     {
         private static bool initialized = false;
+        #if UNITY_EDITOR
         private static void InitializeCache()
         {
             if (initialized)
@@ -24,6 +25,11 @@ namespace BehaviourGraph.Services
                 TypeCache.GetMethodsWithAttribute<Service>().ToArray(),
                 AddNameToClassList);
         }
+        #else 
+        private static void InitializeCache()
+        {
+        }
+        #endif
 
         private static ValueDropdownList<MethodInfo> cachedServiceList;
         public static ValueDropdownList<MethodInfo> GetListOfServices()
