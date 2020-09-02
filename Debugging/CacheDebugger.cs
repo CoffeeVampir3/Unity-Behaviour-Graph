@@ -25,8 +25,6 @@ namespace BehaviourGraph.Debugging
         [Button]
         public void MakeCache()
         {
-            AttributeCacheRetainer.SetupOrSaveCache();
-            
             var conditionFields = TypeCache.GetFieldsWithAttribute<Condition>().ToArray();
             var conditionMethods = TypeCache.GetMethodsWithAttribute<Condition>().ToArray();
             var serviceMethods = TypeCache.GetMethodsWithAttribute<Service>().ToArray();
@@ -39,17 +37,17 @@ namespace BehaviourGraph.Debugging
             Debug.Log("service method Len: " + serviceMethods.Length);
 
             List<Type> types = null;
-            AttributeCacheRetainer.EditorTimeCache<FieldInfo, Condition>(
+            AttributeCacheRetainer.CacheOrGetCachedAttributeData<FieldInfo, Condition>(
                 ref conditionalFieldsDict, 
                 ref types,
                 ref conditionFields);
             
-            AttributeCacheRetainer.EditorTimeCache<MethodInfo, Condition>(
+            AttributeCacheRetainer.CacheOrGetCachedAttributeData<MethodInfo, Condition>(
                 ref conditionalMethodsDict, 
                 ref types,
                 ref conditionMethods);
             
-            AttributeCacheRetainer.EditorTimeCache<MethodInfo, Service>(
+            AttributeCacheRetainer.CacheOrGetCachedAttributeData<MethodInfo, Service>(
                 ref serviceMethodsDict, 
                 ref types,
                 ref serviceMethods);

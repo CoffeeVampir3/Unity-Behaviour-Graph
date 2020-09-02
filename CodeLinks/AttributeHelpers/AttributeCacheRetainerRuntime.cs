@@ -1,11 +1,11 @@
-﻿using System;
+﻿#if !UNITY_EDITOR
+using System;
 using UnityEngine;
 
 namespace BehaviourGraph
 {
     public static partial class AttributeCacheRetainer
     {
-#if !UNITY_EDITOR
         private static DataStoreContainer storeContainer;
         private static string cachedDirectory = "";
         private static bool initialized = false;
@@ -24,16 +24,6 @@ namespace BehaviourGraph
             initialized = true;
             return storeContainer;
         }
-        
-        private static string GetRuntimeCacheDirectory() {
-            if (initialized)
-            {
-                return cachedDirectory;
-            }
-
-            cachedDirectory = GetDirectoryPathFromAsset(GetRuntimeStoreContainer());
-            return cachedDirectory;
-        }
-#endif
     }
 }
+#endif
