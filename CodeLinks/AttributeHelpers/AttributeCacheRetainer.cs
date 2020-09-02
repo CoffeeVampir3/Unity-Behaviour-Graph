@@ -71,16 +71,18 @@ namespace BehaviourGraph
         private static List<MethodAttributeStore> methodStores;
 
         public static void EditorTimeCache<CachingItem, Attr>(
-            ref Dictionary<(Type, Type), CachingItem[]> cacheDictionary, 
-            ref CachingItem[] itemSelection,
-            Action<CachingItem> perItemCallback)
-            where CachingItem : MemberInfo
+            ref Dictionary<(Type, Type), CachingItem[]> cacheDictionary,
+            ref List<Type> declaredTypes,
+            ref CachingItem[] itemSelection) 
+            where CachingItem : MemberInfo 
             where Attr : Attribute
         {
             Type cachingType = typeof(CachingItem);
-
+            
             CachingItem[] attributeData = AttributeCacheFactory.CacheMemberInfo<CachingItem, Attr>(
-                ref cacheDictionary, ref itemSelection, perItemCallback);
+                ref cacheDictionary,
+                ref declaredTypes,
+                ref itemSelection);
             
             if (typeof(FieldInfo).IsAssignableFrom(cachingType))
             {

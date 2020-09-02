@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using BehaviourGraph.Conditionals;
+using BehaviourGraph.Services;
 using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
@@ -26,18 +27,32 @@ namespace BehaviourGraph.Debugging
         {
             AttributeCacheRetainer.SetupOrSaveCache();
             
-            FieldInfo[] k = TypeCache.GetFieldsWithAttribute<Condition>().ToArray();
-            MethodInfo[] x = TypeCache.GetMethodsWithAttribute<Condition>().ToArray();
-            Dictionary<(Type, Type), MethodInfo[]> conditionalMethods = new Dictionary<(Type, Type), MethodInfo[]>();
-            Dictionary<(Type, Type), FieldInfo[]> conditionalFields = new Dictionary<(Type, Type), FieldInfo[]>();
+            var conditionFields = TypeCache.GetFieldsWithAttribute<Condition>().ToArray();
+            var conditionMethods = TypeCache.GetMethodsWithAttribute<Condition>().ToArray();
+            var serviceMethods = TypeCache.GetMethodsWithAttribute<Service>().ToArray();
+            var conditionalMethodsDict = new Dictionary<(Type, Type), MethodInfo[]>();
+            var conditionalFieldsDict = new Dictionary<(Type, Type), FieldInfo[]>();
+            var serviceMethodsDict = new Dictionary<(Type, Type), MethodInfo[]>();
+            
+            Debug.Log("Field Len: " + conditionFields.Length);
+            Debug.Log("Method Len: " + conditionMethods.Length);
+            Debug.Log("service method Len: " + serviceMethods.Length);
 
-            Debug.Log("Field Len: " + k.Length);
-            Debug.Log("Method Len: " + x.Length);
+            List<Type> types = null;
             AttributeCacheRetainer.EditorTimeCache<FieldInfo, Condition>(
-                ref conditionalFields, ref k, null);
+                ref conditionalFieldsDict, 
+                ref types,
+                ref conditionFields);
             
             AttributeCacheRetainer.EditorTimeCache<MethodInfo, Condition>(
-                ref conditionalMethods, ref x, null);
+                ref conditionalMethodsDict, 
+                ref types,
+                ref conditionMethods);
+            
+            AttributeCacheRetainer.EditorTimeCache<MethodInfo, Service>(
+                ref serviceMethodsDict, 
+                ref types,
+                ref serviceMethods);
         }
 
         [Button]

@@ -10,6 +10,11 @@ namespace BehaviourGraph.Conditionals
     public static class ConditionalCache
     {
         private static bool initialized = false;
+        private static Dictionary<(Type, Type), MethodInfo[]> conditionalMethods;
+        private static Dictionary<(Type, Type), FieldInfo[]> conditionalFields;
+        private static List<MemberInfo[]> conditionalMembers;
+        private static List<Type> classesWithConditions;
+
         private static void InitializeCache()
         {
             if (initialized)
@@ -18,29 +23,22 @@ namespace BehaviourGraph.Conditionals
             initialized = true;
             classesWithConditions = new List<Type>();
             
-            tempConditionalMembers = new Dictionary<(Type, Type), List<MemberInfo>>();
             var fieldsList = TypeCache.GetFieldsWithAttribute<Condition>().ToArray();
             var methodsList = TypeCache.GetMethodsWithAttribute<Condition>().ToArray();
             
-            AttributeCacheFactory.CacheMemberInfo<FieldInfo, Condition>(
+            var allFields = AttributeCacheFactory.CacheMemberInfo<FieldInfo, Condition>(
                 ref conditionalFields, 
-                ref fieldsList,
-                AddNameToClassList);
+                ref classesWithConditions,
+                ref fieldsList);
             
-            AttributeCacheFactory.CacheMemberInfo<MethodInfo, Condition>(
+            var allMethods = AttributeCacheFactory.CacheMemberInfo<MethodInfo, Condition>(
                 ref conditionalMethods, 
-                ref methodsList,
-                AddNameToClassList);
+                ref classesWithConditions,
+                ref methodsList);
 
             conditionalMembers = new List<MemberInfo[]>();
-            foreach (Type t in classesWithConditions)
-            {
-                var index = (t, typeof(Condition));
-                if (tempConditionalMembers.TryGetValue(index, out var members))
-                {
-                    conditionalMembers.Add(members.ToArray());
-                }
-            }
+            conditionalMembers.Add(allFields);
+            conditionalMembers.Add(allMethods);
 
             GetCachedMemberDropdown();
         }
@@ -64,7 +62,7 @@ namespace BehaviourGraph.Conditionals
             
             cachedValueDropdown = new ValueDropdownList<string>();
             dropdownLookup = new Dictionary<string, MemberInfo>();
-            var members = ConditionalCache.GetConditionalMemberList();
+            var members = GetConditionalMemberList();
 
             for(int j = 0; j < members.Count; j++)
             {
@@ -84,54 +82,6 @@ namespace BehaviourGraph.Conditionals
         {
             InitializeCache();
             return conditionalMembers;
-        }
-        
-        public static bool TryGetConditionsFor(Type type, out MethodInfo[] outItem)
-        {
-            InitializeCache();
-            return conditionalMethods.TryGetValue((type, typeof(Condition)), out outItem);
-        }
-        
-        public static bool TryGetConditionsFor(Type type, out FieldInfo[] outItem)
-        {
-            InitializeCache();
-            return conditionalFields.TryGetValue((type, typeof(Condition)), out outItem);
-        }
-
-        private static Dictionary<(Type, Type), MethodInfo[]> conditionalMethods;
-        private static Dictionary<(Type, Type), FieldInfo[]> conditionalFields;
-        private static List<MemberInfo[]> conditionalMembers;
-
-        private static List<Type> classesWithConditions;
-
-        public static List<Type> ClassesWithCondition
-        {
-            get
-            {
-                InitializeCache();
-                return classesWithConditions;
-            }
-        }
-
-        private static Dictionary<(Type, Type), List<MemberInfo>> tempConditionalMembers;
-        private static void AddNameToClassList(MemberInfo item)
-        {
-            if (!classesWithConditions.Contains(item.DeclaringType))
-            {
-                classesWithConditions.Add(item.DeclaringType);
-            }
-
-            var index = (item.DeclaringType, typeof(Condition));
-            if(tempConditionalMembers.TryGetValue(index, out var mList))
-            {
-                mList.Add(item);
-            }
-            else
-            {
-                List<MemberInfo> members = new List<MemberInfo>();
-                members.Add(item);
-                tempConditionalMembers.Add(index, members);
-            }
         }
 
     }

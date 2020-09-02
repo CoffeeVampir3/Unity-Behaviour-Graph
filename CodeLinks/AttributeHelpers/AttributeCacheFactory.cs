@@ -1,43 +1,54 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using UnityEngine;
 
 namespace BehaviourGraph
 {
     internal static class AttributeCacheFactory
     {
         internal static CachingItem[] CacheMemberInfo<CachingItem, Attr>(
-            ref Dictionary<(Type, Type), CachingItem[]> cacheDictionary, 
-            ref CachingItem[] itemSelection,
-            Action<CachingItem> perItemCallback) 
+            ref Dictionary<(Type, Type), CachingItem[]> cacheDictionary,
+            ref List<Type> declaredTypes,
+            ref CachingItem[] itemSelection) 
             where CachingItem : MemberInfo 
             where Attr : Attribute
         {
-            cacheDictionary = new Dictionary<(Type, Type), CachingItem[]>();
-
+            if(cacheDictionary == null)
+                cacheDictionary = new Dictionary<(Type, Type), CachingItem[]>();
+            
+            if(declaredTypes == null)
+                declaredTypes = new List<Type>();
+            
+            var tempCache = new Dictionary<(Type, Type), List<CachingItem>>();
             List<CachingItem> allItems = new List<CachingItem>();
+            
             foreach (CachingItem item in itemSelection)
             {
                 var dictionaryIndex = (item.DeclaringType, typeof(Attr));
-                if (!cacheDictionary.TryGetValue(dictionaryIndex, out var cachedItems))
+                if (!tempCache.TryGetValue(dictionaryIndex, out var cachedItems))
                 {
-                    cachedItems = new CachingItem[1];
+                    cachedItems = new List<CachingItem>();
+                    tempCache.Add(dictionaryIndex, cachedItems);
                 }
-                else
+
+                if (!declaredTypes.Contains(item.DeclaringType))
                 {
-                    var temp = cachedItems;
-                    cachedItems = new CachingItem[cachedItems.Length + 1];
-                    temp.CopyTo(cachedItems, 0);
+                    declaredTypes.Add(item.DeclaringType);
                 }
                 
-                cachedItems[cachedItems.Length - 1] = item;
-                cacheDictionary.Remove(dictionaryIndex);
-                cacheDictionary.Add(dictionaryIndex, cachedItems);
+                cachedItems.Add(item);
                 allItems.Add(item);
-
-                perItemCallback?.Invoke(item);
             }
 
+            foreach (var declaredType in declaredTypes)
+            {
+                var dictionaryIndex = (declaredType, typeof(Attr));
+                tempCache.TryGetValue(dictionaryIndex, out var cachedItems);
+                if(cachedItems != null)
+                    cacheDictionary.Add(dictionaryIndex, cachedItems.ToArray());
+            }
+            
             return allItems.ToArray();
         }
     }

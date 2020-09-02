@@ -4,14 +4,16 @@ using System.Linq;
 using System.Reflection;
 using Sirenix.OdinInspector;
 using UnityEditor;
-using UnityEngine;
 
 namespace BehaviourGraph.Services
 {
     public class ServiceCache
     {
         private static bool initialized = false;
-        #if UNITY_EDITOR
+        
+        private static Dictionary<(Type, Type), MethodInfo[]> serviceMethods;
+        private static List<Type> classesWithServices;
+        
         private static void InitializeCache()
         {
             if (initialized)
@@ -21,16 +23,11 @@ namespace BehaviourGraph.Services
             classesWithServices = new List<Type>();
 
             var methodInfo = TypeCache.GetMethodsWithAttribute<Service>().ToArray();
-            AttributeCacheFactory.CacheMemberInfo<MethodInfo, Service>(
+            var b = AttributeCacheFactory.CacheMemberInfo<MethodInfo, Service>(
                 ref serviceMethods, 
-                ref methodInfo,
-                AddNameToClassList);
+                ref classesWithServices,
+                ref methodInfo);
         }
-        #else 
-        private static void InitializeCache()
-        {
-        }
-        #endif
 
         private static ValueDropdownList<MethodInfo> cachedServiceList;
         public static ValueDropdownList<MethodInfo> GetListOfServices()
@@ -58,26 +55,6 @@ namespace BehaviourGraph.Services
         {
             InitializeCache();
             return serviceMethods.TryGetValue((type, typeof(Service)), out outItem);
-        }
-        
-        private static Dictionary<(Type, Type), MethodInfo[]> serviceMethods;
-        
-        private static List<Type> classesWithServices;
-        public static List<Type> ClassesWithServices
-        {
-            get
-            {
-                InitializeCache();
-                return classesWithServices;
-            }
-        }
-        
-        private static void AddNameToClassList(MemberInfo item)
-        {
-            if (!classesWithServices.Contains(item.DeclaringType))
-            {
-                classesWithServices.Add(item.DeclaringType);
-            }
         }
     }
 }
