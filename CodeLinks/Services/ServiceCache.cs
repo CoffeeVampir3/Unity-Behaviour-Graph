@@ -19,10 +19,11 @@ namespace BehaviourGraph.Services
             
             initialized = true;
             classesWithServices = new List<Type>();
-            
+
+            var methodInfo = TypeCache.GetMethodsWithAttribute<Service>().ToArray();
             AttributeCacheFactory.CacheMemberInfo<MethodInfo, Service>(
                 ref serviceMethods, 
-                TypeCache.GetMethodsWithAttribute<Service>().ToArray(),
+                ref methodInfo,
                 AddNameToClassList);
         }
         #else 

@@ -19,14 +19,17 @@ namespace BehaviourGraph.Conditionals
             classesWithConditions = new List<Type>();
             
             tempConditionalMembers = new Dictionary<(Type, Type), List<MemberInfo>>();
+            var fieldsList = TypeCache.GetFieldsWithAttribute<Condition>().ToArray();
+            var methodsList = TypeCache.GetMethodsWithAttribute<Condition>().ToArray();
+            
             AttributeCacheFactory.CacheMemberInfo<FieldInfo, Condition>(
                 ref conditionalFields, 
-                TypeCache.GetFieldsWithAttribute<Condition>().ToArray(),
+                ref fieldsList,
                 AddNameToClassList);
             
             AttributeCacheFactory.CacheMemberInfo<MethodInfo, Condition>(
                 ref conditionalMethods, 
-                TypeCache.GetMethodsWithAttribute<Condition>().ToArray(),
+                ref methodsList,
                 AddNameToClassList);
 
             conditionalMembers = new List<MemberInfo[]>();

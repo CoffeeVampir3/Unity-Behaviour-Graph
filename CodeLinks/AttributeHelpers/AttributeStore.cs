@@ -1,6 +1,9 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 using UnityEditor;
+using UnityEngine;
 
 // Mono ~ Mono why would you serialize
 // ~ Mono ~ Mono ~ 
@@ -12,20 +15,29 @@ namespace BehaviourGraph
 {
     public abstract class AttributeStore : SerializedScriptableObject
     {
-        protected abstract void OnCreated(ref MemberInfo[] members);
+        protected abstract void OnCreated<CachingItem>(ref CachingItem[] members)
+            where CachingItem : MemberInfo;
 
+        [NonSerialized, OdinSerialize, HideInInspector]
+        private Type cachedAttributeType;
         public abstract MemberInfo[] Retrieve();
 
-        public static T Create<T>(ref MemberInfo[] members) where T : AttributeStore
+        public static StoreType CreateOrStore<StoreType, CachingItem, Attr>(ref CachingItem[] members) 
+            where StoreType : AttributeStore
+            where CachingItem : MemberInfo
+            where Attr : Attribute
         {
-            T store = CreateInstance<T>();
-
-            store.name = typeof(T).Name + " Type Store";
+            StoreType store = CreateInstance<StoreType>();
+            store.name = typeof(StoreType).Name + "_" + typeof(Attr).Name;
+            store.cachedAttributeType = typeof(Attr);
             store.OnCreated(ref members);
-            AssetDatabase.CreateAsset(store, @"Assets\!Tests\" + store.name + ".asset");
-            AssetDatabase.SaveAssets();
-            AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(store));
+
+            var container = AttributeCacheRetainer.GetStoreContainer();
             
+            AssetDatabase.AddObjectToAsset(store, container);
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+
             return store;
         }
         

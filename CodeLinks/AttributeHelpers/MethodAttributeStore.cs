@@ -8,7 +8,15 @@ namespace BehaviourGraph
     {
         [OdinSerialize]
         private MethodInfo[] methods;
-        protected override void OnCreated(ref MemberInfo[] members)
+        
+        public static MethodAttributeStore CreateOrStore<CachingItem, Attr>(ref CachingItem[] members) 
+            where CachingItem : MemberInfo
+            where Attr : Attribute
+        {
+            return CreateOrStore<MethodAttributeStore, CachingItem, Attr>(ref members);
+        }
+        
+        protected override void OnCreated<CachingItem>(ref CachingItem[] members)
         {
             if (!(members.Length > 0))
             {

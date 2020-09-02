@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -23,13 +24,20 @@ namespace BehaviourGraph.Debugging
         [Button]
         public void MakeCache()
         {
-            MemberInfo[] k = TypeCache.GetFieldsWithAttribute<Condition>().ToArray();
-
-            fieldStore = AttributeStore.Create<FieldAttributeStore>(ref k);
+            AttributeCacheRetainer.SetupOrSaveCache();
             
-            MemberInfo[] x = TypeCache.GetMethodsWithAttribute<Condition>().ToArray();
+            FieldInfo[] k = TypeCache.GetFieldsWithAttribute<Condition>().ToArray();
+            MethodInfo[] x = TypeCache.GetMethodsWithAttribute<Condition>().ToArray();
+            Dictionary<(Type, Type), MethodInfo[]> conditionalMethods = new Dictionary<(Type, Type), MethodInfo[]>();
+            Dictionary<(Type, Type), FieldInfo[]> conditionalFields = new Dictionary<(Type, Type), FieldInfo[]>();
 
-            methodStore = AttributeStore.Create<MethodAttributeStore>(ref x);
+            Debug.Log("Field Len: " + k.Length);
+            Debug.Log("Method Len: " + x.Length);
+            AttributeCacheRetainer.EditorTimeCache<FieldInfo, Condition>(
+                ref conditionalFields, ref k, null);
+            
+            AttributeCacheRetainer.EditorTimeCache<MethodInfo, Condition>(
+                ref conditionalMethods, ref x, null);
         }
 
         [Button]
@@ -56,7 +64,29 @@ namespace BehaviourGraph.Debugging
                 Debug.Log(l.Invoke());
             }
         }
-        
+
+        private class A
+        {
+        }
+
+        private class B : A
+        {
+        }
+
+        [Button]
+        public void TestK()
+        {
+            var tA = typeof(A);
+            var tB = typeof(B);
+            bool aAssignB = tA.IsAssignableFrom(tB); // (A) = b
+            bool aAssignA = tA.IsAssignableFrom(tA);
+            bool bAssignA = tB.IsAssignableFrom(tA); // (B) = a
+
+            Debug.Log(aAssignB);
+            Debug.Log(aAssignA);
+            Debug.Log(bAssignA);
+        }
+
         private Func<bool> CreateConditionFunction(MethodInfo methodInfo, object target) {
             Func<Type[], Type> getType = Expression.GetFuncType;
             var types = new[] {methodInfo.ReturnType};
