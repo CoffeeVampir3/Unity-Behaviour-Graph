@@ -45,11 +45,13 @@ namespace BehaviourGraph
             
             if (typeof(FieldInfo).IsAssignableFrom(cachingType))
             {
-                FieldAttributeStore.CreateOrStore<CachingItem, Attr>(ref attributeData);
+                fieldStores.Add(
+                    FieldAttributeStore.CreateOrStore<CachingItem, Attr>(ref attributeData));
             }
             else if(typeof(MethodInfo).IsAssignableFrom(cachingType))
             {
-                MethodAttributeStore.CreateOrStore<CachingItem, Attr>(ref attributeData);
+                methodStores.Add(
+                    MethodAttributeStore.CreateOrStore<CachingItem, Attr>(ref attributeData));
             }
 
             return attributeData;

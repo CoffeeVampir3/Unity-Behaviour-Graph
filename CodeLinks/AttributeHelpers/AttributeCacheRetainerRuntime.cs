@@ -1,4 +1,4 @@
-﻿#if !UNITY_EDITOR
+﻿#if UNITY_EDITOR
 using System;
 using UnityEngine;
 
@@ -6,23 +6,22 @@ namespace BehaviourGraph
 {
     public static partial class AttributeCacheRetainer
     {
-        private static DataStoreContainer storeContainer;
-        private static string cachedDirectory = "";
+        private static DataStoreContainer rtStoreContainer;
         private static bool initialized = false;
 
         private static DataStoreContainer GetRuntimeStoreContainer()
         {
             if (initialized)
             {
-                return storeContainer;
+                return rtStoreContainer;
             }
             
-            storeContainer = GameObject.FindObjectOfType<DataStoreContainer>();
-            if(storeContainer == null)
+            rtStoreContainer = GameObject.FindObjectOfType<DataStoreContainer>();
+            if(rtStoreContainer == null)
                 throw new Exception("Unity Behaviour Graph failed to find an attribute cache directory to build runtime values.");
 
             initialized = true;
-            return storeContainer;
+            return rtStoreContainer;
         }
     }
 }

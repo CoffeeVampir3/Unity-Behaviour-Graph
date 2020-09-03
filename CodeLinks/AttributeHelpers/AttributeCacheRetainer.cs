@@ -6,8 +6,8 @@ namespace BehaviourGraph
 {
     public static partial class AttributeCacheRetainer
     {
-        private static List<FieldAttributeStore> fieldStores;
-        private static List<MethodAttributeStore> methodStores;
+        public static List<FieldAttributeStore> fieldStores = new List<FieldAttributeStore>();
+        public static List<MethodAttributeStore> methodStores = new List<MethodAttributeStore>();
 
         public static DataStoreContainer GetStoreContainer()
         {

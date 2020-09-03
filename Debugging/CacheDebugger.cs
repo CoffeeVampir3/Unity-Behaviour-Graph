@@ -78,6 +78,34 @@ namespace BehaviourGraph.Debugging
             }
         }
 
+        [Button]
+        public void LoadCachedAttributeData()
+        {
+            if (AttributeCacheRetainer.fieldStores != null)
+            {
+                foreach (var m in AttributeCacheRetainer.fieldStores)
+                {
+                    var k = m.RetreiveAsField();
+                    foreach (var w in k)
+                    {
+                        Debug.Log(w.Name);
+                    }
+                }
+            }
+            
+            if (AttributeCacheRetainer.methodStores != null)
+            {
+                foreach (var m in AttributeCacheRetainer.methodStores)
+                {
+                    var k = m.RetreiveAsMethod();
+                    foreach (var w in k)
+                    {
+                        Debug.Log(w.Name);
+                    }
+                }
+            }
+        }
+
         private class A
         {
         }
