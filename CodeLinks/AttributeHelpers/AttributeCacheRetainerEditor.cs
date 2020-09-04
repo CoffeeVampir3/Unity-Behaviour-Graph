@@ -9,27 +9,31 @@ namespace BehaviourGraph
 {
     public static partial class AttributeCacheRetainer
     {
-        private static DataStoreContainer storeContainer;
+        private static DataStoreContainer storeContainer = null;
         private static DataStoreContainer GetEditorTimeStorageContainer()
         {
             if (storeContainer != null)
                 return storeContainer;
-                    
-            storeContainer = GameObject.FindObjectOfType<DataStoreContainer>();
-            if (storeContainer == null)
+
+            var dscs = Resources.FindObjectsOfTypeAll<DataStoreContainer>();
+            if (dscs.Length > 0)
             {
-                storeContainer = ScriptableObject.CreateInstance<DataStoreContainer>();
-                storeContainer.name = "UBG Directory Locator";
-                AssetDatabase.CreateAsset(storeContainer, @"Assets\!Tests\" + storeContainer.name + ".asset");
-                AssetDatabase.SaveAssets();
-                AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(storeContainer));
-                AssetDatabase.Refresh();
+                storeContainer = dscs[0];
+                return storeContainer;
             }
+                
+            
+            storeContainer = ScriptableObject.CreateInstance<DataStoreContainer>();
+            storeContainer.name = "UBG Directory Locator";
+            AssetDatabase.CreateAsset(storeContainer, @"Assets\!Tests\" + storeContainer.name + ".asset");
+            AssetDatabase.SaveAssets();
+            AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(storeContainer));
+            AssetDatabase.Refresh();
 
             return storeContainer;
         }
-        
-        public static CachingItem[] EditorTimeReflectAndCache<CachingItem, Attr>(
+
+        private static CachingItem[] EditorTimeReflectAndCache<CachingItem, Attr>(
             ref Dictionary<(Type, Type), CachingItem[]> cacheDictionary,
             ref List<Type> declaredTypes,
             ref CachingItem[] itemSelection) 
@@ -45,12 +49,14 @@ namespace BehaviourGraph
             
             if (typeof(FieldInfo).IsAssignableFrom(cachingType))
             {
-                fieldStores.Add(
+                var sc = GetEditorTimeStorageContainer();
+                sc.StoreItem(
                     FieldAttributeStore.CreateOrStore<CachingItem, Attr>(ref attributeData));
             }
             else if(typeof(MethodInfo).IsAssignableFrom(cachingType))
             {
-                methodStores.Add(
+                var sc = GetEditorTimeStorageContainer();
+                sc.StoreItem(
                     MethodAttributeStore.CreateOrStore<CachingItem, Attr>(ref attributeData));
             }
 

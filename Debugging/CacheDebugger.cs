@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
 using BehaviourGraph.Conditionals;
 using BehaviourGraph.Services;
 using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
+using Expression = System.Linq.Expressions.Expression;
 
 namespace BehaviourGraph.Debugging
 {
     public class CacheDebugger : MonoBehaviour
     {
         [SerializeField] 
-        private GameObject u;
+        private GameObject u = null;
         
         [SerializeField]
         public FieldAttributeStore fieldStore;
@@ -31,10 +31,6 @@ namespace BehaviourGraph.Debugging
             var conditionalMethodsDict = new Dictionary<(Type, Type), MethodInfo[]>();
             var conditionalFieldsDict = new Dictionary<(Type, Type), FieldInfo[]>();
             var serviceMethodsDict = new Dictionary<(Type, Type), MethodInfo[]>();
-            
-            Debug.Log("Field Len: " + conditionFields.Length);
-            Debug.Log("Method Len: " + conditionMethods.Length);
-            Debug.Log("service method Len: " + serviceMethods.Length);
 
             List<Type> types = null;
             AttributeCacheRetainer.CacheOrGetCachedAttributeData<FieldInfo, Condition>(
@@ -54,10 +50,36 @@ namespace BehaviourGraph.Debugging
         }
 
         [Button]
+        public void DebugDirectory()
+        {
+            var uPha = AttributeCacheRetainer.GetStoreContainer();
+
+            var l = uPha.GetFields();
+            var k = uPha.GetMethods();
+
+            foreach (var x in l)
+            {
+                var xF = x.RetrieveAsField();
+                foreach (var z in xF)
+                {
+                    Debug.Log(z.Name);
+                }
+            }
+            
+            foreach (var x in k)
+            {
+                var xF = x.RetrieveAsMethod();
+                foreach (var z in xF)
+                {
+                    Debug.Log(z.Name);
+                }
+            }
+        }
+        
         public void DebugFieldCereal()
         {
             var elk = u.GetComponent<ConditionalTester>();
-            var q = fieldStore.RetreiveAsField();
+            var q = fieldStore.RetrieveAsField();
             foreach (var f in q)
             {
                 if(f.DeclaringType == elk.GetType())
@@ -65,11 +87,10 @@ namespace BehaviourGraph.Debugging
             }
         }
         
-        [Button]
         public void DebugMethodCereal()
         {
             var elk = u.GetComponent<ConditionalTester>();
-            var q = methodStore.RetreiveAsMethod();
+            var q = methodStore.RetrieveAsMethod();
             Debug.Log(q.Length);
             foreach (var f in q)
             {
@@ -85,10 +106,13 @@ namespace BehaviourGraph.Debugging
             {
                 foreach (var m in AttributeCacheRetainer.fieldStores)
                 {
-                    var k = m.RetreiveAsField();
-                    foreach (var w in k)
+                    if (m.cachedAttributeType == typeof(Condition))
                     {
-                        Debug.Log(w.Name);
+                        var k = m.RetrieveAsField();
+                        foreach (var w in k)
+                        {
+                            Debug.Log(w.Name);
+                        }
                     }
                 }
             }
@@ -97,10 +121,13 @@ namespace BehaviourGraph.Debugging
             {
                 foreach (var m in AttributeCacheRetainer.methodStores)
                 {
-                    var k = m.RetreiveAsMethod();
-                    foreach (var w in k)
+                    if (m.cachedAttributeType == typeof(Condition))
                     {
-                        Debug.Log(w.Name);
+                        var k = m.RetrieveAsMethod();
+                        foreach (var w in k)
+                        {
+                            Debug.Log(w.Name);
+                        }
                     }
                 }
             }

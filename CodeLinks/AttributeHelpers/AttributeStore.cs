@@ -19,10 +19,10 @@ namespace BehaviourGraph
             where CachingItem : MemberInfo;
 
         [NonSerialized, OdinSerialize, HideInInspector]
-        private Type cachedAttributeType;
+        public Type cachedAttributeType;
         public abstract MemberInfo[] Retrieve();
 
-        public static StoreType CreateOrStore<StoreType, CachingItem, Attr>(ref CachingItem[] members) 
+        protected static StoreType CreateOrStore<StoreType, CachingItem, Attr>(ref CachingItem[] members) 
             where StoreType : AttributeStore
             where CachingItem : MemberInfo
             where Attr : Attribute

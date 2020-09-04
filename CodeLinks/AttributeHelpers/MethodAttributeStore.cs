@@ -37,7 +37,7 @@ namespace BehaviourGraph
             return methods;
         }
         
-        public MethodInfo[] RetreiveAsMethod()
+        public MethodInfo[] RetrieveAsMethod()
         {
             return methods;
         }

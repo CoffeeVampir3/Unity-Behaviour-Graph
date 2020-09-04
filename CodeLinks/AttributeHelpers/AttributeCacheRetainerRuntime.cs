@@ -1,5 +1,6 @@
-﻿#if UNITY_EDITOR
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 namespace BehaviourGraph
@@ -23,6 +24,28 @@ namespace BehaviourGraph
             initialized = true;
             return rtStoreContainer;
         }
+        
+        public static CachingItem[] RuntimetimeGetFromCache<CachingItem, Attr>(
+            ref Dictionary<(Type, Type), CachingItem[]> cacheDictionary,
+            ref List<Type> declaredTypes,
+            ref CachingItem[] itemSelection) 
+            where CachingItem : MemberInfo 
+            where Attr : Attribute
+        {
+            Type cachingType = typeof(CachingItem);
+            
+            CachingItem[] attributeData = AttributeCacheFactory.CacheMemberInfo<CachingItem, Attr>(
+                ref cacheDictionary,
+                ref declaredTypes,
+                ref itemSelection);
+            
+            if (typeof(FieldInfo).IsAssignableFrom(cachingType))
+            {
+            }
+            else if(typeof(MethodInfo).IsAssignableFrom(cachingType))
+            {
+            }
+            return attributeData;
+        }
     }
 }
-#endif

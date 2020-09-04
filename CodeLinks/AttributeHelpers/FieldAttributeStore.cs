@@ -62,7 +62,7 @@ namespace BehaviourGraph
             return GetRuntimeFieldData();
         }
 
-        public FieldInfo[] RetreiveAsField()
+        public FieldInfo[] RetrieveAsField()
         {
             return GetRuntimeFieldData();
         }
