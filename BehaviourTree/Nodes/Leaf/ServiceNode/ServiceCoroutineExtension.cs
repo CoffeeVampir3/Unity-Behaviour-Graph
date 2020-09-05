@@ -40,10 +40,6 @@ namespace Coffee.BehaviourTree.Leaf
  
             public void Stop()
             {
-                if (state != CoroutineState.Running)
-                {
-                    throw new System.InvalidOperationException("Unable to Stop coroutine in state: " + state);
-                }
                 CoroutineHelper.Instance.StopCoroutine(coroutine);
                 state = CoroutineState.Finished;
             }

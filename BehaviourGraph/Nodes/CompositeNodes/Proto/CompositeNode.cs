@@ -60,7 +60,6 @@ namespace Coffee.Behaviour.Nodes.CompositeNodes
                 if (bn == null)
                 {
                     Debug.LogError("Behaviour graph node: " + this.name + " was not connected to a child.", this);
-                    throw new NullReferenceException("Behaviour graph could not build into a valid tree due to null children.");
                 }
                 
                 treeNodes.Add(bn.WalkGraphToCreateTree(tree));

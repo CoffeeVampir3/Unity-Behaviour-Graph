@@ -21,7 +21,6 @@ namespace Coffee.Behaviour.Nodes.Private
             if (b == null)
             {
                 Debug.LogError("Behaviour graph node: " + this.name + " was not connected to a child.", this);
-                throw new NullReferenceException("Behaviour graph could not build into a valid tree due to null children.");
             }
 
             node.child = b.WalkGraphToCreateTree(tree);
@@ -33,11 +32,7 @@ namespace Coffee.Behaviour.Nodes.Private
             TreeDecoratorNode decNode = thisTreeNode as TreeDecoratorNode;
             Debug.Assert(
                 decNode != null, nameof(decNode) + " != null");
-            
-            Debug.Log("Set");
-            if(incomingNode.thisTreeNode == null)
-                Debug.Log("null");
-            
+
             decNode.child = incomingNode.thisTreeNode;
         }
 

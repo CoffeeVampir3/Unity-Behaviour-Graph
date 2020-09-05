@@ -3,7 +3,6 @@ using BehaviourGraph.Blackboard;
 using Coffee.Behaviour.Nodes;
 using Coffee.Behaviour.Nodes.Private;
 using Coffee.BehaviourTree;
-using Coffee.BehaviourTree.Decorator;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEditor;

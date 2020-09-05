@@ -30,14 +30,14 @@ namespace Coffee.BehaviourTree
 
         private void ExecuteTree()
         {
-            while (context?.node != null)
+            while (context.node != null)
             {
                 context.node.Execute(ref context);
                 if (context == null || context.result == TreeBaseNode.Result.Waiting)
                     break;
             }
             
-            if (context?.node == null)
+            if (context.node == null)
             {
                 root.Execute(ref context);
             }
