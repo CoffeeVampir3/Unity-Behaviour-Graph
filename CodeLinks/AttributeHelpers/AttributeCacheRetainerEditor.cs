@@ -34,18 +34,16 @@ namespace BehaviourGraph
         }
 
         private static CachingItem[] EditorTimeReflectAndCache<CachingItem, Attr>(
-            ref Dictionary<(Type, Type), CachingItem[]> cacheDictionary,
-            ref List<Type> declaredTypes,
-            ref CachingItem[] itemSelection) 
+            CachingItem[] itemSelection,
+            out Dictionary<(Type, Type), CachingItem[]> cacheDictionary) 
             where CachingItem : MemberInfo 
             where Attr : Attribute
         {
             Type cachingType = typeof(CachingItem);
             
             CachingItem[] attributeData = AttributeCacheFactory.CacheMemberInfo<CachingItem, Attr>(
-                ref cacheDictionary,
-                ref declaredTypes,
-                ref itemSelection);
+                itemSelection,
+                out cacheDictionary);
             
             if (typeof(FieldInfo).IsAssignableFrom(cachingType))
             {

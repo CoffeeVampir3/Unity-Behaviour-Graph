@@ -28,25 +28,18 @@ namespace BehaviourGraph.Debugging
             var conditionFields = TypeCache.GetFieldsWithAttribute<Condition>().ToArray();
             var conditionMethods = TypeCache.GetMethodsWithAttribute<Condition>().ToArray();
             var serviceMethods = TypeCache.GetMethodsWithAttribute<Service>().ToArray();
-            var conditionalMethodsDict = new Dictionary<(Type, Type), MethodInfo[]>();
-            var conditionalFieldsDict = new Dictionary<(Type, Type), FieldInfo[]>();
-            var serviceMethodsDict = new Dictionary<(Type, Type), MethodInfo[]>();
 
-            List<Type> types = null;
             AttributeCacheRetainer.CacheOrGetCachedAttributeData<FieldInfo, Condition>(
-                ref conditionalFieldsDict, 
-                ref types,
-                ref conditionFields);
-            
+                conditionFields,
+                out var conditionalFieldsDict);
+
             AttributeCacheRetainer.CacheOrGetCachedAttributeData<MethodInfo, Condition>(
-                ref conditionalMethodsDict, 
-                ref types,
-                ref conditionMethods);
-            
+                conditionMethods,
+                out var conditionalMethodsDict);
+
             AttributeCacheRetainer.CacheOrGetCachedAttributeData<MethodInfo, Service>(
-                ref serviceMethodsDict, 
-                ref types,
-                ref serviceMethods);
+                serviceMethods,
+                out var serviceMethodsDict);
         }
 
         [Button]
@@ -75,27 +68,37 @@ namespace BehaviourGraph.Debugging
                 }
             }
         }
-        
-        public void DebugFieldCereal()
+
+        [Button]
+        public void DebugRuntime()
         {
-            var elk = u.GetComponent<ConditionalTester>();
-            var q = fieldStore.RetrieveAsField();
-            foreach (var f in q)
+            var conditionFields = TypeCache.GetFieldsWithAttribute<Condition>().ToArray();
+            var conditionMethods = TypeCache.GetMethodsWithAttribute<Condition>().ToArray();
+            var serviceMethods = TypeCache.GetMethodsWithAttribute<Service>().ToArray();
+
+            var a = AttributeCacheRetainer.RuntimeGetFromCache<FieldInfo, Condition>(
+                conditionFields,
+                out var conditionalFieldsDict);
+
+            var b = AttributeCacheRetainer.RuntimeGetFromCache<MethodInfo, Condition>(
+                conditionMethods,
+                out var conditionalMethodsDict);
+
+            var c = AttributeCacheRetainer.RuntimeGetFromCache<MethodInfo, Service>(
+                serviceMethods,
+                out var serviceMethodsDict);
+
+            foreach (var l in a)
             {
-                if(f.DeclaringType == elk.GetType())
-                    Debug.Log(f.GetValue(elk));
+                Debug.Log(l.Name);
             }
-        }
-        
-        public void DebugMethodCereal()
-        {
-            var elk = u.GetComponent<ConditionalTester>();
-            var q = methodStore.RetrieveAsMethod();
-            Debug.Log(q.Length);
-            foreach (var f in q)
+            foreach (var l in b)
             {
-                var l = CreateConditionFunction(f, elk);
-                Debug.Log(l.Invoke());
+                Debug.Log(l.Name);
+            }
+            foreach (var l in c)
+            {
+                Debug.Log(l.Name);
             }
         }
 

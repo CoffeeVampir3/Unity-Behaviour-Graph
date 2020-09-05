@@ -21,20 +21,14 @@ namespace BehaviourGraph.Conditionals
                 return;
             
             initialized = true;
-            classesWithConditions = new List<Type>();
-            
-            var fieldsList = TypeCache.GetFieldsWithAttribute<Condition>().ToArray();
-            var methodsList = TypeCache.GetMethodsWithAttribute<Condition>().ToArray();
             
             var allFields = AttributeCacheFactory.CacheMemberInfo<FieldInfo, Condition>(
-                ref conditionalFields, 
-                ref classesWithConditions,
-                ref fieldsList);
+                TypeCache.GetFieldsWithAttribute<Condition>().ToArray(),
+                out conditionalFields);
             
             var allMethods = AttributeCacheFactory.CacheMemberInfo<MethodInfo, Condition>(
-                ref conditionalMethods, 
-                ref classesWithConditions,
-                ref methodsList);
+                TypeCache.GetMethodsWithAttribute<Condition>().ToArray(),
+                out conditionalMethods);
 
             conditionalMembers = new List<MemberInfo[]>();
             conditionalMembers.Add(allFields);

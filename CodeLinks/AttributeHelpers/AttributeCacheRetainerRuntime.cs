@@ -10,14 +10,20 @@ namespace BehaviourGraph
         private static DataStoreContainer rtStoreContainer;
         private static bool initialized = false;
 
-        private static DataStoreContainer GetRuntimeStoreContainer()
+        public static DataStoreContainer GetRuntimeStoreContainer()
         {
             if (initialized)
             {
                 return rtStoreContainer;
             }
             
-            rtStoreContainer = GameObject.FindObjectOfType<DataStoreContainer>();
+            var dscs = Resources.FindObjectsOfTypeAll<DataStoreContainer>();
+            if (dscs.Length > 0)
+            {
+                storeContainer = dscs[0];
+                return storeContainer;
+            }
+            
             if(rtStoreContainer == null)
                 throw new Exception("Unity Behaviour Graph failed to find an attribute cache directory to build runtime values.");
 
@@ -25,27 +31,48 @@ namespace BehaviourGraph
             return rtStoreContainer;
         }
         
-        public static CachingItem[] RuntimetimeGetFromCache<CachingItem, Attr>(
-            ref Dictionary<(Type, Type), CachingItem[]> cacheDictionary,
-            ref List<Type> declaredTypes,
-            ref CachingItem[] itemSelection) 
+        public static CachingItem[] RuntimeGetFromCache<CachingItem, Attr>(
+            CachingItem[] itemSelection,
+            out Dictionary<(Type, Type), CachingItem[]> cacheDictionary) 
             where CachingItem : MemberInfo 
             where Attr : Attribute
         {
             Type cachingType = typeof(CachingItem);
+
+            List<CachingItem> attributeData = new List<CachingItem>();
+            cacheDictionary = new Dictionary<(Type, Type), CachingItem[]>();
             
-            CachingItem[] attributeData = AttributeCacheFactory.CacheMemberInfo<CachingItem, Attr>(
-                ref cacheDictionary,
-                ref declaredTypes,
-                ref itemSelection);
-            
+            var rtStorage = GetRuntimeStoreContainer();
             if (typeof(FieldInfo).IsAssignableFrom(cachingType))
             {
+                var stores = rtStorage.GetFieldAttributeStoresOfType<Attr>();
+
+                for (int i = 0; i < stores.Count; i++)
+                {
+                    if (!(stores[i].Retrieve() is CachingItem[] items)) 
+                        continue;
+                    
+                    attributeData.AddRange(items);
+                    var dictionaryIndex = (stores[i].cachedAttributeType, typeof(Attr));
+                    cacheDictionary.Add(dictionaryIndex, items);
+                }
             }
             else if(typeof(MethodInfo).IsAssignableFrom(cachingType))
             {
+                var stores = rtStorage.GetMethodAttributeStoresOfType<Attr>();
+
+                for (int i = 0; i < stores.Count; i++)
+                {
+                    if (!(stores[i].Retrieve() is CachingItem[] items)) 
+                        continue;
+                    
+                    attributeData.AddRange(items);
+                    var dictionaryIndex = (stores[i].cachedAttributeType, typeof(Attr));
+                    cacheDictionary.Add(dictionaryIndex, items);
+                }
             }
-            return attributeData;
+            
+            return attributeData.ToArray();
         }
     }
 }

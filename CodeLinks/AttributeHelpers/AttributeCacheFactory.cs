@@ -1,27 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using UnityEngine;
 
 namespace BehaviourGraph
 {
     internal static class AttributeCacheFactory
     {
         internal static CachingItem[] CacheMemberInfo<CachingItem, Attr>(
-            ref Dictionary<(Type, Type), CachingItem[]> cacheDictionary,
-            ref List<Type> declaredTypes,
-            ref CachingItem[] itemSelection) 
-            where CachingItem : MemberInfo 
+            CachingItem[] itemSelection,
+            out Dictionary<(Type, Type), CachingItem[]> cacheDictionary)
+            where CachingItem : MemberInfo
             where Attr : Attribute
         {
-            if(cacheDictionary == null)
-                cacheDictionary = new Dictionary<(Type, Type), CachingItem[]>();
-            
-            if(declaredTypes == null)
-                declaredTypes = new List<Type>();
+            cacheDictionary = new Dictionary<(Type, Type), CachingItem[]>();
             
             var tempCache = new Dictionary<(Type, Type), List<CachingItem>>();
-            List<CachingItem> allItems = new List<CachingItem>();
+            var allItems = new List<CachingItem>();
+            var declaredTypes = new List<Type>();
             
             foreach (CachingItem item in itemSelection)
             {

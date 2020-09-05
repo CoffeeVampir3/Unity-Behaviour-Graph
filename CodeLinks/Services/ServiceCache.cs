@@ -12,21 +12,19 @@ namespace BehaviourGraph.Services
         private static bool initialized = false;
         
         private static Dictionary<(Type, Type), MethodInfo[]> serviceMethods;
-        private static List<Type> classesWithServices;
-        
+        private static MethodInfo[] serviceMethodInfo;
+
         private static void InitializeCache()
         {
             if (initialized)
                 return;
             
             initialized = true;
-            classesWithServices = new List<Type>();
 
             var methodInfo = TypeCache.GetMethodsWithAttribute<Service>().ToArray();
-            var b = AttributeCacheFactory.CacheMemberInfo<MethodInfo, Service>(
-                ref serviceMethods, 
-                ref classesWithServices,
-                ref methodInfo);
+            serviceMethodInfo = AttributeCacheFactory.CacheMemberInfo<MethodInfo, Service>(
+                methodInfo,
+                out serviceMethods);
         }
 
         private static ValueDropdownList<MethodInfo> cachedServiceList;
@@ -37,16 +35,9 @@ namespace BehaviourGraph.Services
 
             InitializeCache();
             cachedServiceList = new ValueDropdownList<MethodInfo>();
-            MethodInfo[] methods;
-            foreach (Type t in classesWithServices)
+            foreach (var method in serviceMethodInfo)
             {
-                if (TryGetServicesFor(t, out methods))
-                {
-                    foreach (var m in methods)
-                    {
-                        cachedServiceList.Add(m.DeclaringType.Name + "/" + m.Name, m);
-                    }
-                }
+                cachedServiceList.Add(method.DeclaringType.Name + "/" + method.Name, method);
             }
             return cachedServiceList;
         }
