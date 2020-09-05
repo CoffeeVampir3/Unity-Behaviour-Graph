@@ -30,7 +30,7 @@ namespace Coffee.Behaviour.Nodes.Private
         protected void SetDecoratorNodeChild(BaseNode incomingNode)
         {
             TreeDecoratorNode decNode = thisTreeNode as TreeDecoratorNode;
-            Debug.Assert(
+            UnityEngine.Debug.Assert(
                 decNode != null, nameof(decNode) + " != null");
 
             decNode.child = incomingNode.thisTreeNode;
@@ -41,7 +41,7 @@ namespace Coffee.Behaviour.Nodes.Private
             childNode = null;
             
             TreeDecoratorNode decNode = thisTreeNode as TreeDecoratorNode;
-            Debug.Assert(
+            UnityEngine.Debug.Assert(
                 decNode != null, nameof(decNode) + " != null");
             
             decNode.child = null;

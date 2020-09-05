@@ -64,7 +64,7 @@ namespace Coffee.Behaviour
             
             foreach (var bb in blackboards)
             {
-                refs.AddRange(bb?.GetBlackboardReferences());
+                refs.AddRange(bb.GetBlackboardReferences());
             }
 
             return refs;

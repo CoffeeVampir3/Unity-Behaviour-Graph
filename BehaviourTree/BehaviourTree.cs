@@ -2,6 +2,7 @@
 using BehaviourGraph.Blackboard;
 using Coffee.BehaviourTree.Context;
 using UnityEngine;
+using Debug = System.Diagnostics.Debug;
 
 namespace Coffee.BehaviourTree
 {
@@ -18,13 +19,13 @@ namespace Coffee.BehaviourTree
             blackboards = sharedBb;
         }
 
-        internal void RuntimeSetup(GameObject owner)
+        internal void RuntimeSetup(GameObject owningObject)
         {
-            this.owner = owner;
+            owner = owningObject;
             context = new BehaviourContext();
             for (int i = 0; i < blackboards.Count; i++)
             {
-                blackboards[i].RuntimeInitialize(owner);
+                blackboards[i].RuntimeInitialize(owningObject);
             }
         }
 
@@ -36,7 +37,8 @@ namespace Coffee.BehaviourTree
                 if (context == null || context.result == TreeBaseNode.Result.Waiting)
                     break;
             }
-            
+
+            UnityEngine.Debug.Assert(context != null, nameof(context) + " != null");
             if (context.node == null)
             {
                 root.Execute(ref context);

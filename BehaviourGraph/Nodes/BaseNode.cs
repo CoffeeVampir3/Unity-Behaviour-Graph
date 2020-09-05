@@ -27,7 +27,7 @@ namespace Coffee.Behaviour.Nodes
             
             base.Init();
             parentGraph = graph as BehaviourGraph;
-            Debug.Assert(parentGraph != null, nameof(parentGraph) + " != null");
+            UnityEngine.Debug.Assert(parentGraph != null, nameof(parentGraph) + " != null");
             
             initialized = true;
 
