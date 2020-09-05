@@ -7,10 +7,10 @@ namespace BehaviourGraph
 {
     public static partial class AttributeCacheRetainer
     {
-        private static DataStoreContainer rtStoreContainer;
+        private static DataStoreContainer rtStoreContainer = null;
         private static bool initialized = false;
 
-        public static DataStoreContainer GetRuntimeStoreContainer()
+        private static DataStoreContainer GetRuntimeStoreContainer()
         {
             if (initialized)
             {
@@ -20,8 +20,8 @@ namespace BehaviourGraph
             var dscs = Resources.FindObjectsOfTypeAll<DataStoreContainer>();
             if (dscs.Length > 0)
             {
-                storeContainer = dscs[0];
-                return storeContainer;
+                rtStoreContainer = dscs[0];
+                return rtStoreContainer;
             }
             
             if(rtStoreContainer == null)

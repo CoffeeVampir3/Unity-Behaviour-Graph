@@ -13,9 +13,6 @@ namespace BehaviourGraph.Debugging
 {
     public class CacheDebugger : MonoBehaviour
     {
-        [SerializeField] 
-        private GameObject u = null;
-        
         [SerializeField]
         public FieldAttributeStore fieldStore;
 
