@@ -12,12 +12,14 @@ namespace BehaviourGraph
         [NonSerialized, OdinSerialize] 
         private Type[] fieldDeclTypes;
 
+        #if UNITY_EDITOR
         public static FieldAttributeStore CreateOrStore<CachingItem, Attr>(ref CachingItem[] members) 
             where CachingItem : MemberInfo
             where Attr : Attribute
         {
             return CreateOrStore<FieldAttributeStore, CachingItem, Attr>(ref members);
         }
+        #endif
 
         protected override void OnCreated<CachingItem>(ref CachingItem[] members)
         {

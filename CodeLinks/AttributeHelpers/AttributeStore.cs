@@ -22,6 +22,7 @@ namespace BehaviourGraph
         public Type cachedAttributeType;
         public abstract MemberInfo[] Retrieve();
 
+        #if UNITY_EDITOR
         protected static StoreType CreateOrStore<StoreType, CachingItem, Attr>(ref CachingItem[] members) 
             where StoreType : AttributeStore
             where CachingItem : MemberInfo
@@ -40,6 +41,7 @@ namespace BehaviourGraph
 
             return store;
         }
+        #endif
         
     }
 }

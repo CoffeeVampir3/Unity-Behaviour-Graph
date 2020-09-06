@@ -9,12 +9,14 @@ namespace BehaviourGraph
         [OdinSerialize]
         private MethodInfo[] methods;
         
+        #if UNITY_EDITOR
         public static MethodAttributeStore CreateOrStore<CachingItem, Attr>(ref CachingItem[] members) 
             where CachingItem : MemberInfo
             where Attr : Attribute
         {
             return CreateOrStore<MethodAttributeStore, CachingItem, Attr>(ref members);
         }
+        #endif
         
         protected override void OnCreated<CachingItem>(ref CachingItem[] members)
         {
