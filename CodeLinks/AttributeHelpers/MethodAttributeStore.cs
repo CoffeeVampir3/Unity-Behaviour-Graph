@@ -2,9 +2,9 @@
 using System.Reflection;
 using Sirenix.Serialization;
 
-namespace BehaviourGraph
+namespace BehaviourGraph.CodeLinks
 {
-    public class MethodAttributeStore : AttributeStore
+    internal class MethodAttributeStore : AttributeStore
     {
         [OdinSerialize]
         private MethodInfo[] methods;

@@ -11,15 +11,15 @@ using UnityEngine;
 //...
 //God is dead.
 
-namespace BehaviourGraph
+namespace BehaviourGraph.CodeLinks
 {
-    public abstract class AttributeStore : SerializedScriptableObject
+    internal abstract class AttributeStore : SerializedScriptableObject
     {
         protected abstract void OnCreated<CachingItem>(ref CachingItem[] members)
             where CachingItem : MemberInfo;
 
         [NonSerialized, OdinSerialize, HideInInspector]
-        public Type cachedAttributeType;
+        public Type cachedAttributeType = null;
         public abstract MemberInfo[] Retrieve();
 
         #if UNITY_EDITOR
@@ -28,13 +28,18 @@ namespace BehaviourGraph
             where CachingItem : MemberInfo
             where Attr : Attribute
         {
+            var container = AttributeCacheRetainer.GetStoreContainer();
+            var q = container.GetAttributeStoresOfType<StoreType, Attr>();
+            if (q != null && q.Count > 0)
+            {
+                return q[0];
+            }
+
             StoreType store = CreateInstance<StoreType>();
             store.name = typeof(StoreType).Name + "_" + typeof(Attr).Name;
             store.cachedAttributeType = typeof(Attr);
             store.OnCreated(ref members);
 
-            var container = AttributeCacheRetainer.GetStoreContainer();
-            
             AssetDatabase.AddObjectToAsset(store, container);
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();

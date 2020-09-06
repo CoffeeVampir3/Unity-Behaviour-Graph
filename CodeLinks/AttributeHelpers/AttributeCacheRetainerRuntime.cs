@@ -3,36 +3,43 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
-namespace BehaviourGraph
+namespace BehaviourGraph.CodeLinks
 {
     public static partial class AttributeCacheRetainer
     {
         private static DataStoreContainer rtStoreContainer = null;
         private static bool initialized = false;
-
-        private static DataStoreContainer GetRuntimeStoreContainer()
+        
+        private static bool CacheExists()
         {
             if (initialized)
             {
-                return rtStoreContainer;
+                return true;
             }
             
             var dscs = Resources.FindObjectsOfTypeAll<DataStoreContainer>();
             if (dscs.Length > 0)
             {
                 rtStoreContainer = dscs[0];
-                return rtStoreContainer;
+                initialized = true;
+                return true;
             }
+
+            return false;
+        }
+
+        private static DataStoreContainer GetRuntimeStoreContainer()
+        {
+            if (CacheExists())
+                return rtStoreContainer;
             
             if(rtStoreContainer == null)
                 throw new Exception("Unity Behaviour Graph failed to find an attribute cache directory to build runtime values.");
-
-            initialized = true;
-            return rtStoreContainer;
+            
+            return null;
         }
         
-        public static CachingItem[] RuntimeGetFromCache<CachingItem, Attr>(
-            CachingItem[] itemSelection,
+        internal static CachingItem[] RuntimeGetFromCache<CachingItem, Attr>(
             out Dictionary<(Type, Type), CachingItem[]> cacheDictionary) 
             where CachingItem : MemberInfo 
             where Attr : Attribute

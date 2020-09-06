@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace BehaviourGraph
+namespace BehaviourGraph.CodeLinks
 {
     internal static class AttributeCacheFactory
     {

@@ -1,9 +1,9 @@
 ﻿#if UNITY_EDITOR
 using UnityEditor;
 
-namespace BehaviourGraph
+namespace BehaviourGraph.CodeLinks
 {
-    public partial class DataStoreContainer
+    internal partial class DataStoreContainer
     {
                 
         private void StoreItem<T>(T item, ref T[] stores) where T : AttributeStore

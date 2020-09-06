@@ -1,11 +1,12 @@
 ﻿#if UNITY_EDITOR
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
-namespace BehaviourGraph
+namespace BehaviourGraph.CodeLinks
 {
     public static partial class AttributeCacheRetainer
     {
@@ -34,25 +35,32 @@ namespace BehaviourGraph
         }
 
         private static CachingItem[] EditorTimeReflectAndCache<CachingItem, Attr>(
-            CachingItem[] itemSelection,
             out Dictionary<(Type, Type), CachingItem[]> cacheDictionary) 
             where CachingItem : MemberInfo 
             where Attr : Attribute
         {
             Type cachingType = typeof(CachingItem);
-            
-            CachingItem[] attributeData = AttributeCacheFactory.CacheMemberInfo<CachingItem, Attr>(
-                itemSelection,
-                out cacheDictionary);
-            
+
+            cacheDictionary = null;
+            CachingItem[] attributeData = null;
             if (typeof(FieldInfo).IsAssignableFrom(cachingType))
             {
+                FieldInfo[] itemSelection = TypeCache.GetFieldsWithAttribute<Attr>().ToArray();
+                attributeData = AttributeCacheFactory.CacheMemberInfo<CachingItem, Attr>(
+                    itemSelection as CachingItem[],
+                    out cacheDictionary);
+                
                 var sc = GetEditorTimeStorageContainer();
                 sc.StoreItem(
                     FieldAttributeStore.CreateOrStore<CachingItem, Attr>(ref attributeData));
             }
             else if(typeof(MethodInfo).IsAssignableFrom(cachingType))
-            {
+            {   
+                MethodInfo[] itemSelection = TypeCache.GetMethodsWithAttribute<Attr>().ToArray();
+                attributeData = AttributeCacheFactory.CacheMemberInfo<CachingItem, Attr>(
+                    itemSelection as CachingItem[],
+                    out cacheDictionary);
+                
                 var sc = GetEditorTimeStorageContainer();
                 sc.StoreItem(
                     MethodAttributeStore.CreateOrStore<CachingItem, Attr>(ref attributeData));

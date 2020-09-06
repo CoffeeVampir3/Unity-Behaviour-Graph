@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using BehaviourGraph.CodeLinks;
 using Sirenix.OdinInspector;
 using UnityEditor;
 
@@ -20,11 +21,11 @@ namespace BehaviourGraph.Services
                 return;
             
             initialized = true;
-
-            var methodInfo = TypeCache.GetMethodsWithAttribute<Service>().ToArray();
-            serviceMethodInfo = AttributeCacheFactory.CacheMemberInfo<MethodInfo, Service>(
-                methodInfo,
-                out serviceMethods);
+            
+            serviceMethodInfo = AttributeCacheRetainer.
+                CacheOrGetCachedAttributeData<MethodInfo, Service>(
+                    out serviceMethods
+                );
         }
 
         private static ValueDropdownList<MethodInfo> cachedServiceList;

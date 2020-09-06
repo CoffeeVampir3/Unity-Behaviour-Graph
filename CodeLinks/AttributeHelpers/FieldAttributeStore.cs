@@ -3,9 +3,9 @@ using System.Reflection;
 using Sirenix.Serialization;
 using UnityEngine;
 
-namespace BehaviourGraph
+namespace BehaviourGraph.CodeLinks
 {
-    public class FieldAttributeStore : AttributeStore
+    internal class FieldAttributeStore : AttributeStore
     {
         [SerializeField]
         private string[] fieldNames;

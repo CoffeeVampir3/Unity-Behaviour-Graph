@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using BehaviourGraph.CodeLinks;
 using Sirenix.OdinInspector;
 using UnityEditor;
 
@@ -21,18 +22,18 @@ namespace BehaviourGraph.Conditionals
                 return;
             
             initialized = true;
-            
-            var allFields = AttributeCacheFactory.CacheMemberInfo<FieldInfo, Condition>(
-                TypeCache.GetFieldsWithAttribute<Condition>().ToArray(),
-                out conditionalFields);
-            
-            var allMethods = AttributeCacheFactory.CacheMemberInfo<MethodInfo, Condition>(
-                TypeCache.GetMethodsWithAttribute<Condition>().ToArray(),
-                out conditionalMethods);
 
-            conditionalMembers = new List<MemberInfo[]>();
-            conditionalMembers.Add(allFields);
-            conditionalMembers.Add(allMethods);
+            var allFields = AttributeCacheRetainer.
+                CacheOrGetCachedAttributeData<FieldInfo, Condition>(
+                    out conditionalFields
+            );
+
+            var allMethods = AttributeCacheRetainer.
+                CacheOrGetCachedAttributeData<MethodInfo, Condition>(
+                    out conditionalMethods
+                );
+
+            conditionalMembers = new List<MemberInfo[]> {allFields, allMethods};
 
             GetCachedMemberDropdown();
         }
