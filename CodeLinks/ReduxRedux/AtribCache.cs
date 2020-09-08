@@ -13,12 +13,11 @@ namespace BehaviourGraph.CodeLinks.AttributeCache
                 return cachedValueDropdown;
             
             cachedValueDropdown = new ValueDropdownList<string>();
-            
-            if (SerializedMemberStore.TryGetMembersByAttribute<Attr>(out var members))
+            if (BehaviourGraphSMS.TryGetMembersByAttribute<Attr>(out var members))
             {
                 foreach (var member in members)
                 {
-                    string memberReflectName = SerializedMemberStore.MemberToString(member);
+                    string memberReflectName = BehaviourGraphSMS.MemberToString(member);
                     cachedValueDropdown.Add(memberReflectName, memberReflectName);
                 }
             }

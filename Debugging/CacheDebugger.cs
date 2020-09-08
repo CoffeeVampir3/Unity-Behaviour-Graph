@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using BehaviourGraph.CodeLinks;
@@ -18,7 +17,7 @@ namespace BehaviourGraph.Debugging
     {
 
         [NonSerialized, OdinSerialize] 
-        private SerializedMemberStore store;
+        private BehaviourGraphSMS store;
 
         [Button]
         public void Path()
@@ -30,26 +29,17 @@ namespace BehaviourGraph.Debugging
         [Button]
         public void DebugFis()
         {
-            if (store == null)
-            {
-                store = ScriptableObject.CreateInstance<SerializedMemberStore>();
-                store.name = "CBG_Cache";
-                AssetDatabase.CreateAsset(store, @"Assets\!Tests\" + store.name + ".asset");
-                AssetDatabase.SaveAssets();
-                AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(store));
-                AssetDatabase.Refresh();
-            }
-            
-            store.Cache<MethodInfo, Condition>();
-            store.Cache<FieldInfo, Condition>();
-            store.Cache<MethodInfo, Service>();
-
-            EditorUtility.SetDirty(this);
         }
 
-        [SerializeField, ValueDropdown("GetMembers")] 
-        public string memberSelector;
-        public ValueDropdownList<string> GetMembers => AtribCache<Condition>.GetCachedMemberDropdown();
+        [SerializeField, ValueDropdown("GetConditionMembers")] 
+        public string conditionSelector;
+        public ValueDropdownList<string> GetConditionMembers => 
+            AtribCache<Condition>.GetCachedMemberDropdown();
+        
+        [SerializeField, ValueDropdown("GetServiceMembers")] 
+        public string serviceSelector;
+        public ValueDropdownList<string> GetServiceMembers => 
+            AtribCache<Service>.GetCachedMemberDropdown();
 
         [Button]
         public void Dosdoifh()

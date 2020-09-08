@@ -9,22 +9,22 @@ using UnityEngine;
 
 namespace BehaviourGraph.CodeLinks.AttributeCache
 {
-    public class SerializedMemberStore : SerializedScriptableObject
+    public abstract class SerializedMemberStore : SerializedScriptableObject
     {
         [NonSerialized, OdinSerialize]
-        private Dictionary<string, ISerializedMemberInfo> memberLookup = 
+        protected Dictionary<string, ISerializedMemberInfo> memberLookup = 
             new Dictionary<string, ISerializedMemberInfo>();
 
         [NonSerialized, OdinSerialize]
-        private Dictionary<Type, List<ISerializedMemberInfo>> fieldsByAttribute = 
+        protected Dictionary<Type, List<ISerializedMemberInfo>> fieldsByAttribute = 
             new Dictionary<Type, List<ISerializedMemberInfo>>();
         
         [NonSerialized, OdinSerialize]
-        private Dictionary<Type, List<ISerializedMemberInfo>> methodsByAttribute = 
+        protected Dictionary<Type, List<ISerializedMemberInfo>> methodsByAttribute = 
             new Dictionary<Type, List<ISerializedMemberInfo>>();
         
         [NonSerialized, OdinSerialize]
-        private Dictionary<Type, List<ISerializedMemberInfo>> membersByAttribute = 
+        protected Dictionary<Type, List<ISerializedMemberInfo>> membersByAttribute = 
             new Dictionary<Type, List<ISerializedMemberInfo>>();
         
         #region Accessors
@@ -64,18 +64,27 @@ namespace BehaviourGraph.CodeLinks.AttributeCache
             Debug.Assert(member.ReflectedType != null, "member.ReflectedType != null");
             return member.ReflectedType.Name + "/" + member.Name;
         }
+
+        protected void ClearCacheData()
+        {
+            memberLookup.Clear();
+            fieldsByAttribute.Clear();
+            methodsByAttribute.Clear();
+            membersByAttribute.Clear();
+        }
         
         #endregion
 
         #region Singleton GetInstance impl
         
-        private static SerializedMemberStore instance;
-        private void Reset()
+        protected static SerializedMemberStore instance;
+
+        protected virtual void Reset()
         {
             instance = this;
         }
-
-        private static SerializedMemberStore GetInstance()
+        
+        public static SerializedMemberStore GetInstance()
         {
             if (instance != null)
             {
@@ -89,17 +98,18 @@ namespace BehaviourGraph.CodeLinks.AttributeCache
             }
             else
             {
-                Debug.LogError("No serialized member store found.");
-                //Create instance here?
+                Debug.Log("Wasn't able to find a valid serialized member store.");
+                return null;
             }
+
             return instance;
         }
-        
+
         #endregion
 
         #region Cache Impl
 
-        public void Cache<ItemType, Attr>()
+        protected void Cache<ItemType, Attr>()
             where ItemType : MemberInfo
             where Attr : Attribute
         {
@@ -126,7 +136,7 @@ namespace BehaviourGraph.CodeLinks.AttributeCache
             }
         }
         
-        private void MergeMembersByAttribute<Attr>(List<ISerializedMemberInfo> info)
+        protected void MergeMembersByAttribute<Attr>(List<ISerializedMemberInfo> info)
             where Attr : Attribute
         {
             Type attribType = typeof(Attr);
@@ -140,7 +150,7 @@ namespace BehaviourGraph.CodeLinks.AttributeCache
             membersByAttribute.Add(attribType, info);
         }
         
-        private void Cache<Attr>(List<FieldInfo> fieldList)
+        protected void Cache<Attr>(List<FieldInfo> fieldList)
             where Attr : Attribute
         {
             var infoList = new List<ISerializedMemberInfo>();
@@ -161,7 +171,7 @@ namespace BehaviourGraph.CodeLinks.AttributeCache
             EditorUtility.SetDirty(this);
         }
         
-        private void Cache<Attr>(List<MethodInfo> methodList)
+        protected void Cache<Attr>(List<MethodInfo> methodList)
             where Attr : Attribute
         {
             var infoList = new List<ISerializedMemberInfo>();
@@ -170,6 +180,7 @@ namespace BehaviourGraph.CodeLinks.AttributeCache
             foreach (var method in methodList)
             {
                 var serializedItem = new SerializedMethodInfo(method);
+
                 infoList.Add(serializedItem);
                 
                 memberLookup.Add(MemberToString(method), serializedItem);
