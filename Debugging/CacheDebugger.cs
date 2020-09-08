@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using BehaviourGraph.CodeLinks;
@@ -15,27 +16,54 @@ namespace BehaviourGraph.Debugging
 {
     public class CacheDebugger : SerializedMonoBehaviour
     {
-        [NonSerialized, OdinSerialize] 
-        private AttributeCache cache;
 
+        [NonSerialized, OdinSerialize] 
+        private SerializedMemberStore store;
+
+        [Button]
+        public void Path()
+        {
+            MonoScript thisScript = MonoScript.FromMonoBehaviour(this);
+            Debug.Log(AssetDatabase.GetAssetPath(thisScript));
+        }
+        
         [Button]
         public void DebugFis()
         {
-            if (cache == null)
+            if (store == null)
             {
-                cache = ScriptableObject.CreateInstance<AttributeCache>();
-                cache.name = "CBG_Cache";
-                AssetDatabase.CreateAsset(cache, @"Assets\!Tests\" + cache.name + ".asset");
+                store = ScriptableObject.CreateInstance<SerializedMemberStore>();
+                store.name = "CBG_Cache";
+                AssetDatabase.CreateAsset(store, @"Assets\!Tests\" + store.name + ".asset");
                 AssetDatabase.SaveAssets();
-                AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(cache));
+                AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(store));
                 AssetDatabase.Refresh();
             }
-
-            var fCond = TypeCache.GetFieldsWithAttribute<Condition>();
-            cache.Cache<Condition>(fCond.ToList());
             
-            var mCond = TypeCache.GetMethodsWithAttribute<Condition>();
-            cache.Cache<Condition>(mCond.ToList());
+            store.Cache<MethodInfo, Condition>();
+            store.Cache<FieldInfo, Condition>();
+            store.Cache<MethodInfo, Service>();
+
+            EditorUtility.SetDirty(this);
+        }
+
+        [SerializeField, ValueDropdown("GetMembers")] 
+        public string memberSelector;
+        public ValueDropdownList<string> GetMembers => AtribCache<Condition>.GetCachedMemberDropdown();
+
+        [Button]
+        public void Dosdoifh()
+        {
+            var q = this.GetType();
+            var alp = q.GetMethods(
+                BindingFlags.NonPublic | BindingFlags.Public |
+                BindingFlags.Instance | BindingFlags.DeclaredOnly | BindingFlags.IgnoreCase |
+                BindingFlags.Static | BindingFlags.InvokeMethod);
+            
+            foreach (var x in alp)
+            {
+                Debug.Log(x.Name);
+            }
         }
 
         public void MakeCache()
