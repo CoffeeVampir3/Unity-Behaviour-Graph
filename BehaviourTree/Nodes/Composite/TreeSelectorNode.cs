@@ -18,7 +18,7 @@ namespace Coffee.BehaviourTree.Composite
                 switch (result)
                 {
                     case Result.Running:
-                        context = new BehaviourContext(this, Result.Running);
+                        context.SetContext(this, Result.Running);
                         return result;
                     case Result.Success:
                         currentNode = 0;
@@ -29,7 +29,7 @@ namespace Coffee.BehaviourTree.Composite
                 currentNode++;
                 if (currentNode < childNodes.Length)
                 {
-                    context = new BehaviourContext(this, Result.Running);
+                    context.SetContext(this, Result.Running);
                     return Result.Running;
                 }
             }

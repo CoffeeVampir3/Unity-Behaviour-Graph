@@ -16,33 +16,30 @@ namespace BehaviourGraph.Services
  
         public class CoroutineController
         {
-            private IEnumerator routine;
             private Coroutine coroutine;
-            private Coroutine helperRoutine;
             public CoroutineState state;
  
-            public CoroutineController(IEnumerator routine)
+            public CoroutineController()
             {
-                this.routine = routine;
                 state = CoroutineState.Ready;
             }
  
-            public void Start()
+            public void Start(IEnumerator routine)
             {
                 state = CoroutineState.Running;
-                coroutine = CoroutineHelper.Instance.StartCoroutine(RealRun());
+                coroutine = CoroutineHelper.Instance.StartCoroutine(RealRun(routine));
             }
  
-            private IEnumerator RealRun()
+            private IEnumerator RealRun(IEnumerator routine)
             {
-                helperRoutine = CoroutineHelper.Instance.StartCoroutine(routine);
-                yield return helperRoutine;
+                yield return CoroutineHelper.Instance.StartCoroutine(routine);
                 state = CoroutineState.Finished;
-                CoroutineHelper.Instance.StopCoroutine(coroutine);
             }
 
             public void Finish()
             {
+                CoroutineHelper.Instance.StopCoroutine(coroutine);
+                coroutine = null;
                 state = CoroutineState.Ready;
             }
         }

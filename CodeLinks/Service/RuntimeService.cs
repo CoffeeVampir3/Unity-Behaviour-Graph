@@ -9,7 +9,8 @@ namespace BehaviourGraph.Services
     public class RuntimeService
     {
         private ServiceCoroutineExtension.CoroutineController controller;
-        private Func<GameObject, IEnumerator> executable;
+        private GameObject target;
+        public Func<GameObject, IEnumerator> executable;
 
         private bool initialized = false;
         public void Initialize(MethodInfo targetMethod, GameObject targetGameObject)
@@ -28,7 +29,9 @@ namespace BehaviourGraph.Services
 
             executable = ServiceCreator.CreateServiceFunction(targetMethod, component);
             controller = new ServiceCoroutineExtension.
-                CoroutineController(executable(targetGameObject));
+                CoroutineController();
+
+            target = targetGameObject;
             
             initialized = true;
         }
@@ -37,7 +40,7 @@ namespace BehaviourGraph.Services
         {
             if (controller.state == ServiceCoroutineExtension.CoroutineState.Ready)
             {
-                controller.Start();
+                controller.Start(executable(target));
             }
             if (controller.state == ServiceCoroutineExtension.CoroutineState.Running)
             {
