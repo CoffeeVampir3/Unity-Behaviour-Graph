@@ -7,7 +7,6 @@ using BehaviourGraph.Conditionals;
 using BehaviourGraph.Services;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
-using UnityEditor;
 using UnityEngine;
 using Expression = System.Linq.Expressions.Expression;
 
@@ -41,13 +40,6 @@ namespace BehaviourGraph.Debugging
         {
             Debug.Log("???");
             yield return null;
-        }
-        
-        [Button]
-        public void Path()
-        {
-            MonoScript thisScript = MonoScript.FromMonoBehaviour(this);
-            Debug.Log(AssetDatabase.GetAssetPath(thisScript));
         }
 
         [SerializeField, ValueDropdown("GetConditionMembers")] 

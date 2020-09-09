@@ -50,6 +50,13 @@ namespace BehaviourGraph.CodeLinks.AttributeCache
 
         public static MemberInfo LookupByString(string value)
         {
+            Debug.Log(value);
+            var k = GetInstance();
+            if (GetInstance() == null)
+            {
+                Debug.LogError("Lookup instance is null.");
+            }
+            
             return GetInstance().memberLookup.TryGetValue(value, out var member) 
                 ? member.Get() : null;
         }
@@ -90,14 +97,12 @@ namespace BehaviourGraph.CodeLinks.AttributeCache
             {
                 return instance;
             }
-
-            var stores = Resources.FindObjectsOfTypeAll<SerializedMemberStore>();
-            if (stores.Any())
+            
+            instance = Resources.Load<SerializedMemberStore>("bgsms");
+            
+            if (!instance)
             {
-                instance = stores[0];
-            }
-            else
-            {
+                Debug.LogError("Store is not fetchable during runtime dtus.");
                 return null;
             }
 
@@ -106,6 +111,8 @@ namespace BehaviourGraph.CodeLinks.AttributeCache
 
         #endregion
 
+        #if UNITY_EDITOR
+        
         #region Cache Impl
 
         protected void Cache<ItemType, Attr>()
@@ -192,5 +199,7 @@ namespace BehaviourGraph.CodeLinks.AttributeCache
         }
         
         #endregion
+        
+        #endif
     }
 }

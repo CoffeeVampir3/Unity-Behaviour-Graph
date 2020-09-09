@@ -8,6 +8,7 @@ namespace BehaviourGraph.CodeLinks.AttributeCache
 {
     public class BehaviourGraphSMS : SerializedMemberStore
     {
+        #if UNITY_EDITOR
         [InitializeOnLoadMethod]
         public static void SetupSingleton()
         {
@@ -36,7 +37,7 @@ namespace BehaviourGraph.CodeLinks.AttributeCache
 
         private SerializedMemberStore Create(BehaviourGraphSMS inst)
         {
-            AssetDatabase.CreateAsset(inst, @"Assets/!Tests/" + inst.name + ".asset");
+            AssetDatabase.CreateAsset(inst, @"Assets/Resources/" + inst.name + ".asset");
             AssetDatabase.SaveAssets();
             AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(inst));
             AssetDatabase.Refresh();
@@ -45,5 +46,7 @@ namespace BehaviourGraph.CodeLinks.AttributeCache
             instance = inst;
             return instance;
         }
+        
+        #endif
     }
 }
