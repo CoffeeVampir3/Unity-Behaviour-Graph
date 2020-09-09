@@ -50,13 +50,6 @@ namespace BehaviourGraph.CodeLinks.AttributeCache
 
         public static MemberInfo LookupByString(string value)
         {
-            Debug.Log(value);
-            var k = GetInstance();
-            if (GetInstance() == null)
-            {
-                Debug.LogError("Lookup instance is null.");
-            }
-            
             return GetInstance().memberLookup.TryGetValue(value, out var member) 
                 ? member.Get() : null;
         }
