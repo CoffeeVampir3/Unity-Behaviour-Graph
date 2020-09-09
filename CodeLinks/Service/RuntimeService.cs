@@ -9,7 +9,6 @@ namespace BehaviourGraph.Services
     public class RuntimeService
     {
         private CoroutineController controller;
-        private GameObject target;
         private MonoBehaviour targetCtx;
         public Func<IEnumerator> executable;
 
@@ -19,10 +18,8 @@ namespace BehaviourGraph.Services
             if (initialized && executable != null)
                 return;
             
-            Type t = targetMethod.DeclaringType;
-
-            Component component;
-            if (!targetGameObject.TryGetComponent(t, out component))
+            Type declType = targetMethod.DeclaringType;
+            if (!targetGameObject.TryGetComponent(declType, out var component))
             {
                 Debug.LogError("Could not bind function to game object: " + targetGameObject.name + 
                                     "using method: " + targetMethod.GetFullName());
@@ -30,8 +27,6 @@ namespace BehaviourGraph.Services
 
             executable = ServiceCreator.CreateServiceFunction(targetMethod, component);
             controller = new CoroutineController();
-
-            target = targetGameObject;
             targetCtx = component as MonoBehaviour;
             initialized = true;
         }

@@ -1,5 +1,6 @@
 ﻿using BehaviourGraph.Blackboard;
 using Coffee.BehaviourTree.Context;
+using UnityEngine;
 
 namespace Coffee.BehaviourTree.Decorator
 {
@@ -12,10 +13,7 @@ namespace Coffee.BehaviourTree.Decorator
 
         public override Result Execute(ref BehaviourContext context)
         {
-            if (reference == null)
-            {
-                return Result.Failure;
-            }
+            Debug.Assert(reference != null);
 
             if (reference.Evaluate())
                 return child.Execute(ref context);

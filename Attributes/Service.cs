@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BehaviourGraph.Services
+namespace BehaviourGraph.Attributes
 {
     [AttributeUsage(AttributeTargets.Method)]
     public class Service : Attribute

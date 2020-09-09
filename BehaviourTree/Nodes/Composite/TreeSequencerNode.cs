@@ -17,6 +17,8 @@ namespace Coffee.BehaviourTree.Composite
 
                 switch (result)
                 {
+                    case Result.Waiting:
+                        return result;
                     case Result.Running:
                         context.SetContext(this, Result.Running);
                         return result;

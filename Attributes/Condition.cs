@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BehaviourGraph.Conditionals
+namespace BehaviourGraph.Attributes
 {
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Method)]
     public class Condition : Attribute

@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using BehaviourGraph.Attributes;
 using Sirenix.OdinInspector;
 using UnityEngine;
 

@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using BehaviourGraph.Services;
+using BehaviourGraph.Attributes;
 using Coffee.BehaviourTree;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -40,6 +40,8 @@ namespace BehaviourGraph.Debugging
         private float speed = .01f;
         private float totalTraversed = 0f;
         
+        WaitForEndOfFrame cachedWait = new WaitForEndOfFrame();
+
         [Service]
         public IEnumerator MoveToRandomPoint()
         {
@@ -55,11 +57,47 @@ namespace BehaviourGraph.Debugging
             {
                 totalTraversed += speed * Time.deltaTime;
                 transform.localPosition = Vector2.Lerp(originalPosition, waypoint, totalTraversed);
-                yield return new WaitForEndOfFrame();
+                yield return cachedWait;
             }
 
             moving = false;
-            originalPosition = transform.position;
+            originalPosition = transform.localPosition;
+        }
+
+        public float DistanceToPlayer()
+        {
+            return Mathf.Abs(
+                Vector3.Distance(transform.position, playerTransform.position));
+        }
+        
+        //Good coding practice kappa
+        [SerializeField]
+        private Transform playerTransform = null;
+        [SerializeField] 
+        private float chaseSpeed = 1;
+        [SerializeField] 
+        private float smellRadius = 50;
+        
+        [Service]
+        public IEnumerator ChasePlayer()
+        {
+            while (DistanceToPlayer() < smellRadius)
+            {
+                transform.localPosition = Vector2.MoveTowards(transform.localPosition,
+                    playerTransform.localPosition, chaseSpeed);
+                yield return cachedWait;
+            }
+        }
+
+        [Condition]
+        public bool IsPlayerNearby()
+        {
+            if (DistanceToPlayer() < smellRadius)
+            {
+                Debug.Log("Smells player");
+                return true;
+            }
+            return false;
         }
     }
 }

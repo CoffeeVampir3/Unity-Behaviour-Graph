@@ -1,8 +1,6 @@
 {
-    "name": "AttributeHelpers",
-    "references": [
-        "GUID:58f89a1b11076ff4684ea2e3fcb6d54b"
-    ],
+    "name": "BehaviourGraphAttributes",
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

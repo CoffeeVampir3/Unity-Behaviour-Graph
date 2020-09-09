@@ -1,4 +1,4 @@
-﻿using BehaviourGraph.Conditionals;
+﻿using BehaviourGraph.Attributes;
 using UnityEngine;
 
 namespace BehaviourGraph.Debugging

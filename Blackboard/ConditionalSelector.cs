@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
+using BehaviourGraph.Attributes;
 using BehaviourGraph.CodeLinks.AttributeCache;
-using BehaviourGraph.Conditionals;
 using Sirenix.OdinInspector;
 using UnityEngine;
 

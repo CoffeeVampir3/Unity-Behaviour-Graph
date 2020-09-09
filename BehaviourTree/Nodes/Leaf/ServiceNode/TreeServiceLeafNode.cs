@@ -17,7 +17,7 @@ namespace Coffee.BehaviourTree.Leaf
             if (rtService.Execute())
             {
                 context.SetContext(this, Result.Waiting);
-                return Result.Running;
+                return Result.Waiting;
             }
 
             context.Reset();
