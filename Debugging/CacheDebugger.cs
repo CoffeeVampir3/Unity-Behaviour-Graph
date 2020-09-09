@@ -31,12 +31,12 @@ namespace BehaviourGraph.Debugging
                 Debug.Log("yote");
                 RuntimeService rtService = new RuntimeService();
                 rtService.Initialize(method as MethodInfo, gameObject);
-                StartCoroutine(rtService.executable(gameObject));
+                StartCoroutine(rtService.executable());
             }
         }
 
         [Service]
-        public IEnumerator TestService(GameObject go)
+        public IEnumerator TestService()
         {
             Debug.Log("???");
             yield return null;

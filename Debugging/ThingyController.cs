@@ -41,7 +41,7 @@ namespace BehaviourGraph.Debugging
         private float totalTraversed = 0f;
         
         [Service]
-        public IEnumerator MoveToRandomPoint(GameObject thisObject)
+        public IEnumerator MoveToRandomPoint()
         {
             if (!moving)
             {
