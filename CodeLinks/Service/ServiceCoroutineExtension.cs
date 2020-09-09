@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace Coffee.BehaviourTree.Leaf
+namespace BehaviourGraph.Services
 {
     
     //Thanks guys on stackoverflow <3
@@ -18,6 +18,7 @@ namespace Coffee.BehaviourTree.Leaf
         {
             private IEnumerator routine;
             private Coroutine coroutine;
+            private Coroutine helperRoutine;
             public CoroutineState state;
  
             public CoroutineController(IEnumerator routine)
@@ -34,14 +35,15 @@ namespace Coffee.BehaviourTree.Leaf
  
             private IEnumerator RealRun()
             {
-                yield return CoroutineHelper.Instance.StartCoroutine(routine);
+                helperRoutine = CoroutineHelper.Instance.StartCoroutine(routine);
+                yield return helperRoutine;
                 state = CoroutineState.Finished;
-            }
- 
-            public void Stop()
-            {
                 CoroutineHelper.Instance.StopCoroutine(coroutine);
-                state = CoroutineState.Finished;
+            }
+
+            public void Finish()
+            {
+                state = CoroutineState.Ready;
             }
         }
         
@@ -55,17 +57,10 @@ namespace Coffee.BehaviourTree.Leaf
                     if (ins == null)
                     {
                         var go = new GameObject("CoroutineHelper");
-                        DontDestroyOnLoad(go);
                         ins = go.AddComponent<CoroutineHelper>();
                     }
                     return ins;
                 }
-            }
- 
-            public void StartCoroutineEx(IEnumerator routine, out CoroutineController coroutineController)
-            {
-                coroutineController = new CoroutineController(routine);
-                coroutineController.Start();
             }
         }
     }

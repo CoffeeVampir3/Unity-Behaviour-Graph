@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Linq;
 using System.Reflection;
-using BehaviourGraph.CodeLinks;
 using BehaviourGraph.CodeLinks.AttributeCache;
 using BehaviourGraph.Conditionals;
 using BehaviourGraph.Services;
@@ -16,7 +15,6 @@ namespace BehaviourGraph.Debugging
 {
     public class CacheDebugger : SerializedMonoBehaviour
     {
-
         [NonSerialized, OdinSerialize] 
         private BehaviourGraphSMS store;
         
@@ -34,7 +32,7 @@ namespace BehaviourGraph.Debugging
                 Debug.Log("yote");
                 RuntimeService rtService = new RuntimeService();
                 rtService.Initialize(method as MethodInfo, gameObject);
-                StartCoroutine(rtService.executable(gameObject));
+                rtService.Execute();
             }
         }
 

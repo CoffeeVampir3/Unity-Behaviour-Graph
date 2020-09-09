@@ -12,33 +12,20 @@ namespace Coffee.BehaviourTree.Leaf
         {
         }
 
-        ServiceCoroutineExtension.CoroutineController controller;
-
         public override Result Execute(ref BehaviourContext context)
         {
-            if (controller == null)
-            {
-                ServiceCoroutineExtension.CoroutineHelper.Instance.StartCoroutineEx(
-                    rtService.executable(parentTree.owner), out controller);
-                
-                if(controller.state == ServiceCoroutineExtension.CoroutineState.Ready)
-                    controller.Start();
-            }
-            if (controller.state == ServiceCoroutineExtension.CoroutineState.Running)
+            if (rtService.Execute())
             {
                 context = new BehaviourContext(this, Result.Waiting);
                 return Result.Running;
             }
-            
+
             context.Reset();
-            controller = null;
             return Result.Success;
         }
 
         public override void Reset()
         {
-            controller = null;
-
             if (rtService == null)
             {
                 rtService = new RuntimeService();

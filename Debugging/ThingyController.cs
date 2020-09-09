@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using BehaviourGraph.Services;
 using Coffee.BehaviourTree;
 using UnityEngine;
@@ -16,6 +15,8 @@ namespace BehaviourGraph.Debugging
         private void Awake()
         {
             tree = graph.GenerateBehaviourTree(gameObject);
+            //speed = Random.Range(0f, speed);
+            //randomRadiusSize = Random.Range(0f, randomRadiusSize);
         }
 
         public void Update()
