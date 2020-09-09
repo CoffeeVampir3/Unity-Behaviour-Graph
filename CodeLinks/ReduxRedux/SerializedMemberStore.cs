@@ -98,7 +98,6 @@ namespace BehaviourGraph.CodeLinks.AttributeCache
             }
             else
             {
-                Debug.Log("Wasn't able to find a valid serialized member store.");
                 return null;
             }
 

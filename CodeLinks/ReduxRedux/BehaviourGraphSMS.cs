@@ -25,7 +25,7 @@ namespace BehaviourGraph.CodeLinks.AttributeCache
             }
         }
 
-        internal void ReflectAndStore()
+        private void ReflectAndStore()
         {
             ClearCacheData();
             Cache<MethodInfo, Condition>();
@@ -34,7 +34,7 @@ namespace BehaviourGraph.CodeLinks.AttributeCache
             EditorUtility.SetDirty(this);
         }
 
-        public SerializedMemberStore Create(BehaviourGraphSMS inst)
+        private SerializedMemberStore Create(BehaviourGraphSMS inst)
         {
             AssetDatabase.CreateAsset(inst, @"Assets/!Tests/" + inst.name + ".asset");
             AssetDatabase.SaveAssets();
