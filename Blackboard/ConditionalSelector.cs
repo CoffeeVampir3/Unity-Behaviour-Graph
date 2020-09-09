@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using BehaviourGraph.CodeLinks.AttributeCache;
 using BehaviourGraph.Conditionals;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -27,7 +28,8 @@ namespace BehaviourGraph.Blackboard
                     return selectedMember;
                 }
                 
-                if (ConditionalCache.GetCachedMemberViaLookupValue(memberSelector, out var temp))
+                if (AttributeCache<Condition>.
+                    TryGetCachedMemberViaLookupValue(memberSelector, out var temp))
                 {
                     isMethod = (temp.MemberType & MemberTypes.Method) != 0;
 
@@ -40,6 +42,7 @@ namespace BehaviourGraph.Blackboard
             }
         }
 
-        public ValueDropdownList<string> GetMembers => ConditionalCache.GetCachedMemberDropdown();
+        public ValueDropdownList<string> GetMembers => 
+            AttributeCache<Condition>.GetCachedMemberDropdown();
     }
 }

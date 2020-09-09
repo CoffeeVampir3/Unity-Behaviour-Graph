@@ -16,8 +16,6 @@ namespace BehaviourGraph.Debugging
         private void Awake()
         {
             tree = graph.GenerateBehaviourTree(gameObject);
-            randomRadiusSize = Random.Range(0, randomRadiusSize);
-            speed = Random.Range(0, speed);
         }
 
         public void Update()
@@ -28,7 +26,7 @@ namespace BehaviourGraph.Debugging
         private Vector2 GetPointInRadius(float radiusSize)
         {
             Vector2 pointOffset = Random.insideUnitCircle * radiusSize;
-            Vector2 position = transform.position;
+            Vector2 position = transform.localPosition;
             return position + pointOffset;
         }
 
@@ -38,7 +36,7 @@ namespace BehaviourGraph.Debugging
         [SerializeField] 
         private float randomRadiusSize = .5f;
         [SerializeField] 
-        private float speed = 50f;
+        private float speed = .01f;
         private float totalTraversed = 0f;
         
         [Service]
@@ -48,19 +46,19 @@ namespace BehaviourGraph.Debugging
             {
                 moving = true;
                 totalTraversed = 0.0f;
-                originalPosition = transform.position;
+                originalPosition = transform.localPosition;
                 waypoint = GetPointInRadius(randomRadiusSize);
             }
-            
+
             while (totalTraversed < 1.0f)
             {
                 totalTraversed += speed * Time.deltaTime;
-                transform.position = Vector2.Lerp(originalPosition, waypoint, totalTraversed);
+                transform.localPosition = Vector2.Lerp(originalPosition, waypoint, totalTraversed);
                 yield return new WaitForEndOfFrame();
             }
 
             moving = false;
-            originalPosition = thisObject.transform.position;
+            originalPosition = transform.position;
         }
     }
 }

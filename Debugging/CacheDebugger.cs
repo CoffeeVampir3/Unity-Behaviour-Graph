@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Linq;
 using System.Reflection;
 using BehaviourGraph.CodeLinks;
@@ -18,7 +19,32 @@ namespace BehaviourGraph.Debugging
 
         [NonSerialized, OdinSerialize] 
         private BehaviourGraphSMS store;
+        
+        [SerializeField]
+        [ValueDropdown("GetServices", NumberOfItemsBeforeEnablingSearch = 2)]
+        public string targetMethod = null;
+        public ValueDropdownList<string> GetServices => AttributeCache<Service>.GetCachedMemberDropdown();
 
+        [Button]
+        public void DebugService()
+        {
+            if (AttributeCache<Service>.TryGetCachedMemberViaLookupValue(targetMethod, 
+                out var method))
+            {
+                Debug.Log("yote");
+                RuntimeService rtService = new RuntimeService();
+                rtService.Initialize(method as MethodInfo, gameObject);
+                StartCoroutine(rtService.executable(gameObject));
+            }
+        }
+
+        [Service]
+        public IEnumerator TestService(GameObject go)
+        {
+            Debug.Log("???");
+            yield return null;
+        }
+        
         [Button]
         public void Path()
         {
@@ -29,12 +55,12 @@ namespace BehaviourGraph.Debugging
         [SerializeField, ValueDropdown("GetConditionMembers")] 
         public string conditionSelector;
         public ValueDropdownList<string> GetConditionMembers => 
-            AtribCache<Condition>.GetCachedMemberDropdown();
+            AttributeCache<Condition>.GetCachedMemberDropdown();
         
         [SerializeField, ValueDropdown("GetServiceMembers")] 
         public string serviceSelector;
         public ValueDropdownList<string> GetServiceMembers => 
-            AtribCache<Service>.GetCachedMemberDropdown();
+            AttributeCache<Service>.GetCachedMemberDropdown();
         
         
         private Func<bool> CreateConditionFunction(MethodInfo methodInfo, object target) {

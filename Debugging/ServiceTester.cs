@@ -13,27 +13,6 @@ namespace BehaviourGraph.Debugging
     [ShowOdinSerializedPropertiesInInspector]
     public class ServiceTester : MonoBehaviour
     {
-        [Button]
-        public void TestServices()
-        {
-            MethodInfo[] methods;
-            if (ServiceCache.TryGetServicesFor(GetType(), out methods))
-            {
-                foreach (var m in methods)
-                {
-                    Debug.Log(m.Name);
-
-                    var k = ServiceCreator.CreateServiceFunction(m, this);
-                    k.Invoke(gameObject);
-                }
-            }
-        }
-
-        [OdinSerialize]
-        [ValueDropdown("GetServices", NumberOfItemsBeforeEnablingSearch = 2)]
-        public MethodInfo targetMethod;
-        public ValueDropdownList<MethodInfo> GetServices => ServiceCache.GetListOfServices();
-
         [Service]
         public IEnumerator DoThing(GameObject serviceExecutor) {
             Debug.Log(serviceExecutor.name);

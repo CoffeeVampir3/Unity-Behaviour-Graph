@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using BehaviourGraph.CodeLinks.AttributeCache;
 using BehaviourGraph.Services;
 using Coffee.BehaviourTree;
 using Coffee.BehaviourTree.Leaf;
@@ -11,10 +12,10 @@ namespace Coffee.Behaviour.Nodes.LeafNodes
 {
     internal class ServiceLeafNode : LeafNode
     {
-        [OdinSerialize]
+        [SerializeField]
         [ValueDropdown("GetServices", NumberOfItemsBeforeEnablingSearch = 2)]
-        public MethodInfo targetMethod = null;
-        public ValueDropdownList<MethodInfo> GetServices => ServiceCache.GetListOfServices();
+        public string targetMethod = null;
+        public ValueDropdownList<string> GetServices => AttributeCache<Service>.GetCachedMemberDropdown();
         
         [NonSerialized, OdinSerialize, HideInInspector]
         protected  TreeServiceLeafNode leafNode;
@@ -27,8 +28,15 @@ namespace Coffee.Behaviour.Nodes.LeafNodes
 
         public override TreeBaseNode WalkGraphToCreateTree(BehaviourTree.BehaviourTree tree)
         {
-            var node = new TreeServiceLeafNode(tree) {targetMethod = targetMethod};
-            return node;
+            if (AttributeCache<Service>.TryGetCachedMemberViaLookupValue(targetMethod, 
+                    out var method))
+            {
+                var node = new TreeServiceLeafNode(tree) {targetMethod = method as MethodInfo};
+                return node;
+            }
+
+            Debug.LogError("Unable to recover cached member lookup value for service: " + targetMethod);
+            return null;
         }
     }
 }
