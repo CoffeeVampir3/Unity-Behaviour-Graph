@@ -8,8 +8,9 @@ namespace BehaviourGraph.Services
 {
     public class RuntimeService
     {
-        private ServiceCoroutineExtension.CoroutineController controller;
+        private CoroutineController controller;
         private GameObject target;
+        private MonoBehaviour targetCtx;
         public Func<GameObject, IEnumerator> executable;
 
         private bool initialized = false;
@@ -28,21 +29,20 @@ namespace BehaviourGraph.Services
             }
 
             executable = ServiceCreator.CreateServiceFunction(targetMethod, component);
-            controller = new ServiceCoroutineExtension.
-                CoroutineController();
+            controller = new CoroutineController();
 
-            target = targetGameObject;
-            
+                target = targetGameObject;
+            targetCtx = component as MonoBehaviour;
             initialized = true;
         }
 
         public bool Execute()
         {
-            if (controller.state == ServiceCoroutineExtension.CoroutineState.Ready)
+            if (controller.state == CoroutineController.CoroutineState.Ready)
             {
-                controller.Start(executable(target));
+                controller.Start(targetCtx, executable(target));
             }
-            if (controller.state == ServiceCoroutineExtension.CoroutineState.Running)
+            if (controller.state == CoroutineController.CoroutineState.Running)
             {
                 return true;
             }
