@@ -1,5 +1,6 @@
 ﻿using System;
 using BehaviourGraph.Blackboard;
+using BehaviourGraph.CodeLinks.AttributeCache;
 using Coffee.BehaviourTree;
 using Coffee.BehaviourTree.Decorator;
 using Sirenix.Serialization;
@@ -8,7 +9,7 @@ using UnityEngine;
 namespace Coffee.Behaviour.Nodes.DecoratorNodes
 {
     [Serializable]
-    internal partial class ConditionNode : DecoratorNode
+    internal class ConditionNode : DecoratorNode
     {
         [NonSerialized, OdinSerialize, HideInInspector]
         protected TreeConditionNode conditionNode;
@@ -24,8 +25,8 @@ namespace Coffee.Behaviour.Nodes.DecoratorNodes
         
         public override TreeBaseNode WalkGraphToCreateTree(BehaviourTree.BehaviourTree tree)
         {
-            BlackboardRuntimeCondition brtc = 
-                new BlackboardRuntimeCondition(conditionalSelector, tree.owner);
+            RuntimeCondition brtc = 
+                new RuntimeCondition(conditionalSelector, tree.owner);
             
             TreeConditionNode node = new TreeConditionNode(tree) 
                 {runtimeCondition = brtc};

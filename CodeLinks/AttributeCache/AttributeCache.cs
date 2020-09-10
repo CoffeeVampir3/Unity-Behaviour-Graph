@@ -7,7 +7,7 @@ namespace BehaviourGraph.CodeLinks.AttributeCache
     public static class AttributeCache <Attr>
         where Attr : Attribute
     {
-        private static ValueDropdownList<string> cachedValueDropdown;
+        private static ValueDropdownList<string> cachedValueDropdown = null;
         public static ValueDropdownList<string> GetCachedMemberDropdown()
         {
             if (cachedValueDropdown != null)
@@ -28,9 +28,7 @@ namespace BehaviourGraph.CodeLinks.AttributeCache
         public static bool TryGetCachedMemberViaLookupValue(string value, out MemberInfo info)
         {
             info = BehaviourGraphSMS.LookupByString(value);
-            if (info == null)
-                return false;
-            return true;
+            return info != null;
         }
     }
 }

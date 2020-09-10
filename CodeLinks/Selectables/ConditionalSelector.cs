@@ -5,18 +5,22 @@ using BehaviourGraph.CodeLinks.AttributeCache;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace BehaviourGraph.Blackboard
+namespace BehaviourGraph.CodeLinks.AttributeCache
 {
     [Serializable]
     public class ConditionalSelector
     {
-        [HideInInspector]
-        public bool isMethod = false;
-        
         [ValueDropdown("GetMembers", NumberOfItemsBeforeEnablingSearch = 2)]
         [SerializeField]
         private string memberSelector = "";
+        public ValueDropdownList<string> GetMembers => 
+            AttributeCache<Condition>.GetCachedMemberDropdown();
+        
+        [HideInInspector]
+        public bool isMethod = false;
 
+        #region Accessors
+        
         private MemberInfo selectedMember = null;
         private string previousSelection;
         public MemberInfo MemberSelector
@@ -41,8 +45,8 @@ namespace BehaviourGraph.Blackboard
                 return null;
             }
         }
-
-        public ValueDropdownList<string> GetMembers => 
-            AttributeCache<Condition>.GetCachedMemberDropdown();
+        
+        #endregion
+        
     }
 }

@@ -2,29 +2,39 @@
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using BehaviourGraph.CodeLinks.AttributeCache;
 using UnityEngine;
 
 namespace BehaviourGraph.Blackboard
 {
     [Serializable]
-    public class BlackboardRuntimeCondition
+    public class RuntimeCondition
     {
         private FieldInfo field;
         private Component cachedConditionComponent;
         private Func<bool> evalAction;
-
+        
+        #region Eval
+        
+        //Methods bind to evalAction in Build Condition Function
+        
         private bool EvaluateField()
         {
             return (bool)field.GetValue(cachedConditionComponent);
         }
+        
         private Func<bool> InvalidStub = () => false;
 
         public bool Evaluate()
         {
             return evalAction.Invoke();
         }
-
-        public BlackboardRuntimeCondition(ConditionalSelector selector, GameObject target)
+        
+        #endregion
+        
+        #region Constructor 
+        
+        public RuntimeCondition(ConditionalSelector selector, GameObject target)
         {
             var member = selector.MemberSelector;
             Type declType = member.DeclaringType;
@@ -49,6 +59,10 @@ namespace BehaviourGraph.Blackboard
                     break;
             }
         }
+        
+        #endregion
+
+        #region Method Functional Binding
 
         private void BuildConditionFunction(GameObject obj, MethodInfo method, Type condType)
         {
@@ -71,5 +85,7 @@ namespace BehaviourGraph.Blackboard
             return (Func<bool>)Delegate.CreateDelegate(
                 getType(types.ToArray()), target, methodInfo.Name);
         }
+        
+        #endregion
     }
 }

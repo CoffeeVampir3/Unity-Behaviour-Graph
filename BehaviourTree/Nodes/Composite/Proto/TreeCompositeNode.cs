@@ -4,16 +4,12 @@ namespace Coffee.BehaviourTree.Composite
 {
     internal abstract class TreeCompositeNode : TreeBaseNode
     {
-        public TreeBaseNode[] childNodes;
+        protected TreeBaseNode[] childNodes;
         protected int currentNode = 0;
 
         public void SetChildren(List<TreeBaseNode> nodes)
         {
             childNodes = nodes.ToArray();
-        }
-
-        protected TreeCompositeNode(BehaviourTree tree) : base(tree)
-        {
         }
 
         public override void Reset()
@@ -23,6 +19,10 @@ namespace Coffee.BehaviourTree.Composite
             {
                 childNodes[i].Reset();
             }
+        }
+        
+        protected TreeCompositeNode(BehaviourTree tree) : base(tree)
+        {
         }
     }
 }

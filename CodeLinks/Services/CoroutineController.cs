@@ -4,7 +4,8 @@ using UnityEngine;
 namespace BehaviourGraph.Services
 {
     //Thanks guys on stackoverflow <3
-    public class CoroutineController
+    //This lets us track when a coroutine completes.
+    internal class CoroutineController
     {
         private Coroutine coroutine;
         private MonoBehaviour coroutineContext;

@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace BehaviourGraph.CodeLinks.AttributeCache
 {
+    //TODO:: Refactor this garbage
     public class BehaviourGraphSMS : SerializedMemberStore
     {
         #if UNITY_EDITOR

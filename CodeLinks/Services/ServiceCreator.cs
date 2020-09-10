@@ -6,9 +6,9 @@ using System.Reflection;
 
 namespace BehaviourGraph.Services
 {
-    public static class ServiceCreator
+    internal static class ServiceCreator
     {
-        static Type[] serviceFunctionPattern = { typeof(IEnumerator)};
+        static readonly Type[] serviceFunctionPattern = { typeof(IEnumerator)};
         public static Func<IEnumerator> CreateServiceFunction(MethodInfo methodInfo, object target) {
             Func<Type[], Type> getType = Expression.GetFuncType;
             var types = serviceFunctionPattern;

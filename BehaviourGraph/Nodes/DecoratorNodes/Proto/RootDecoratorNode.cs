@@ -9,23 +9,31 @@ namespace Coffee.Behaviour.Nodes.Private
     [Serializable]
     internal abstract class RootDecoratorNode : BaseNode
     {
-        [SerializeField]
         [Output(ShowBackingValue.Never, ConnectionType.Override)] public BaseNode childNode;
+        
+        #region Walk Tree Impl
         
         protected TreeDecoratorNode WalkDecoratorNode(BehaviourTree.BehaviourTree tree, TreeDecoratorNode node)
         {
             node.parentTree = tree;
-            var p = GetOutputPort("childNode");
-
-            BaseNode b = p.Connection.node as BaseNode;
-            if (b == null)
+            var nodePort = GetOutputPort("childNode");
+            
+            BaseNode connectionBaseNode = nodePort.Connection.node as BaseNode;
+            Debug.Assert(connectionBaseNode != null, 
+                nameof(connectionBaseNode) + " != null");
+            
+            if (connectionBaseNode == null)
             {
-                Debug.LogError("Behaviour graph node: " + this.name + " was not connected to a child.", this);
+                Debug.LogError("Behaviour graph node: " + this.name + 
+                               " was not connected to a child.", this);
             }
-
-            node.child = b.WalkGraphToCreateTree(tree);
+            node.child = connectionBaseNode.WalkGraphToCreateTree(tree);
             return node;
         }
+        
+        #endregion
+        
+        #region Xnode
         
         protected void SetDecoratorNodeChild(BaseNode incomingNode)
         {
@@ -62,5 +70,7 @@ namespace Coffee.Behaviour.Nodes.Private
             
             RemoveDecoratorNodeChild();
         }
+        
+        #endregion
     }
 }

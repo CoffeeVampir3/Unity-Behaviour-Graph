@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using BehaviourGraph.Blackboard;
-using Coffee.Behaviour.Nodes;
+﻿using Coffee.Behaviour.Nodes;
 using Coffee.Behaviour.Nodes.Private;
 using Coffee.BehaviourTree;
 using Sirenix.OdinInspector;
@@ -20,7 +18,18 @@ namespace Coffee.Behaviour
         [SerializeField]
         internal BaseNode root = null;
         
+        public BehaviourTree.BehaviourTree GenerateBehaviourTree(GameObject executingOn)
+        {
+            var cloneTree = new BehaviourTree.BehaviourTree(executingOn);
+            TreeBaseNode treeRoot = root.WalkGraphToCreateTree(cloneTree);
+            cloneTree.RuntimeSetup(treeRoot, executingOn);
+            treeRoot.Reset();
+            
+            return cloneTree;
+        }
+        
 #if UNITY_EDITOR
+        #region Editor Initialization
         public void EditorTimeInitialization()
         {
             if (root != null)
@@ -36,18 +45,12 @@ namespace Coffee.Behaviour
             AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(root));
             AssetDatabase.Refresh();
         }
-        #endif
 
-        public BehaviourTree.BehaviourTree GenerateBehaviourTree(GameObject executingOn)
-        {
-            var cloneTree = new BehaviourTree.BehaviourTree(executingOn);
-            TreeBaseNode treeRoot = root.WalkGraphToCreateTree(cloneTree);
-            cloneTree.RuntimeSetup(treeRoot, executingOn);
-            treeRoot.Reset();
-            
-            return cloneTree;
-        }
+        #endregion
+#endif
 
+        #region ISerializationCallbackReceiver Impl
+        
         [SerializeField]
         [HideInInspector]
         private SerializationData serializationData;
@@ -60,6 +63,8 @@ namespace Coffee.Behaviour
         {
             UnitySerializationUtility.DeserializeUnityObject(this, ref serializationData);
         }
+        
+        #endregion
     }
 
 }

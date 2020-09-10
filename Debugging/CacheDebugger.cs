@@ -29,8 +29,7 @@ namespace BehaviourGraph.Debugging
                 out var method))
             {
                 Debug.Log("yote");
-                RuntimeService rtService = new RuntimeService();
-                rtService.Initialize(method as MethodInfo, gameObject);
+                RuntimeService rtService = new RuntimeService(method as MethodInfo, gameObject);
                 StartCoroutine(rtService.executable());
             }
         }

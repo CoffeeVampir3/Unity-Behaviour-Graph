@@ -8,19 +8,14 @@ namespace Coffee.BehaviourTree.Leaf
     {
         public MethodInfo targetMethod;
         private RuntimeService rtService;
-        public TreeServiceLeafNode(BehaviourTree tree) : base(tree)
-        {
-        }
 
         public override Result Execute(ref BehaviourContext context)
         {
             if (rtService.Execute())
             {
-                //context.SetContext(this, Result.Waiting);
                 return Result.Waiting;
             }
-
-            //context.Reset();
+            
             return Result.Success;
         }
 
@@ -28,9 +23,12 @@ namespace Coffee.BehaviourTree.Leaf
         {
             if (rtService == null)
             {
-                rtService = new RuntimeService();
-                rtService.Initialize(targetMethod, parentTree.owner);
+                rtService = new RuntimeService(targetMethod, parentTree.owner);
             }
+        }
+        
+        public TreeServiceLeafNode(BehaviourTree tree) : base(tree)
+        {
         }
     }
 }

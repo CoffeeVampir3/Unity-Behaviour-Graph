@@ -1,15 +1,10 @@
 ﻿using Coffee.BehaviourTree.Context;
-using UnityEngine;
 
 namespace Coffee.BehaviourTree.Composite
 {
     //Selector returns success if any children were successful.
     internal class TreeSelectorNode : TreeCompositeNode
     {
-        public TreeSelectorNode(BehaviourTree tree) : base(tree)
-        {
-        }
-
         public override Result Execute(ref BehaviourContext context)
         {
             if (currentNode < childNodes.Length)
@@ -41,6 +36,10 @@ namespace Coffee.BehaviourTree.Composite
             currentNode = 0;
             context.Reset();
             return Result.Failure;
+        }
+        
+        public TreeSelectorNode(BehaviourTree tree) : base(tree)
+        {
         }
     }
 }

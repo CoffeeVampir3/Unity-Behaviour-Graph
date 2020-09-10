@@ -16,8 +16,15 @@ namespace Coffee.Behaviour.Nodes
         [SerializeField, HideInInspector]
         protected BehaviourGraph parentGraph;
 
+        #region Coffee Nodes Impl
+        
+        public abstract TreeBaseNode WalkGraphToCreateTree(BehaviourTree.BehaviourTree tree);
         protected abstract void OnCreation();
+        
+        #endregion
 
+        #region Xnode Specific
+        
         [SerializeField, HideInInspector]
         private bool initialized = false;
         protected override void Init()
@@ -25,12 +32,10 @@ namespace Coffee.Behaviour.Nodes
             if (initialized)
                 return;
             
-            base.Init();
             parentGraph = graph as BehaviourGraph;
             UnityEngine.Debug.Assert(parentGraph != null, nameof(parentGraph) + " != null");
             
             initialized = true;
-
             OnCreation();
         }
         
@@ -38,9 +43,11 @@ namespace Coffee.Behaviour.Nodes
         {
             return thisTreeNode;
         }
+        
+        #endregion
 
-        public abstract TreeBaseNode WalkGraphToCreateTree(BehaviourTree.BehaviourTree tree);
-
+        #region ISerializationCallbackReceiver Impl
+        
         [SerializeField, HideInInspector]
         private SerializationData serializationData;
         public void OnBeforeSerialize()
@@ -52,5 +59,7 @@ namespace Coffee.Behaviour.Nodes
         {
             UnitySerializationUtility.DeserializeUnityObject(this, ref serializationData);
         }
+        
+        #endregion
     }
 }

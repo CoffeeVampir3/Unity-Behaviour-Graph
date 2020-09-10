@@ -11,11 +11,36 @@ namespace Coffee.Behaviour.Nodes.CompositeNodes
     [Serializable]
     internal abstract class CompositeNode : BaseNode
     {
-        [SerializeField]
         [InputAttribute(ShowBackingValue.Never)] public BaseNode[] parents = null;
-        [SerializeField]
         [Output] public BaseNode[] children = null;
 
+        #region Walk tree Impl
+        
+        protected void WalkCompositeNodeChildren(TreeCompositeNode composite, BehaviourTree.BehaviourTree tree)
+        {
+            var childrenPort = GetOutputPort("children");
+            var connections = childrenPort.GetConnections();
+            List<TreeBaseNode> treeNodes = new List<TreeBaseNode>();
+
+            foreach (var connector in connections)
+            {
+                BaseNode bn = connector.node as BaseNode;
+                Debug.Assert(bn != null, nameof(bn) + " != null");
+                if (bn == null)
+                {
+                    Debug.LogError("Behaviour graph node: " + this.name + " was not connected to a child.", this);
+                }
+                
+                treeNodes.Add(bn.WalkGraphToCreateTree(tree));
+            }
+            
+            composite.SetChildren(treeNodes);
+        }
+        
+        #endregion
+        
+        #region XNode
+        
         protected void BuildChildConnections(NodePort thisPort)
         {
             TreeCompositeNode compositeNode = thisTreeNode as TreeCompositeNode;
@@ -47,25 +72,7 @@ namespace Coffee.Behaviour.Nodes.CompositeNodes
             
             BuildChildConnections(port);
         }
-
-        protected void WalkCompositeNodeChildren(TreeCompositeNode composite, BehaviourTree.BehaviourTree tree)
-        {
-            var childrenPort = GetOutputPort("children");
-            var connections = childrenPort.GetConnections();
-            List<TreeBaseNode> treeNodes = new List<TreeBaseNode>();
-
-            foreach (var connector in connections)
-            {
-                BaseNode bn = connector.node as BaseNode;
-                if (bn == null)
-                {
-                    Debug.LogError("Behaviour graph node: " + this.name + " was not connected to a child.", this);
-                }
-                
-                treeNodes.Add(bn.WalkGraphToCreateTree(tree));
-            }
-            
-            composite.SetChildren(treeNodes);
-        }
+        
+        #endregion
     }
 }

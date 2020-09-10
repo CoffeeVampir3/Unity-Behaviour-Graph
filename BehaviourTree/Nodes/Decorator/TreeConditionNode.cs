@@ -6,10 +6,7 @@ namespace Coffee.BehaviourTree.Decorator
 {
     internal class TreeConditionNode : TreeDecoratorNode
     {
-        public BlackboardRuntimeCondition runtimeCondition;
-        public TreeConditionNode(BehaviourTree tree) : base(tree)
-        {
-        }
+        public RuntimeCondition runtimeCondition;
 
         public override Result Execute(ref BehaviourContext context)
         {
@@ -24,6 +21,10 @@ namespace Coffee.BehaviourTree.Decorator
         public override void Reset()
         {
             child?.Reset();
+        }
+        
+        public TreeConditionNode(BehaviourTree tree) : base(tree)
+        {
         }
     }
 }

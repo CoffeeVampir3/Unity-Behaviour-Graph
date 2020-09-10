@@ -5,10 +5,6 @@ namespace Coffee.BehaviourTree.Composite
     //Sequencer returns success if and only if ALL children were successful.
     internal class TreeSequencerNode : TreeCompositeNode
     {
-        public TreeSequencerNode(BehaviourTree tree) : base(tree)
-        {
-        }
-
         public override Result Execute(ref BehaviourContext context)
         {
             if (currentNode < childNodes.Length)
@@ -40,6 +36,10 @@ namespace Coffee.BehaviourTree.Composite
             currentNode = 0;
             context.Reset();
             return Result.Success;
+        }
+        
+        public TreeSequencerNode(BehaviourTree tree) : base(tree)
+        {
         }
     }
 }

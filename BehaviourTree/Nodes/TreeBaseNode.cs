@@ -15,14 +15,14 @@ namespace Coffee.BehaviourTree
             Running,
             Waiting
         }
+
+        public abstract Result Execute(ref BehaviourContext context);
+
+        public abstract void Reset();
         
         protected TreeBaseNode(BehaviourTree tree)
         {
             parentTree = tree;
         }
-
-        public abstract Result Execute(ref BehaviourContext context);
-
-        public abstract void Reset();
     }
 }
