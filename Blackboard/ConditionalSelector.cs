@@ -8,7 +8,7 @@ using UnityEngine;
 namespace BehaviourGraph.Blackboard
 {
     [Serializable]
-    internal class ConditionalSelector
+    public class ConditionalSelector
     {
         [HideInInspector]
         public bool isMethod = false;

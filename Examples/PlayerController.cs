@@ -13,6 +13,7 @@ namespace BehaviourGraph.Debugging
             instance = this;
         }
 
+        public float speed = 1f;
         public void Update()
         {
             var whores = Input.GetAxis("Horizontal");
@@ -21,7 +22,7 @@ namespace BehaviourGraph.Debugging
             var transform1 = transform;
             
             var p = transform1.localPosition;
-            p += new Vector3(whores, verts);
+            p += new Vector3(whores * speed, verts * speed);
 
             transform1.localPosition = p;
         }

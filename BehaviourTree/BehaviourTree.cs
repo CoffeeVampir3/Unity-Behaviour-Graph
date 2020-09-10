@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using BehaviourGraph.Blackboard;
-using Coffee.BehaviourTree.Context;
+﻿using Coffee.BehaviourTree.Context;
 using UnityEngine;
 
 namespace Coffee.BehaviourTree
@@ -8,24 +6,19 @@ namespace Coffee.BehaviourTree
     public class BehaviourTree
     {
         internal GameObject owner;
-        private List<Blackboard> blackboards;
         private ITreeBehaviourNode root;
         private BehaviourContext context;
 
-        internal void Init(ITreeBehaviourNode rootNode, ref List<Blackboard> sharedBb)
+        public BehaviourTree(GameObject owner)
         {
-            root = rootNode;
-            blackboards = sharedBb;
+            this.owner = owner;
         }
 
-        internal void RuntimeSetup(GameObject owningObject)
+        internal void RuntimeSetup(TreeBaseNode newRoot, GameObject owningObject)
         {
+            root = newRoot;
             owner = owningObject;
             context = new BehaviourContext();
-            for (int i = 0; i < blackboards.Count; i++)
-            {
-                blackboards[i].RuntimeInitialize(owningObject);
-            }
         }
 
         private void ExecuteTree()

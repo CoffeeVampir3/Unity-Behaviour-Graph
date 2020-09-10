@@ -2,6 +2,7 @@
 using BehaviourGraph.Attributes;
 using Coffee.BehaviourTree;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 namespace BehaviourGraph.Debugging
@@ -15,8 +16,8 @@ namespace BehaviourGraph.Debugging
         private void Awake()
         {
             tree = graph.GenerateBehaviourTree(gameObject);
-            speed = Random.Range(0f, speed);
-            randomRadiusSize = Random.Range(0f, randomRadiusSize);
+            speed = Random.Range(.5f*speed, speed);
+            randomRadiusSize = Random.Range(.5f*randomRadiusSize, randomRadiusSize);
         }
 
         public void Update()
@@ -37,8 +38,10 @@ namespace BehaviourGraph.Debugging
         [SerializeField] 
         private float randomRadiusSize = .5f;
         [SerializeField] 
-        private float speed = .01f;
+        private float speed = 1f;
         private float totalTraversed = 0f;
+        [SerializeField] 
+        private Image img;
         
         WaitForEndOfFrame cachedWait = new WaitForEndOfFrame();
 
@@ -52,7 +55,7 @@ namespace BehaviourGraph.Debugging
                 originalPosition = transform.localPosition;
                 waypoint = GetPointInRadius(randomRadiusSize);
             }
-
+            
             while (totalTraversed < 1.0f)
             {
                 totalTraversed += speed * Time.deltaTime;
@@ -66,8 +69,8 @@ namespace BehaviourGraph.Debugging
 
         public float DistanceToPlayer()
         {
-            return Mathf.Abs(
-                Vector3.Distance(transform.position, playerTransform.position));
+            return 
+                Vector3.Distance(playerTransform.localPosition, transform.localPosition);
         }
         
         //Good coding practice kappa
@@ -81,23 +84,21 @@ namespace BehaviourGraph.Debugging
         [Service]
         public IEnumerator ChasePlayer()
         {
+            img.color = Color.red;
             while (DistanceToPlayer() < smellRadius)
             {
                 transform.localPosition = Vector2.MoveTowards(transform.localPosition,
                     playerTransform.localPosition, chaseSpeed);
                 yield return cachedWait;
             }
+            img.color = Color.blue;
         }
 
         [Condition]
         public bool IsPlayerNearby()
         {
-            if (DistanceToPlayer() < smellRadius)
-            {
-                Debug.Log("Smells player");
-                return true;
-            }
-            return false;
+            Debug.Log(name);
+            return DistanceToPlayer() < smellRadius;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using BehaviourGraph.Blackboard;
 using Coffee.BehaviourTree;
 using Coffee.BehaviourTree.Decorator;
 using Sirenix.Serialization;
@@ -12,6 +13,9 @@ namespace Coffee.Behaviour.Nodes.DecoratorNodes
         [NonSerialized, OdinSerialize, HideInInspector]
         protected TreeConditionNode conditionNode;
 
+        [NonSerialized, OdinSerialize] 
+        private ConditionalSelector conditionalSelector = new ConditionalSelector();
+
         protected override void OnCreation()
         {
             conditionNode = new TreeConditionNode(null);
@@ -20,7 +24,12 @@ namespace Coffee.Behaviour.Nodes.DecoratorNodes
         
         public override TreeBaseNode WalkGraphToCreateTree(BehaviourTree.BehaviourTree tree)
         {
-            TreeConditionNode node = new TreeConditionNode(tree) {reference = blackboardReferenceTarget};
+            BlackboardRuntimeCondition brtc = 
+                new BlackboardRuntimeCondition(conditionalSelector, tree.owner);
+            
+            TreeConditionNode node = new TreeConditionNode(tree) 
+                {runtimeCondition = brtc};
+            
             return WalkDecoratorNode(tree, node);
         }
     }

@@ -14,35 +14,30 @@ namespace Coffee.BehaviourTree.Composite
         {
             if (currentNode < childNodes.Length)
             {
-                context.SetContext(this, Result.Running);
                 var result = childNodes[currentNode].Execute(ref context);
                 
                 switch (result)
                 {
                     case Result.Waiting:
-                        Debug.Log("yote");
+                        context.SetContext(this, Result.Waiting);
                         return result;
                     case Result.Running:
-                        Debug.Log("4");
                         context.SetContext(this, Result.Running);
                         return result;
                     case Result.Success:
-                        Debug.Log("6");
                         currentNode++;
-                        context.SetContext(this, Result.Running);
+                        context.SetContext(this, Result.Success);
                         return result;
                 }
                 
                 currentNode++;
                 if (currentNode < childNodes.Length)
                 {
-                    Debug.Log("5");
                     context.SetContext(this, Result.Running);
                     return Result.Running;
                 }
             }
-
-            Debug.Log("kay");
+            
             currentNode = 0;
             context.Reset();
             return Result.Failure;

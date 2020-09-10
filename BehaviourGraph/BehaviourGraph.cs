@@ -19,55 +19,33 @@ namespace Coffee.Behaviour
         protected GameObject pawn;
         [SerializeField]
         internal BaseNode root = null;
-        [HideInInspector, SerializeField]
-        public Blackboard localBlackboard;
-        [SerializeField] 
-        public List<Blackboard> blackboards = new List<Blackboard>();
-
-        #if UNITY_EDITOR
+        
+#if UNITY_EDITOR
         public void EditorTimeInitialization()
         {
-            if (localBlackboard != null)
+            if (root != null)
                 return;
             
             root = AddNode<RootNode>();
-            localBlackboard = CreateInstance<Blackboard>();
-            localBlackboard.name = "Local Blackboard";
             root.name = "Root Node";
-            
-            blackboards.Add(localBlackboard);
 
             AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(this));
             AssetDatabase.Refresh();
             AssetDatabase.AddObjectToAsset(root, this);
-            AssetDatabase.AddObjectToAsset(localBlackboard, this);
             AssetDatabase.SaveAssets();
             AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(root));
-            AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(localBlackboard));
             AssetDatabase.Refresh();
         }
         #endif
 
         public BehaviourTree.BehaviourTree GenerateBehaviourTree(GameObject executingOn)
         {
-            var cloneTree = new BehaviourTree.BehaviourTree();
+            var cloneTree = new BehaviourTree.BehaviourTree(executingOn);
             TreeBaseNode treeRoot = root.WalkGraphToCreateTree(cloneTree);
-            cloneTree.Init(treeRoot, ref blackboards);
-            cloneTree.RuntimeSetup(executingOn);
+            cloneTree.RuntimeSetup(treeRoot, executingOn);
             treeRoot.Reset();
-            return cloneTree;
-        }
-
-        public ValueDropdownList<BlackboardReference> GetAllBlackboardReferences()
-        {
-            ValueDropdownList<BlackboardReference> refs = new ValueDropdownList<BlackboardReference>();
             
-            foreach (var bb in blackboards)
-            {
-                refs.AddRange(bb.GetBlackboardReferences());
-            }
-
-            return refs;
+            return cloneTree;
         }
 
         [SerializeField]

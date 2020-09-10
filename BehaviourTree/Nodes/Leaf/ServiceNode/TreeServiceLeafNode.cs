@@ -16,11 +16,11 @@ namespace Coffee.BehaviourTree.Leaf
         {
             if (rtService.Execute())
             {
-                context.SetContext(this, Result.Waiting);
+                //context.SetContext(this, Result.Waiting);
                 return Result.Waiting;
             }
 
-            context.Reset();
+            //context.Reset();
             return Result.Success;
         }
 

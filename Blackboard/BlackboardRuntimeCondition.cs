@@ -7,70 +7,69 @@ using UnityEngine;
 namespace BehaviourGraph.Blackboard
 {
     [Serializable]
-    internal class BlackboardRuntimeCondition
+    public class BlackboardRuntimeCondition
     {
-        private bool isMethod = false;
-        private Type conditionType;
-        private MethodInfo method;
         private FieldInfo field;
-        private Func<bool> cachedConditionFunction;
-
-        private int cachedObjectHash = -1;
         private Component cachedConditionComponent;
-        public bool EvaluateAs(GameObject obj)
+        private Func<bool> evalAction;
+
+        private bool EvaluateField()
         {
-            if (obj == null)
-                return false;
-            
-            if (cachedObjectHash != obj.GetHashCode())
-            {
-                cachedObjectHash = obj.GetHashCode();
-                SetupCachedVersionFor(obj);
-            }
-            
-            if (isMethod)
-            {
-                return cachedConditionFunction.Invoke();
-            }
-            
             return (bool)field.GetValue(cachedConditionComponent);
         }
+        private Func<bool> InvalidStub = () => false;
 
-        public void SetupCachedVersionFor(GameObject obj)
+        public bool Evaluate()
         {
-            if (!obj.TryGetComponent(conditionType, out cachedConditionComponent))
+            return evalAction.Invoke();
+        }
+
+        public BlackboardRuntimeCondition(ConditionalSelector selector, GameObject target)
+        {
+            var member = selector.MemberSelector;
+            Type declType = member.DeclaringType;
+            
+            if (!target.TryGetComponent(member.DeclaringType, out cachedConditionComponent))
             {
-                throw new Exception("Unable to find condition " + conditionType.Name + " in " + obj.name);
+                Debug.LogError(
+                    "Could not create condition for: " + 
+                    target.name + " using " + declType?.Name);
+                
+                evalAction = InvalidStub;
+                return;
             }
-            if (isMethod)
+            switch (selector.isMethod)
             {
-                cachedConditionFunction = CreateConditionFunction(method, cachedConditionComponent);
+                case true:
+                    BuildConditionFunction(target, member as MethodInfo, declType);
+                    break;
+                default:
+                    field = member as FieldInfo;
+                    evalAction = EvaluateField;
+                    break;
             }
         }
+
+        private void BuildConditionFunction(GameObject obj, MethodInfo method, Type condType)
+        {
+            if (!obj.TryGetComponent(condType, out cachedConditionComponent))
+            {
+                Debug.LogError(
+                    "Unable to find condition " + condType.Name + " in " + obj.name);
+                
+                evalAction = InvalidStub;
+            }
+            evalAction = CreateConditionFunction(method, cachedConditionComponent);
+        }
         
-        public Func<bool> CreateConditionFunction(MethodInfo methodInfo, object target) {
+        private Func<bool> CreateConditionFunction(MethodInfo methodInfo, object target) {
             Func<Type[], Type> getType;
             
             getType = Expression.GetFuncType;
             var types = new[] {methodInfo.ReturnType};
 
-            return (Func<bool>)Delegate.CreateDelegate(getType(types.ToArray()), target, methodInfo.Name);
-        }
-        
-        public void RuntimeCacheSetup(ConditionalSelector selector)
-        {
-            isMethod = selector.isMethod;
-
-            var m = selector.MemberSelector;
-            conditionType = m.DeclaringType;
-            if (isMethod)
-            {
-                method = m as MethodInfo;
-            }
-            else
-            {
-                field = m as FieldInfo;
-            }
+            return (Func<bool>)Delegate.CreateDelegate(
+                getType(types.ToArray()), target, methodInfo.Name);
         }
     }
 }

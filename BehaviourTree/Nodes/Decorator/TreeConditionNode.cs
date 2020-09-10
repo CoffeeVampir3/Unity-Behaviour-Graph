@@ -6,16 +6,16 @@ namespace Coffee.BehaviourTree.Decorator
 {
     internal class TreeConditionNode : TreeDecoratorNode
     {
-        public BlackboardReference reference;
+        public BlackboardRuntimeCondition runtimeCondition;
         public TreeConditionNode(BehaviourTree tree) : base(tree)
         {
         }
 
         public override Result Execute(ref BehaviourContext context)
         {
-            Debug.Assert(reference != null);
+            Debug.Assert(runtimeCondition != null);
 
-            if (reference.Evaluate())
+            if (runtimeCondition.Evaluate())
                 return child.Execute(ref context);
             
             return Result.Failure;
