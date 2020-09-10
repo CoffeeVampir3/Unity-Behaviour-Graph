@@ -31,46 +31,39 @@ namespace BehaviourGraph.Debugging
             Vector2 position = transform.localPosition;
             return position + pointOffset;
         }
-
-        private Vector2 originalPosition;
+        
         private Vector2 waypoint;
-        private bool moving = false;
         [SerializeField] 
         private float randomRadiusSize = .5f;
         [SerializeField] 
         private float speed = 1f;
-        private float totalTraversed = 0f;
         [SerializeField] 
-        private Image img;
+        private Image img = null;
         
         WaitForEndOfFrame cachedWait = new WaitForEndOfFrame();
 
         [Service]
+        public IEnumerator FindWaypoint()
+        {
+            waypoint = GetPointInRadius(randomRadiusSize);
+            yield return null;
+        }
+
+        [Service]
         public IEnumerator MoveToRandomPoint()
         {
-            if (!moving)
+            while (!IsPlayerNearby() && Vector2.Distance(waypoint, transform.localPosition) > .1f)
             {
-                moving = true;
-                totalTraversed = 0.0f;
-                originalPosition = transform.localPosition;
-                waypoint = GetPointInRadius(randomRadiusSize);
-            }
-            
-            while (totalTraversed < 1.0f)
-            {
-                totalTraversed += speed * Time.deltaTime;
-                transform.localPosition = Vector2.Lerp(originalPosition, waypoint, totalTraversed);
+                transform.localPosition = Vector2.MoveTowards(
+                    transform.localPosition, waypoint, speed);
                 yield return cachedWait;
             }
-
-            moving = false;
-            originalPosition = transform.localPosition;
         }
 
         public float DistanceToPlayer()
         {
             return 
-                Vector3.Distance(playerTransform.localPosition, transform.localPosition);
+                Vector2.Distance(playerTransform.localPosition, transform.localPosition);
         }
         
         //Good coding practice kappa
@@ -80,12 +73,14 @@ namespace BehaviourGraph.Debugging
         private float chaseSpeed = 1;
         [SerializeField] 
         private float smellRadius = 50;
+        [SerializeField] 
+        private float chaseRadius = 150;
         
         [Service]
         public IEnumerator ChasePlayer()
         {
             img.color = Color.red;
-            while (DistanceToPlayer() < smellRadius)
+            while (DistanceToPlayer() < chaseRadius)
             {
                 transform.localPosition = Vector2.MoveTowards(transform.localPosition,
                     playerTransform.localPosition, chaseSpeed);
@@ -97,7 +92,6 @@ namespace BehaviourGraph.Debugging
         [Condition]
         public bool IsPlayerNearby()
         {
-            Debug.Log(name);
             return DistanceToPlayer() < smellRadius;
         }
     }
