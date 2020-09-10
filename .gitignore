@@ -60,4 +60,4 @@ crashlytics-build.properties
 
 *.meta
 
-!/Examples/
+!/Examples
