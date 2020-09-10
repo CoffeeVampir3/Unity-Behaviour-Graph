@@ -20,8 +20,8 @@ namespace Coffee.BehaviourTree.Composite
                         context.SetContext(this, Result.Running);
                         return result;
                     case Result.Success:
-                        currentNode++;
-                        context.SetContext(this, Result.Success);
+                        currentNode = 0;
+                        context.Reset();
                         return result;
                 }
                 

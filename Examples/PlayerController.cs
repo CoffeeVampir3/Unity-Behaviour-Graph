@@ -21,7 +21,9 @@ namespace BehaviourGraph.Debugging
             var transform1 = transform;
             
             var p = transform1.localPosition;
-            p += new Vector3(horz * speed, verts * speed);
+            p += new Vector3(
+                horz * speed * Time.deltaTime, 
+                verts * speed * Time.deltaTime);
             
             transform1.localPosition = p;
         }
