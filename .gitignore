@@ -59,5 +59,3 @@ sysinfo.txt
 crashlytics-build.properties
 
 *.meta
-
-!/Examples
