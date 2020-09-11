@@ -13,7 +13,7 @@ namespace BehaviourGraph.Blackboard
         private FieldInfo field;
         private Component cachedConditionComponent;
         private Func<bool> evalAction;
-        
+
         #region Eval
         
         //Methods bind to evalAction in Build Condition Function
@@ -22,7 +22,7 @@ namespace BehaviourGraph.Blackboard
         {
             return (bool)field.GetValue(cachedConditionComponent);
         }
-        
+
         private Func<bool> InvalidStub = () => false;
 
         public bool Evaluate()

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using BehaviourGraph.Attributes;
+using BehaviourGraph.Services;
 using Coffee.BehaviourTree;
 using UnityEngine;
 using UnityEngine.UI;
@@ -60,24 +61,27 @@ namespace BehaviourGraph.Debugging
         }
 
         [Service]
-        public IEnumerator FindWaypoint()
+        public ServiceState FindWaypoint()
         {
+            Debug.Log("Selected new waypoint.");
             currentRadius = smellRadius;
             waypoint = GetPointInRadius(randomRadiusSize);
-            yield return null;
+            return ServiceState.Complete;
         }
 
         [Service]
-        public IEnumerator MoveToRandomPoint()
+        public ServiceState MoveToRandomPoint()
         {
-            while (!IsPlayerNearby() && Vector2.Distance(waypoint, transform.localPosition) > .1f)
+            Debug.Log("Moving");
+            transform.localPosition = Vector2.MoveTowards(
+                transform.localPosition, waypoint, 
+                speed * Time.deltaTime);
+            
+            if (Vector2.Distance(waypoint, transform.localPosition) > .1f)
             {
-                transform.localPosition = Vector2.MoveTowards(
-                    transform.localPosition, waypoint, 
-                    speed * Time.deltaTime);
-                
-                yield return cachedWait;
+                return ServiceState.Running;
             }
+            return ServiceState.Complete;
         }
 
         public float DistanceToPlayer()
@@ -86,25 +90,39 @@ namespace BehaviourGraph.Debugging
                 Vector2.Distance(playerTransform.localPosition, transform.localPosition);
         }
         
-
         [Service]
-        public IEnumerator ChasePlayer()
+        public ServiceState ChasePlayer()
+        {
+            currentRadius = chaseRadius;
+            transform.localPosition = Vector2.MoveTowards(transform.localPosition,
+                playerTransform.localPosition, chaseSpeed * Time.deltaTime);
+            return ServiceState.Running;
+        }
+        
+        [Service]
+        public ServiceState ColorRed()
         {
             img.color = Color.red;
-            currentRadius = chaseRadius;
-            while (IsPlayerNearby())
-            {
-                transform.localPosition = Vector2.MoveTowards(transform.localPosition,
-                    playerTransform.localPosition, chaseSpeed * Time.deltaTime);
-                yield return cachedWait;
-            }
+            return ServiceState.Complete;
+        }
+        
+        [Service]
+        public ServiceState ColorBlue()
+        {
             img.color = Color.blue;
+            return ServiceState.Complete;
         }
 
         [Condition]
         private bool IsPlayerNearby()
         {
             return DistanceToPlayer() < currentRadius;
+        }
+        
+        [Condition]
+        private bool IsPlayerNotNearby()
+        {
+            return !IsPlayerNearby();
         }
     }
 }

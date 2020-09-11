@@ -8,12 +8,12 @@ namespace BehaviourGraph.Services
 {
     internal static class ServiceCreator
     {
-        static readonly Type[] serviceFunctionPattern = { typeof(IEnumerator)};
-        public static Func<IEnumerator> CreateServiceFunction(MethodInfo methodInfo, object target) {
+        static readonly Type[] serviceFunctionPattern = { typeof(ServiceState)};
+        public static Func<ServiceState> CreateServiceFunction(MethodInfo methodInfo, object target) {
             Func<Type[], Type> getType = Expression.GetFuncType;
             var types = serviceFunctionPattern;
 
-            return (Func<IEnumerator>)Delegate.CreateDelegate(getType(types.ToArray()), target, methodInfo.Name);
+            return (Func<ServiceState>)Delegate.CreateDelegate(getType(types.ToArray()), target, methodInfo.Name);
         }
     }
 }

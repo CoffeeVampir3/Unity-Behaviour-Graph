@@ -10,7 +10,7 @@ namespace BehaviourGraph.Services
     {
         private readonly CoroutineController controller;
         private readonly MonoBehaviour targetCtx;
-        public readonly Func<IEnumerator> executable;
+        public readonly Func<ServiceState> executable;
         public RuntimeService(MethodInfo targetMethod, GameObject targetGameObject)
         {
             Type declType = targetMethod.DeclaringType;
@@ -27,17 +27,7 @@ namespace BehaviourGraph.Services
 
         public bool Execute()
         {
-            if (controller.state == CoroutineController.CoroutineState.Ready)
-            {
-                controller.Start(targetCtx, executable());
-            }
-            if (controller.state == CoroutineController.CoroutineState.Running)
-            {
-                return true;
-            }
-            
-            controller.Finish();
-            return false;
+            return executable() == ServiceState.Running;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Coffee.BehaviourTree.Context;
+using UnityEngine;
 
 namespace Coffee.BehaviourTree.Composite
 {
@@ -14,7 +15,6 @@ namespace Coffee.BehaviourTree.Composite
                 {
                     case Result.Running:
                         return result;
-                    
                     case Result.Success:
                         currentNode = 0;
                         return result;

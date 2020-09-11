@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: IsPlayerInRange
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 504, y: -152}
+  position: {x: 392, y: -40}
   ports:
     keys:
     - parents
@@ -37,7 +37,7 @@ MonoBehaviour:
         Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: parents
-        node: {fileID: -8439548002174400211}
+        node: {fileID: 4083612588736755473}
         reroutePoints: []
       _direction: 1
       _connectionType: 1
@@ -62,11 +62,8 @@ MonoBehaviour:
       Data: 
     - Name: child
       Entry: 7
-      Data: 1|Coffee.BehaviourTree.Leaf.TreeServiceLeafNode, BehaviourGraph
+      Data: 1|Coffee.BehaviourTree.Composite.TreeSequencerNode, BehaviourGraph
     - Name: parentTree
-      Entry: 6
-      Data: 
-    - Name: targetMethod
       Entry: 6
       Data: 
     - Name: 
@@ -95,71 +92,6 @@ MonoBehaviour:
       Data: 
   childNode: {fileID: 0}
   parents: []
---- !u!114 &-8563394075650865356
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adc4d4b032a44cb796d7df94973f8d7b, type: 3}
-  m_Name: Selector
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: 367, y: 511}
-  ports:
-    keys:
-    - parents
-    - children
-    values:
-    - _fieldName: parents
-      _node: {fileID: -8563394075650865356}
-      _typeQualifiedName: Coffee.Behaviour.Nodes.BaseNode[], BehaviourGraph, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      connections:
-      - fieldName: childNode
-        node: {fileID: 5075064800278486668}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: children
-      _node: {fileID: -8563394075650865356}
-      _typeQualifiedName: Coffee.Behaviour.Nodes.BaseNode[], BehaviourGraph, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      connections: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-  parentGraph: {fileID: 11400000}
-  initialized: 1
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes:
-    - Name: thisTreeNode
-      Entry: 7
-      Data: 0|Coffee.BehaviourTree.Composite.TreeSelectorNode, BehaviourGraph
-    - Name: parentTree
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: selectorNode
-      Entry: 9
-      Data: 0
-  parents: []
-  children: []
 --- !u!114 &-8439548002174400211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,7 +105,7 @@ MonoBehaviour:
   m_Name: ChasePlayer
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 760, y: -152}
+  position: {x: 856, y: -24}
   ports:
     keys:
     - parents
@@ -183,8 +115,8 @@ MonoBehaviour:
       _typeQualifiedName: Coffee.Behaviour.Nodes.BaseNode[], BehaviourGraph, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       connections:
-      - fieldName: childNode
-        node: {fileID: -9222792281975335144}
+      - fieldName: children
+        node: {fileID: 4083612588736755473}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
@@ -226,78 +158,7 @@ MonoBehaviour:
       Entry: 9
       Data: 0
   parents: []
---- !u!114 &-6743689450409636375
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e4baaf70e6e48c1b23601db4c2d2d22, type: 3}
-  m_Name: Sequencer
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: 504, y: 104}
-  ports:
-    keys:
-    - parents
-    - children
-    values:
-    - _fieldName: parents
-      _node: {fileID: -6743689450409636375}
-      _typeQualifiedName: Coffee.Behaviour.Nodes.BaseNode[], BehaviourGraph, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      connections:
-      - fieldName: children
-        node: {fileID: 2591425534729630538}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: children
-      _node: {fileID: -6743689450409636375}
-      _typeQualifiedName: Coffee.Behaviour.Nodes.BaseNode[], BehaviourGraph, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      connections:
-      - fieldName: parents
-        node: {fileID: 428035786325341501}
-        reroutePoints: []
-      - fieldName: parents
-        node: {fileID: -3607118284405731910}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-  parentGraph: {fileID: 11400000}
-  initialized: 1
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes:
-    - Name: thisTreeNode
-      Entry: 7
-      Data: 0|Coffee.BehaviourTree.Composite.TreeSequencerNode, BehaviourGraph
-    - Name: parentTree
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: sequencerNode
-      Entry: 9
-      Data: 0
-  parents: []
-  children: []
---- !u!114 &-3607118284405731910
+--- !u!114 &-8177994528001988549
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -307,21 +168,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b72e06eaf3224d98a0b4652c203507ff, type: 3}
-  m_Name: MoveToWaypoint
+  m_Name: ColorRed
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 728, y: 168}
+  position: {x: 856, y: -120}
   ports:
     keys:
     - parents
     values:
     - _fieldName: parents
-      _node: {fileID: -3607118284405731910}
+      _node: {fileID: -8177994528001988549}
       _typeQualifiedName: Coffee.Behaviour.Nodes.BaseNode[], BehaviourGraph, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: children
-        node: {fileID: -6743689450409636375}
+        node: {fileID: 4083612588736755473}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
@@ -355,7 +216,7 @@ MonoBehaviour:
       Data: 1|BehaviourGraph.CodeLinks.AttributeCache.ServiceSelector, AttributeHelpers
     - Name: targetMethod
       Entry: 1
-      Data: ThingyController/MoveToRandomPoint
+      Data: ThingyController/ColorRed
     - Name: 
       Entry: 8
       Data: 
@@ -363,6 +224,80 @@ MonoBehaviour:
       Entry: 9
       Data: 0
   parents: []
+--- !u!114 &-6743689450409636375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e4baaf70e6e48c1b23601db4c2d2d22, type: 3}
+  m_Name: Wander Sequencer
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 392, y: 216}
+  ports:
+    keys:
+    - parents
+    - children
+    values:
+    - _fieldName: parents
+      _node: {fileID: -6743689450409636375}
+      _typeQualifiedName: Coffee.Behaviour.Nodes.BaseNode[], BehaviourGraph, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: children
+        node: {fileID: 2591425534729630538}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: children
+      _node: {fileID: -6743689450409636375}
+      _typeQualifiedName: Coffee.Behaviour.Nodes.BaseNode[], BehaviourGraph, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: parents
+        node: {fileID: 7692477977708367002}
+        reroutePoints: []
+      - fieldName: parents
+        node: {fileID: 428035786325341501}
+        reroutePoints: []
+      - fieldName: parents
+        node: {fileID: 7672247384952564675}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  parentGraph: {fileID: 11400000}
+  initialized: 1
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: thisTreeNode
+      Entry: 7
+      Data: 0|Coffee.BehaviourTree.Composite.TreeSequencerNode, BehaviourGraph
+    - Name: parentTree
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: sequencerNode
+      Entry: 9
+      Data: 0
+  parents: []
+  children: []
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -380,11 +315,13 @@ MonoBehaviour:
   - {fileID: 2591425534729630538}
   - {fileID: -9222792281975335144}
   - {fileID: -8439548002174400211}
-  - {fileID: -3607118284405731910}
   - {fileID: 428035786325341501}
   - {fileID: -6743689450409636375}
-  - {fileID: -8563394075650865356}
-  - {fileID: 5075064800278486668}
+  - {fileID: 7672247384952564675}
+  - {fileID: 2817259704327790713}
+  - {fileID: 4083612588736755473}
+  - {fileID: -8177994528001988549}
+  - {fileID: 7692477977708367002}
   pawn: {fileID: 0}
   root: {fileID: 2373682937614406248}
   serializationData:
@@ -409,7 +346,7 @@ MonoBehaviour:
   m_Name: Find Waypoint
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 728, y: 72}
+  position: {x: 648, y: 232}
   ports:
     keys:
     - parents
@@ -475,7 +412,7 @@ MonoBehaviour:
   m_Name: Root Node
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -136, y: -8}
+  position: {x: -88, y: -40}
   ports:
     keys:
     - childNode
@@ -538,7 +475,7 @@ MonoBehaviour:
   m_Name: Selector
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 248, y: -40}
+  position: {x: 120, y: -40}
   ports:
     keys:
     - parents
@@ -596,7 +533,144 @@ MonoBehaviour:
       Data: 0
   parents: []
   children: []
---- !u!114 &5075064800278486668
+--- !u!114 &2817259704327790713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b72e06eaf3224d98a0b4652c203507ff, type: 3}
+  m_Name: MoveToWaypoint
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 856, y: 328}
+  ports:
+    keys:
+    - parents
+    values:
+    - _fieldName: parents
+      _node: {fileID: 2817259704327790713}
+      _typeQualifiedName: Coffee.Behaviour.Nodes.BaseNode[], BehaviourGraph, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: childNode
+        node: {fileID: 7672247384952564675}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  parentGraph: {fileID: 11400000}
+  initialized: 1
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: thisTreeNode
+      Entry: 7
+      Data: 0|Coffee.BehaviourTree.Leaf.TreeServiceLeafNode, BehaviourGraph
+    - Name: parentTree
+      Entry: 6
+      Data: 
+    - Name: targetMethod
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: service
+      Entry: 7
+      Data: 1|BehaviourGraph.CodeLinks.AttributeCache.ServiceSelector, AttributeHelpers
+    - Name: targetMethod
+      Entry: 1
+      Data: ThingyController/MoveToRandomPoint
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: leafNode
+      Entry: 9
+      Data: 0
+  parents: []
+--- !u!114 &4083612588736755473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e4baaf70e6e48c1b23601db4c2d2d22, type: 3}
+  m_Name: Sequencer
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 600, y: -40}
+  ports:
+    keys:
+    - parents
+    - children
+    values:
+    - _fieldName: parents
+      _node: {fileID: 4083612588736755473}
+      _typeQualifiedName: Coffee.Behaviour.Nodes.BaseNode[], BehaviourGraph, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: childNode
+        node: {fileID: -9222792281975335144}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: children
+      _node: {fileID: 4083612588736755473}
+      _typeQualifiedName: Coffee.Behaviour.Nodes.BaseNode[], BehaviourGraph, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: parents
+        node: {fileID: -8177994528001988549}
+        reroutePoints: []
+      - fieldName: parents
+        node: {fileID: -8439548002174400211}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  parentGraph: {fileID: 11400000}
+  initialized: 1
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: thisTreeNode
+      Entry: 7
+      Data: 0|Coffee.BehaviourTree.Composite.TreeSequencerNode, BehaviourGraph
+    - Name: parentTree
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: sequencerNode
+      Entry: 9
+      Data: 0
+  parents: []
+  children: []
+--- !u!114 &7672247384952564675
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -606,31 +680,34 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e768cff6c277456596cb4b219743d87d, type: 3}
-  m_Name: Condition
+  m_Name: IsPlayerNotNearby
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 72, y: 504}
+  position: {x: 648, y: 328}
   ports:
     keys:
     - parents
     - childNode
     values:
     - _fieldName: parents
-      _node: {fileID: 5075064800278486668}
+      _node: {fileID: 7672247384952564675}
       _typeQualifiedName: Coffee.Behaviour.Nodes.BaseNode[], BehaviourGraph, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-      connections: []
+      connections:
+      - fieldName: children
+        node: {fileID: -6743689450409636375}
+        reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: childNode
-      _node: {fileID: 5075064800278486668}
+      _node: {fileID: 7672247384952564675}
       _typeQualifiedName: Coffee.Behaviour.Nodes.BaseNode, BehaviourGraph, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: parents
-        node: {fileID: -8563394075650865356}
+        node: {fileID: 2817259704327790713}
         reroutePoints: []
       _direction: 1
       _connectionType: 1
@@ -655,8 +732,11 @@ MonoBehaviour:
       Data: 
     - Name: child
       Entry: 7
-      Data: 1|Coffee.BehaviourTree.Composite.TreeSelectorNode, BehaviourGraph
+      Data: 1|Coffee.BehaviourTree.Leaf.TreeServiceLeafNode, BehaviourGraph
     - Name: parentTree
+      Entry: 6
+      Data: 
+    - Name: targetMethod
       Entry: 6
       Data: 
     - Name: 
@@ -676,12 +756,78 @@ MonoBehaviour:
       Data: 2|BehaviourGraph.CodeLinks.AttributeCache.ConditionalSelector, AttributeHelpers
     - Name: memberSelector
       Entry: 1
-      Data: 
+      Data: ThingyController/IsPlayerNotNearby
     - Name: isMethod
       Entry: 5
-      Data: false
+      Data: true
     - Name: 
       Entry: 8
       Data: 
   childNode: {fileID: 0}
+  parents: []
+--- !u!114 &7692477977708367002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b72e06eaf3224d98a0b4652c203507ff, type: 3}
+  m_Name: ColorBlue
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 648, y: 136}
+  ports:
+    keys:
+    - parents
+    values:
+    - _fieldName: parents
+      _node: {fileID: 7692477977708367002}
+      _typeQualifiedName: Coffee.Behaviour.Nodes.BaseNode[], BehaviourGraph, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: children
+        node: {fileID: -6743689450409636375}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  parentGraph: {fileID: 11400000}
+  initialized: 1
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: thisTreeNode
+      Entry: 7
+      Data: 0|Coffee.BehaviourTree.Leaf.TreeServiceLeafNode, BehaviourGraph
+    - Name: parentTree
+      Entry: 6
+      Data: 
+    - Name: targetMethod
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: service
+      Entry: 7
+      Data: 1|BehaviourGraph.CodeLinks.AttributeCache.ServiceSelector, AttributeHelpers
+    - Name: targetMethod
+      Entry: 1
+      Data: ThingyController/ColorBlue
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: leafNode
+      Entry: 9
+      Data: 0
   parents: []
