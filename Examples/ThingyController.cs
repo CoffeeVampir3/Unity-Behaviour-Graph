@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using BehaviourGraph.Attributes;
+﻿using BehaviourGraph.Attributes;
 using BehaviourGraph.Services;
 using Coffee.BehaviourTree;
 using UnityEngine;
@@ -60,10 +59,15 @@ namespace BehaviourGraph.Debugging
             return position + pointOffset;
         }
 
+        public float DistanceToPlayer()
+        {
+            return 
+                Vector2.Distance(playerTransform.localPosition, transform.localPosition);
+        }
+        
         [Service]
         public ServiceState FindWaypoint()
         {
-            Debug.Log("Selected new waypoint.");
             currentRadius = smellRadius;
             waypoint = GetPointInRadius(randomRadiusSize);
             return ServiceState.Complete;
@@ -72,7 +76,6 @@ namespace BehaviourGraph.Debugging
         [Service]
         public ServiceState MoveToRandomPoint()
         {
-            Debug.Log("Moving");
             transform.localPosition = Vector2.MoveTowards(
                 transform.localPosition, waypoint, 
                 speed * Time.deltaTime);
@@ -82,12 +85,6 @@ namespace BehaviourGraph.Debugging
                 return ServiceState.Running;
             }
             return ServiceState.Complete;
-        }
-
-        public float DistanceToPlayer()
-        {
-            return 
-                Vector2.Distance(playerTransform.localPosition, transform.localPosition);
         }
         
         [Service]
