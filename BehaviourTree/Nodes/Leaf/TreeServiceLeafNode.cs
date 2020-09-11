@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using BehaviourGraph.Services;
 using Coffee.BehaviourTree.Context;
+using UnityEngine;
 
 namespace Coffee.BehaviourTree.Leaf
 {
@@ -13,7 +14,7 @@ namespace Coffee.BehaviourTree.Leaf
         {
             if (rtService.Execute())
             {
-                return Result.Waiting;
+                return Result.Running;
             }
             
             return Result.Success;
@@ -25,6 +26,7 @@ namespace Coffee.BehaviourTree.Leaf
             {
                 rtService = new RuntimeService(targetMethod, parentTree.owner);
             }
+            Debug.Assert(rtService != null);
         }
         
         public TreeServiceLeafNode(BehaviourTree tree) : base(tree)

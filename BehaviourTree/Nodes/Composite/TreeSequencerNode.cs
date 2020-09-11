@@ -7,34 +7,21 @@ namespace Coffee.BehaviourTree.Composite
     {
         public override Result Execute(ref BehaviourContext context)
         {
-            if (currentNode < childNodes.Length)
+            for (; currentNode < childNodes.Length; currentNode++)
             {
                 var result = childNodes[currentNode].Execute(ref context);
-
                 switch (result)
                 {
-                    case Result.Waiting:
-                        context.SetContext(this, Result.Waiting);
-                        return result;
                     case Result.Running:
-                        context.SetContext(this, Result.Running);
                         return result;
+
                     case Result.Failure:
                         currentNode = 0;
-                        context.Reset();
                         return result;
-                }
-                
-                currentNode++;
-                if (currentNode < childNodes.Length)
-                {
-                    context.SetContext(this, Result.Running);
-                    return Result.Running;
                 }
             }
 
             currentNode = 0;
-            context.Reset();
             return Result.Success;
         }
         

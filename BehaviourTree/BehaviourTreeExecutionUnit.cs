@@ -4,13 +4,14 @@
     {
         private void ExecuteTree()
         {
+            UnityEngine.Debug.Assert(context != null, nameof(context) + " != null");
             while (context.node != null)
             {
                 context.node.Execute(ref context);
-                if (context == null || context.result == TreeBaseNode.Result.Waiting)
-                    break;
+                if (context.result == TreeBaseNode.Result.Running)
+                    return;
             }
-
+            
             UnityEngine.Debug.Assert(context != null, nameof(context) + " != null");
             if (context.node == null)
             {

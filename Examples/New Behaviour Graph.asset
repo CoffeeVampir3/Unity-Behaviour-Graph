@@ -95,6 +95,71 @@ MonoBehaviour:
       Data: 
   childNode: {fileID: 0}
   parents: []
+--- !u!114 &-8563394075650865356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc4d4b032a44cb796d7df94973f8d7b, type: 3}
+  m_Name: Selector
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 367, y: 511}
+  ports:
+    keys:
+    - parents
+    - children
+    values:
+    - _fieldName: parents
+      _node: {fileID: -8563394075650865356}
+      _typeQualifiedName: Coffee.Behaviour.Nodes.BaseNode[], BehaviourGraph, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: childNode
+        node: {fileID: 5075064800278486668}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: children
+      _node: {fileID: -8563394075650865356}
+      _typeQualifiedName: Coffee.Behaviour.Nodes.BaseNode[], BehaviourGraph, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  parentGraph: {fileID: 11400000}
+  initialized: 1
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: thisTreeNode
+      Entry: 7
+      Data: 0|Coffee.BehaviourTree.Composite.TreeSelectorNode, BehaviourGraph
+    - Name: parentTree
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: selectorNode
+      Entry: 9
+      Data: 0
+  parents: []
+  children: []
 --- !u!114 &-8439548002174400211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -318,6 +383,8 @@ MonoBehaviour:
   - {fileID: -3607118284405731910}
   - {fileID: 428035786325341501}
   - {fileID: -6743689450409636375}
+  - {fileID: -8563394075650865356}
+  - {fileID: 5075064800278486668}
   pawn: {fileID: 0}
   root: {fileID: 2373682937614406248}
   serializationData:
@@ -408,7 +475,7 @@ MonoBehaviour:
   m_Name: Root Node
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 8, y: -8}
+  position: {x: -136, y: -8}
   ports:
     keys:
     - childNode
@@ -529,3 +596,92 @@ MonoBehaviour:
       Data: 0
   parents: []
   children: []
+--- !u!114 &5075064800278486668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e768cff6c277456596cb4b219743d87d, type: 3}
+  m_Name: Condition
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 72, y: 504}
+  ports:
+    keys:
+    - parents
+    - childNode
+    values:
+    - _fieldName: parents
+      _node: {fileID: 5075064800278486668}
+      _typeQualifiedName: Coffee.Behaviour.Nodes.BaseNode[], BehaviourGraph, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: childNode
+      _node: {fileID: 5075064800278486668}
+      _typeQualifiedName: Coffee.Behaviour.Nodes.BaseNode, BehaviourGraph, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: parents
+        node: {fileID: -8563394075650865356}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  parentGraph: {fileID: 11400000}
+  initialized: 1
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: thisTreeNode
+      Entry: 7
+      Data: 0|Coffee.BehaviourTree.Decorator.TreeConditionNode, BehaviourGraph
+    - Name: parentTree
+      Entry: 6
+      Data: 
+    - Name: child
+      Entry: 7
+      Data: 1|Coffee.BehaviourTree.Composite.TreeSelectorNode, BehaviourGraph
+    - Name: parentTree
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: runtimeCondition
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: conditionNode
+      Entry: 9
+      Data: 0
+    - Name: conditionalSelector
+      Entry: 7
+      Data: 2|BehaviourGraph.CodeLinks.AttributeCache.ConditionalSelector, AttributeHelpers
+    - Name: memberSelector
+      Entry: 1
+      Data: 
+    - Name: isMethod
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+  childNode: {fileID: 0}
+  parents: []

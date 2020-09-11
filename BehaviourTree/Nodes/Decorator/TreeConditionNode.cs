@@ -10,8 +10,6 @@ namespace Coffee.BehaviourTree.Decorator
 
         public override Result Execute(ref BehaviourContext context)
         {
-            Debug.Assert(runtimeCondition != null);
-
             if (runtimeCondition.Evaluate())
                 return child.Execute(ref context);
             
@@ -20,7 +18,9 @@ namespace Coffee.BehaviourTree.Decorator
 
         public override void Reset()
         {
-            child?.Reset();
+            Debug.Assert(child != null);
+            Debug.Assert(runtimeCondition != null);
+            child.Reset();
         }
         
         public TreeConditionNode(BehaviourTree tree) : base(tree)

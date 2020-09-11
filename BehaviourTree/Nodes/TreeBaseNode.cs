@@ -12,8 +12,7 @@ namespace Coffee.BehaviourTree
         {
             Failure,
             Success,
-            Running,
-            Waiting
+            Running
         }
 
         public abstract Result Execute(ref BehaviourContext context);
