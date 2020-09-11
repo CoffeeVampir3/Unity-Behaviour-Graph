@@ -1,4 +1,5 @@
 ﻿using Coffee.BehaviourTree.Context;
+using Coffee.BehaviourTree.Ctx;
 using UnityEngine;
 
 namespace Coffee.BehaviourTree
@@ -7,6 +8,7 @@ namespace Coffee.BehaviourTree
     {
         [HideInInspector]
         public BehaviourTree parentTree;
+        //public ContextBlock contextBlock;
         
         public enum Result
         {

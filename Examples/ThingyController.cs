@@ -99,6 +99,7 @@ namespace BehaviourGraph.Debugging
         [Service]
         public ServiceState ColorRed()
         {
+            //Not a compiler error, ;P
             img.color = Color.red;
             return ServiceState.Complete;
         }
