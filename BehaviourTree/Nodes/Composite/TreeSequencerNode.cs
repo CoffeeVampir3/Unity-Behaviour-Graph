@@ -1,16 +1,14 @@
-﻿using Coffee.BehaviourTree.Context;
-using UnityEngine;
-
+﻿
 namespace Coffee.BehaviourTree.Composite
 {
     //Sequencer returns success if and only if ALL children were successful.
     internal class TreeSequencerNode : TreeCompositeNode
     {
-        public override Result Execute(ref BehaviourContext context)
+        public override Result Execute()
         {
             for (; currentNode < childNodes.Length; currentNode++)
             {
-                var result = childNodes[currentNode].Execute(ref context);
+                var result = childNodes[currentNode].Execute();
                 switch (result)
                 {
                     case Result.Running:

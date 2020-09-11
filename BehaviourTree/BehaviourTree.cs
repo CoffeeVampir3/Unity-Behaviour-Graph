@@ -1,4 +1,4 @@
-﻿using Coffee.BehaviourTree.Context;
+﻿using Coffee.BehaviourTree.Ctx;
 using UnityEngine;
 
 namespace Coffee.BehaviourTree
@@ -6,8 +6,8 @@ namespace Coffee.BehaviourTree
     public partial class BehaviourTree
     {
         internal GameObject owner;
-        private ITreeBehaviourNode root;
-        private BehaviourContext context;
+        private TreeBaseNode root;
+        private ContextWalker contextWalker;
 
         public BehaviourTree(GameObject owner)
         {
@@ -18,7 +18,8 @@ namespace Coffee.BehaviourTree
         {
             root = newRoot;
             owner = owningObject;
-            context = new BehaviourContext();
+            contextWalker = new ContextWalker();
+            contextWalker.SetContextPointer(newRoot.contextBlock);
         }
 
         public void Tick()

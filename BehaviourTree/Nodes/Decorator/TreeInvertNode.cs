@@ -1,13 +1,13 @@
-﻿using Coffee.BehaviourTree.Context;
+﻿using Coffee.BehaviourTree.Ctx;
 using UnityEngine;
 
 namespace Coffee.BehaviourTree.Decorator
 {
     internal class TreeInvertNode : TreeDecoratorNode
     {
-        public override Result Execute(ref BehaviourContext context)
+        public override Result Execute()
         {
-            var result = child.Execute(ref context);
+            var result = child.Execute();
             switch (result)
             {
                 case Result.Failure:

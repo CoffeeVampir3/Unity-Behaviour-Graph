@@ -1,16 +1,17 @@
-﻿using Coffee.BehaviourTree.Context;
-using UnityEngine;
+﻿
+
+using Coffee.BehaviourTree.Ctx;
 
 namespace Coffee.BehaviourTree.Composite
 {
     //Selector returns success if any children were successful.
     internal class TreeSelectorNode : TreeCompositeNode
     {
-        public override Result Execute(ref BehaviourContext context)
+        public override Result Execute()
         {
             for (; currentNode < childNodes.Length; currentNode++)
             {
-                var result = childNodes[currentNode].Execute(ref context);
+                var result = childNodes[currentNode].Execute();
                 switch (result)
                 {
                     case Result.Running:

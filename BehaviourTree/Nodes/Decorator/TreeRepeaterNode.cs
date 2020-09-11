@@ -1,13 +1,13 @@
-﻿using Coffee.BehaviourTree.Context;
+﻿using Coffee.BehaviourTree.Ctx;
 using UnityEngine;
 
 namespace Coffee.BehaviourTree.Decorator
 {
     internal class TreeRepeaterNode : TreeDecoratorNode
     {
-        public override Result Execute(ref BehaviourContext context)
+        public override Result Execute()
         {
-            child.Execute(ref context);
+            child.Execute();
             return Result.Running;
         }
 

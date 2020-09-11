@@ -1,14 +1,13 @@
-﻿using Coffee.BehaviourTree.Context;
-using Coffee.BehaviourTree.Ctx;
+﻿using Coffee.BehaviourTree.Ctx;
 using UnityEngine;
 
 namespace Coffee.BehaviourTree
 {
-    internal abstract class TreeBaseNode : ITreeBehaviourNode
+    internal abstract class TreeBaseNode
     {
         [HideInInspector]
         public BehaviourTree parentTree;
-        //public ContextBlock contextBlock;
+        public ContextBlock contextBlock;
         
         public enum Result
         {
@@ -17,7 +16,7 @@ namespace Coffee.BehaviourTree
             Running
         }
 
-        public abstract Result Execute(ref BehaviourContext context);
+        public abstract Result Execute();
 
         public abstract void Reset();
         

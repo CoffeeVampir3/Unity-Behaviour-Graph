@@ -12,7 +12,7 @@
         }
     }
     
-    internal class Context
+    internal class ContextWalker
     {
         private ContextBlock currentBlock;
 

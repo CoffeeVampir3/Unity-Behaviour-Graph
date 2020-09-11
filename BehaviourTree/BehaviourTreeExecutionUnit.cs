@@ -6,20 +6,11 @@ namespace Coffee.BehaviourTree
     {
         private void ExecuteTree()
         {
-            UnityEngine.Debug.Assert(context != null, nameof(context) + " != null");
-            while (context.node != null)
-            {
-                Debug.Log("Had context: " + context.node.GetType());
-                context.node.Execute(ref context);
-                if (context.result == TreeBaseNode.Result.Running)
-                    return;
-            }
+            var currentNode = contextWalker.GetContextNode();
             
-            UnityEngine.Debug.Assert(context != null, nameof(context) + " != null");
-            if (context.node == null)
-            {
-                root.Execute(ref context);
-            }
+            var ctxResult = currentNode.Execute();
+            if (ctxResult == TreeBaseNode.Result.Running)
+                return;
         }
     }
 }
