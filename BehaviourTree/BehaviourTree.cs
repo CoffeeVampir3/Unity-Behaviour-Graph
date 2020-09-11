@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Coffee.BehaviourTree
 {
-    public class BehaviourTree
+    public partial class BehaviourTree
     {
         internal GameObject owner;
         private ITreeBehaviourNode root;
@@ -21,22 +21,6 @@ namespace Coffee.BehaviourTree
             context = new BehaviourContext();
         }
 
-        private void ExecuteTree()
-        {
-            while (context.node != null)
-            {
-                context.node.Execute(ref context);
-                if (context == null || context.result == TreeBaseNode.Result.Waiting)
-                    break;
-            }
-
-            UnityEngine.Debug.Assert(context != null, nameof(context) + " != null");
-            if (context.node == null)
-            {
-                root.Execute(ref context);
-            }
-        }
-        
         public void Tick()
         {
             ExecuteTree();

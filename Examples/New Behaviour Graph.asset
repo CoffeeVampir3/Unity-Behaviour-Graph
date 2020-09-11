@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Name: ChasePlayer
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 696, y: -152}
+  position: {x: 760, y: -152}
   ports:
     keys:
     - parents
@@ -408,7 +408,7 @@ MonoBehaviour:
   m_Name: Root Node
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 0, y: 0}
+  position: {x: 8, y: -8}
   ports:
     keys:
     - childNode
@@ -471,7 +471,7 @@ MonoBehaviour:
   m_Name: Selector
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 248, y: -24}
+  position: {x: 248, y: -40}
   ports:
     keys:
     - parents
