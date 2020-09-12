@@ -25,7 +25,7 @@
 
         public TreeBaseNode GetContextNode()
         {
-            return current?.contextRoot;
+            return current.contextRoot;
         }
     }
 }
