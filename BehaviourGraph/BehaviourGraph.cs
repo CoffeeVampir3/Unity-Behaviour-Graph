@@ -18,6 +18,11 @@ namespace Coffee.Behaviour
         [SerializeField]
         internal BaseNode root = null;
         
+        /// <summary>
+        /// Generates an executable behaviour tree from this behaviour graph.
+        /// </summary>
+        /// <param name="executingOn">Which object to create the tree for</param>
+        /// <returns>A behaviour tree for the input game object.</returns>
         public BehaviourTree.BehaviourTree GenerateBehaviourTree(GameObject executingOn)
         {
             var cloneTree = new BehaviourTree.BehaviourTree(executingOn);

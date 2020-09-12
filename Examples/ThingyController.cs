@@ -33,11 +33,12 @@ namespace BehaviourGraph.Debugging
         private float chaseRadius = 150;
         
         private float currentRadius;
-        WaitForEndOfFrame cachedWait = new WaitForEndOfFrame();
 
         private void Awake()
         {
+            /*This is the only important line of code*/
             tree = graph.GenerateBehaviourTree(gameObject);
+
             speed = Random.Range(.5f*speed, 1.5f*speed);
             chaseSpeed = Random.Range(.5f*chaseSpeed, 1.5f*chaseSpeed);
 
@@ -49,6 +50,7 @@ namespace BehaviourGraph.Debugging
 
         public void Update()
         {
+            /*This one is slightly important as well... It runs the tree code. Sorta important.*/
             tree.Evaluate();
         }
 

@@ -12,7 +12,7 @@ namespace Coffee.BehaviourTree
         internal GameObject owner;
         private TreeBaseNode root;
         internal ContextWalker contextWalker;
-
+        
         public BehaviourTree(GameObject owner)
         {
             this.owner = owner;
@@ -26,6 +26,9 @@ namespace Coffee.BehaviourTree
             contextWalker.SetContextPointer(newRoot.context);
         }
 
+        /// <summary>
+        /// Performs an evaluation of the behaviour tree.
+        /// </summary>
         public void Evaluate()
         {
             ExecuteTree();
