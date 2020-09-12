@@ -5,6 +5,8 @@
 
 Alpha release party! Enjoy all you lovely peoples. The current branch is stable but still mutating, when documentation is finished I'll be finalizing the master branch and providing an experimental dev-branch for future changes.
 
+(Name Pending) Behaviour Graph! Lightning quick, zero allocations, 100/7 amazing graph for absolutely 0 dollerydos. Get a copy of your very own (Unnamed Behaviour Graph) today!
+
 # Dependencies
 
 Note that this graph depends on both the (Sirenix) Odin Inspector and xNode.
