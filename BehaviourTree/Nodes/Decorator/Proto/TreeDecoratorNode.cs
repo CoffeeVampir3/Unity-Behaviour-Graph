@@ -6,9 +6,10 @@ namespace Coffee.BehaviourTree.Decorator
     {
         public TreeBaseNode child;
 
-        public TreeDecoratorNode(BehaviourTree tree, Context parentCtx) : 
+        protected TreeDecoratorNode(BehaviourTree tree, Context parentCtx) : 
             base(tree, parentCtx)
         {
+            //(base)
         }
     }
 }

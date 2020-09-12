@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
-using Coffee.BehaviourTree.Ctx;
+﻿using Coffee.BehaviourTree.Ctx;
 using UnityEngine;
 
 namespace Coffee.BehaviourTree
 {
+    /// <summary>
+    /// Compiled representation of our behaviour graph.
+    /// <para>Run the tree using Evaluate()</para>
+    /// </summary>
     public partial class BehaviourTree
     {
         internal GameObject owner;
@@ -23,7 +26,7 @@ namespace Coffee.BehaviourTree
             contextWalker.SetContextPointer(newRoot.context);
         }
 
-        public void Tick()
+        public void Evaluate()
         {
             ExecuteTree();
         }

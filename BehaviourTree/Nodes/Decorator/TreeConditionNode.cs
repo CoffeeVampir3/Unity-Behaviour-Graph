@@ -16,7 +16,7 @@ namespace Coffee.BehaviourTree.Decorator
                 var isRunning = child.Execute();
                 if (isRunning == Result.Running)
                     parentTree.contextWalker.SetContextPointer(context);
-                return child.Execute();
+                return isRunning;
             }
 
             return Result.Failure;

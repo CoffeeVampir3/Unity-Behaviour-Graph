@@ -30,6 +30,9 @@ namespace Coffee.Behaviour
         
 #if UNITY_EDITOR
         #region Editor Initialization
+        /// <summary>
+        /// Bootstraps our root when the graph is created.
+        /// </summary>
         public void EditorTimeInitialization()
         {
             if (root != null)
@@ -49,6 +52,7 @@ namespace Coffee.Behaviour
         #endregion
 #endif
 
+        //ODIN dependency
         #region ISerializationCallbackReceiver Impl
         
         [SerializeField]

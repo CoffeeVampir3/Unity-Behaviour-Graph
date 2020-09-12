@@ -15,6 +15,7 @@ namespace Coffee.BehaviourTree.Leaf
 
         public override void Reset()
         {
+            //Empty
         }
 
         public TreeLeafDebugNode(BehaviourTree tree, Context parentCtx) : 

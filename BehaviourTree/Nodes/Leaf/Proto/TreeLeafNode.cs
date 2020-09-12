@@ -3,8 +3,8 @@
 namespace Coffee.BehaviourTree.Leaf
 {
     internal abstract class TreeLeafNode : TreeBaseNode
-    { 
-        public TreeLeafNode(BehaviourTree tree, Context parentCtx) : 
+    {
+        protected TreeLeafNode(BehaviourTree tree, Context parentCtx) : 
             base(tree, parentCtx)
         {
         }

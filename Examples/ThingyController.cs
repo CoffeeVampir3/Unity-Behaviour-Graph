@@ -49,7 +49,7 @@ namespace BehaviourGraph.Debugging
 
         public void Update()
         {
-            tree.Tick();
+            tree.Evaluate();
         }
 
         private Vector2 GetPointInRadius(float radiusSize)

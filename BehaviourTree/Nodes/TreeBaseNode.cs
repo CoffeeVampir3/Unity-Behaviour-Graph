@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Coffee.BehaviourTree
 {
+    /// <summary>
+    /// Abstract base class for all tree nodes.
+    /// </summary>
     internal abstract class TreeBaseNode
     {
         [HideInInspector]
@@ -16,11 +19,18 @@ namespace Coffee.BehaviourTree
             Running
         }
 
+        /// <summary>
+        /// Runs the logic associated with the node type.
+        /// </summary>
+        /// <returns>Whether the node completed successfully, failed, or is currently running.</returns>
         public abstract Result Execute();
 
+        /// <summary>
+        /// Resets the nodes state.
+        /// </summary>
         public abstract void Reset();
-        
-        public TreeBaseNode(BehaviourTree tree, Context parentCtx)
+
+        protected TreeBaseNode(BehaviourTree tree, Context parentCtx)
         {
             parentTree = tree;
             context = parentCtx;
