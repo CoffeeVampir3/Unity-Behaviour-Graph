@@ -27,6 +27,9 @@ MonoBehaviour:
       - fieldName: children
         node: {fileID: 2591425534729630538}
         reroutePoints: []
+      - fieldName: children 0
+        node: {fileID: 2591425534729630538}
+        reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
@@ -60,10 +63,16 @@ MonoBehaviour:
     - Name: parentTree
       Entry: 6
       Data: 
+    - Name: context
+      Entry: 6
+      Data: 
     - Name: child
       Entry: 7
       Data: 1|Coffee.BehaviourTree.Composite.TreeSequencerNode, BehaviourGraph
     - Name: parentTree
+      Entry: 6
+      Data: 
+    - Name: context
       Entry: 6
       Data: 
     - Name: 
@@ -118,6 +127,9 @@ MonoBehaviour:
       - fieldName: children
         node: {fileID: 4083612588736755473}
         reroutePoints: []
+      - fieldName: children 1
+        node: {fileID: 4083612588736755473}
+        reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
@@ -137,6 +149,9 @@ MonoBehaviour:
       Entry: 7
       Data: 0|Coffee.BehaviourTree.Leaf.TreeServiceLeafNode, BehaviourGraph
     - Name: parentTree
+      Entry: 6
+      Data: 
+    - Name: context
       Entry: 6
       Data: 
     - Name: targetMethod
@@ -184,6 +199,9 @@ MonoBehaviour:
       - fieldName: children
         node: {fileID: 4083612588736755473}
         reroutePoints: []
+      - fieldName: children 0
+        node: {fileID: 4083612588736755473}
+        reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
@@ -203,6 +221,9 @@ MonoBehaviour:
       Entry: 7
       Data: 0|Coffee.BehaviourTree.Leaf.TreeServiceLeafNode, BehaviourGraph
     - Name: parentTree
+      Entry: 6
+      Data: 
+    - Name: context
       Entry: 6
       Data: 
     - Name: targetMethod
@@ -242,6 +263,9 @@ MonoBehaviour:
     keys:
     - parents
     - children
+    - children 0
+    - children 1
+    - children 2
     values:
     - _fieldName: parents
       _node: {fileID: -6743689450409636375}
@@ -249,6 +273,9 @@ MonoBehaviour:
         Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: children
+        node: {fileID: 2591425534729630538}
+        reroutePoints: []
+      - fieldName: children 1
         node: {fileID: 2591425534729630538}
         reroutePoints: []
       _direction: 0
@@ -273,6 +300,42 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+    - _fieldName: children 0
+      _node: {fileID: -6743689450409636375}
+      _typeQualifiedName: Coffee.Behaviour.Nodes.BaseNode, BehaviourGraph, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: parents
+        node: {fileID: 7692477977708367002}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: children 1
+      _node: {fileID: -6743689450409636375}
+      _typeQualifiedName: Coffee.Behaviour.Nodes.BaseNode, BehaviourGraph, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: parents
+        node: {fileID: 428035786325341501}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: children 2
+      _node: {fileID: -6743689450409636375}
+      _typeQualifiedName: Coffee.Behaviour.Nodes.BaseNode, BehaviourGraph, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: parents
+        node: {fileID: 7672247384952564675}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
   parentGraph: {fileID: 11400000}
   initialized: 1
   serializationData:
@@ -290,6 +353,9 @@ MonoBehaviour:
     - Name: parentTree
       Entry: 6
       Data: 
+    - Name: context
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -297,7 +363,10 @@ MonoBehaviour:
       Entry: 9
       Data: 0
   parents: []
-  children: []
+  children:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -359,6 +428,9 @@ MonoBehaviour:
       - fieldName: children
         node: {fileID: -6743689450409636375}
         reroutePoints: []
+      - fieldName: children 1
+        node: {fileID: -6743689450409636375}
+        reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
@@ -378,6 +450,9 @@ MonoBehaviour:
       Entry: 7
       Data: 0|Coffee.BehaviourTree.Leaf.TreeServiceLeafNode, BehaviourGraph
     - Name: parentTree
+      Entry: 6
+      Data: 
+    - Name: context
       Entry: 6
       Data: 
     - Name: targetMethod
@@ -446,10 +521,16 @@ MonoBehaviour:
     - Name: parentTree
       Entry: 6
       Data: 
+    - Name: context
+      Entry: 6
+      Data: 
     - Name: child
       Entry: 7
       Data: 1|Coffee.BehaviourTree.Composite.TreeSelectorNode, BehaviourGraph
     - Name: parentTree
+      Entry: 6
+      Data: 
+    - Name: context
       Entry: 6
       Data: 
     - Name: 
@@ -480,6 +561,8 @@ MonoBehaviour:
     keys:
     - parents
     - children
+    - children 0
+    - children 1
     values:
     - _fieldName: parents
       _node: {fileID: 2591425534729630538}
@@ -508,6 +591,30 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+    - _fieldName: children 0
+      _node: {fileID: 2591425534729630538}
+      _typeQualifiedName: Coffee.Behaviour.Nodes.BaseNode, BehaviourGraph, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: parents
+        node: {fileID: -9222792281975335144}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: children 1
+      _node: {fileID: 2591425534729630538}
+      _typeQualifiedName: Coffee.Behaviour.Nodes.BaseNode, BehaviourGraph, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: parents
+        node: {fileID: -6743689450409636375}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
   parentGraph: {fileID: 11400000}
   initialized: 1
   serializationData:
@@ -525,6 +632,9 @@ MonoBehaviour:
     - Name: parentTree
       Entry: 6
       Data: 
+    - Name: context
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -532,7 +642,9 @@ MonoBehaviour:
       Entry: 9
       Data: 0
   parents: []
-  children: []
+  children:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &2817259704327790713
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -580,6 +692,9 @@ MonoBehaviour:
     - Name: parentTree
       Entry: 6
       Data: 
+    - Name: context
+      Entry: 6
+      Data: 
     - Name: targetMethod
       Entry: 6
       Data: 
@@ -617,6 +732,8 @@ MonoBehaviour:
     keys:
     - parents
     - children
+    - children 0
+    - children 1
     values:
     - _fieldName: parents
       _node: {fileID: 4083612588736755473}
@@ -645,6 +762,30 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+    - _fieldName: children 0
+      _node: {fileID: 4083612588736755473}
+      _typeQualifiedName: Coffee.Behaviour.Nodes.BaseNode, BehaviourGraph, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: parents
+        node: {fileID: -8177994528001988549}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: children 1
+      _node: {fileID: 4083612588736755473}
+      _typeQualifiedName: Coffee.Behaviour.Nodes.BaseNode, BehaviourGraph, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: parents
+        node: {fileID: -8439548002174400211}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
   parentGraph: {fileID: 11400000}
   initialized: 1
   serializationData:
@@ -662,6 +803,9 @@ MonoBehaviour:
     - Name: parentTree
       Entry: 6
       Data: 
+    - Name: context
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -669,7 +813,9 @@ MonoBehaviour:
       Entry: 9
       Data: 0
   parents: []
-  children: []
+  children:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &7672247384952564675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -695,6 +841,9 @@ MonoBehaviour:
         Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: children
+        node: {fileID: -6743689450409636375}
+        reroutePoints: []
+      - fieldName: children 2
         node: {fileID: -6743689450409636375}
         reroutePoints: []
       _direction: 0
@@ -730,10 +879,16 @@ MonoBehaviour:
     - Name: parentTree
       Entry: 6
       Data: 
+    - Name: context
+      Entry: 6
+      Data: 
     - Name: child
       Entry: 7
       Data: 1|Coffee.BehaviourTree.Leaf.TreeServiceLeafNode, BehaviourGraph
     - Name: parentTree
+      Entry: 6
+      Data: 
+    - Name: context
       Entry: 6
       Data: 
     - Name: targetMethod
@@ -791,6 +946,9 @@ MonoBehaviour:
       - fieldName: children
         node: {fileID: -6743689450409636375}
         reroutePoints: []
+      - fieldName: children 0
+        node: {fileID: -6743689450409636375}
+        reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
@@ -810,6 +968,9 @@ MonoBehaviour:
       Entry: 7
       Data: 0|Coffee.BehaviourTree.Leaf.TreeServiceLeafNode, BehaviourGraph
     - Name: parentTree
+      Entry: 6
+      Data: 
+    - Name: context
       Entry: 6
       Data: 
     - Name: targetMethod
