@@ -1,7 +1,4 @@
-﻿using System;
-using UnityEngine;
-
-namespace Coffee.BehaviourTree
+﻿namespace Coffee.BehaviourTree
 {
     public partial class BehaviourTree
     {
@@ -12,20 +9,14 @@ namespace Coffee.BehaviourTree
                 var currentNode = contextWalker.GetContextNode();
 
                 var ctxResult = currentNode.Execute();
-                switch (ctxResult)
+                if (ctxResult != TreeBaseNode.Result.Running)
                 {
-                    case TreeBaseNode.Result.Failure:
-                        if (!contextWalker.Unwind()) 
-                            return;
-                        contextWalker.Reset();
-                        continue;
-                    
-                    case TreeBaseNode.Result.Success:
-                        if (!contextWalker.Unwind()) 
-                            return;
-                        contextWalker.Reset();
-                        continue;
+                    if (!contextWalker.Unwind()) 
+                        return;
+                    contextWalker.Reset();
+                    continue;
                 }
+                
                 break;
             }
         }

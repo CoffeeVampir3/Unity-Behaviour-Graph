@@ -10,7 +10,7 @@ namespace BehaviourGraph.Debugging
     public class ThingyController : MonoBehaviour
     {
         [SerializeField]
-        private Coffee.Behaviour.BehaviourGraph graph;
+        private Coffee.Behaviour.BehaviourGraph graph = null;
         private BehaviourTree tree;
         
         [SerializeField] 
