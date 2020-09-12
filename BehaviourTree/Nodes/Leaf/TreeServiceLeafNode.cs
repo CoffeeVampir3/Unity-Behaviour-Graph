@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace Coffee.BehaviourTree.Leaf
 {
+    /// <summary>
+    /// Runs an incremental specified target service every frame.
+    /// </summary>
     internal class TreeServiceLeafNode : TreeLeafNode
     {
         public MethodInfo targetMethod;

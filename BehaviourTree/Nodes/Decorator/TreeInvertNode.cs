@@ -5,6 +5,14 @@ namespace Coffee.BehaviourTree.Decorator
 {
     internal class TreeInvertNode : TreeDecoratorNode
     {
+        /// <summary>
+        /// Inverts the result of connected nodes.
+        /// </summary>
+        /// <returns>
+        /// Success if failure.
+        /// Failure if success.
+        /// Running if running.
+        /// </returns>
         public override Result Execute()
         {
             var result = child.Execute();

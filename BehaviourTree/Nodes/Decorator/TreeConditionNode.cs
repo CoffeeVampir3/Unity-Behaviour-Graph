@@ -8,7 +8,13 @@ namespace Coffee.BehaviourTree.Decorator
     {
         public RuntimeCondition runtimeCondition;
 
-        //TODO:: Could be optimized with an alternate jump path.
+        /// <summary>
+        /// Evaluates its bound runtime condition.
+        /// </summary>
+        /// <returns>
+        /// If the condition was true returns the child value.
+        /// If the condition was false returns failure.
+        /// </returns>
         public override Result Execute()
         {
             if (runtimeCondition.Evaluate())

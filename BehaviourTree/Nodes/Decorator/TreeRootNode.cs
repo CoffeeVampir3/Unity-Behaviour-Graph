@@ -5,6 +5,12 @@ namespace Coffee.BehaviourTree.Decorator
 {
     internal class TreeRootNode : TreeDecoratorNode
     {
+        /// <summary>
+        /// The root of the tree and the owner of the context root.
+        /// </summary>
+        /// <returns>
+        /// Always returns the child value.
+        /// </returns>
         public override Result Execute()
         {
             return child.Execute();

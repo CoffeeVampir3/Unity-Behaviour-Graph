@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Coffee.BehaviourTree.Leaf
 {
+    /// <summary>
+    /// Convenience node.
+    /// </summary>
     internal class TreeLeafDebugNode : TreeLeafNode
     {
         public string debugMessage;

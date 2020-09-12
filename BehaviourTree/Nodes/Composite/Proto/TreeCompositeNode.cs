@@ -3,6 +3,10 @@ using Coffee.BehaviourTree.Ctx;
 
 namespace Coffee.BehaviourTree.Composite
 {
+    /// <summary>
+    /// Composite nodes evaluate a set of children and decide the execution flow
+    /// based on the child return values.
+    /// </summary>
     internal abstract class TreeCompositeNode : TreeBaseNode
     {
         protected TreeBaseNode[] childNodes;
@@ -21,8 +25,8 @@ namespace Coffee.BehaviourTree.Composite
                 childNodes[i].Reset();
             }
         }
-        
-        public TreeCompositeNode(BehaviourTree tree, Context parentCtx) : 
+
+        protected TreeCompositeNode(BehaviourTree tree, Context parentCtx) : 
             base(tree, parentCtx)
         {
         }
