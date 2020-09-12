@@ -1,5 +1,6 @@
 ﻿using System;
 using Coffee.BehaviourTree;
+using Coffee.BehaviourTree.Ctx;
 using Coffee.BehaviourTree.Leaf;
 using Sirenix.Serialization;
 using UnityEngine;
@@ -16,13 +17,14 @@ namespace Coffee.Behaviour.Nodes.LeafNodes
         
         protected override void OnCreation()
         {
-            debugNode = new TreeLeafDebugNode(null);
+            debugNode = new TreeLeafDebugNode(null, null);
             thisTreeNode = debugNode;
         }
         
-        public override TreeBaseNode WalkGraphToCreateTree(BehaviourTree.BehaviourTree tree)
+        public override TreeBaseNode WalkGraphToCreateTree(BehaviourTree.BehaviourTree tree, Context currentContext)
         {
-            var node = new TreeLeafDebugNode(tree) {debugMessage = debugNote};
+            var node = new TreeLeafDebugNode(tree, currentContext) 
+                {debugMessage = debugNote};
             return node;
         }
     }

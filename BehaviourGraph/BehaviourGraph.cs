@@ -21,7 +21,7 @@ namespace Coffee.Behaviour
         public BehaviourTree.BehaviourTree GenerateBehaviourTree(GameObject executingOn)
         {
             var cloneTree = new BehaviourTree.BehaviourTree(executingOn);
-            TreeBaseNode treeRoot = root.WalkGraphToCreateTree(cloneTree);
+            TreeBaseNode treeRoot = root.WalkGraphToCreateTree(cloneTree, null);
             cloneTree.RuntimeSetup(treeRoot, executingOn);
             treeRoot.Reset();
             

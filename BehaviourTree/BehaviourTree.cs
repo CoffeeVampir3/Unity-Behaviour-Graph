@@ -7,7 +7,7 @@ namespace Coffee.BehaviourTree
     {
         internal GameObject owner;
         private TreeBaseNode root;
-        private ContextWalker contextWalker;
+        internal ContextWalker contextWalker;
 
         public BehaviourTree(GameObject owner)
         {
@@ -19,7 +19,7 @@ namespace Coffee.BehaviourTree
             root = newRoot;
             owner = owningObject;
             contextWalker = new ContextWalker();
-            contextWalker.SetContextPointer(newRoot.contextBlock);
+            contextWalker.SetContextPointer(newRoot.context);
         }
 
         public void Tick()

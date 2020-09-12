@@ -28,8 +28,8 @@ namespace Coffee.BehaviourTree.Leaf
             }
             Debug.Assert(rtService != null);
         }
-        
-        public TreeServiceLeafNode(BehaviourTree tree) : base(tree)
+        public TreeServiceLeafNode(BehaviourTree tree, Context parentCtx) : 
+            base(tree, parentCtx)
         {
         }
     }

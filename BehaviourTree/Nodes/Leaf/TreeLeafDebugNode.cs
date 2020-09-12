@@ -17,7 +17,8 @@ namespace Coffee.BehaviourTree.Leaf
         {
         }
 
-        public TreeLeafDebugNode(BehaviourTree tree) : base(tree)
+        public TreeLeafDebugNode(BehaviourTree tree, Context parentCtx) : 
+            base(tree, parentCtx)
         {
         }
     }

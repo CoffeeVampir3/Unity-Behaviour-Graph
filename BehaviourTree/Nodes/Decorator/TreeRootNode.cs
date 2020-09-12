@@ -16,9 +16,10 @@ namespace Coffee.BehaviourTree.Decorator
             child.Reset();
         }
 
-        public TreeRootNode(BehaviourTree tree) : base(tree)
+        public TreeRootNode(BehaviourTree tree, Context parentCtx) : 
+            base(tree, parentCtx)
         {
-            contextBlock = new ContextBlock(null, this);
+            context = new Context(null, this);
         }
     }
 }

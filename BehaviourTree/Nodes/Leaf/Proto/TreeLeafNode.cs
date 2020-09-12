@@ -1,8 +1,11 @@
-﻿namespace Coffee.BehaviourTree.Leaf
+﻿using Coffee.BehaviourTree.Ctx;
+
+namespace Coffee.BehaviourTree.Leaf
 {
     internal abstract class TreeLeafNode : TreeBaseNode
-    {
-        protected TreeLeafNode(BehaviourTree tree) : base(tree)
+    { 
+        public TreeLeafNode(BehaviourTree tree, Context parentCtx) : 
+            base(tree, parentCtx)
         {
         }
     }

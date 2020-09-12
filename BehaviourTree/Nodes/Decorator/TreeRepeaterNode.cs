@@ -17,7 +17,8 @@ namespace Coffee.BehaviourTree.Decorator
             child.Reset();
         }
 
-        public TreeRepeaterNode(BehaviourTree tree) : base(tree)
+        public TreeRepeaterNode(BehaviourTree tree, Context parentCtx) : 
+            base(tree, parentCtx)
         {
         }
     }

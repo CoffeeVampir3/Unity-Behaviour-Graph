@@ -26,7 +26,8 @@ namespace Coffee.BehaviourTree.Composite
             return Result.Failure;
         }
         
-        public TreeSelectorNode(BehaviourTree tree) : base(tree)
+        public TreeSelectorNode(BehaviourTree tree, Context parentCtx) : 
+            base(tree, parentCtx)
         {
         }
     }

@@ -1,10 +1,13 @@
-﻿namespace Coffee.BehaviourTree.Decorator
+﻿using Coffee.BehaviourTree.Ctx;
+
+namespace Coffee.BehaviourTree.Decorator
 {
     internal abstract class TreeDecoratorNode : TreeBaseNode
     {
         public TreeBaseNode child;
 
-        protected TreeDecoratorNode(BehaviourTree tree) : base(tree)
+        public TreeDecoratorNode(BehaviourTree tree, Context parentCtx) : 
+            base(tree, parentCtx)
         {
         }
     }

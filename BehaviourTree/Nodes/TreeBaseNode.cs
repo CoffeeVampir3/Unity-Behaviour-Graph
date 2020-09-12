@@ -7,7 +7,7 @@ namespace Coffee.BehaviourTree
     {
         [HideInInspector]
         public BehaviourTree parentTree;
-        public ContextBlock contextBlock;
+        public Context context;
         
         public enum Result
         {
@@ -20,9 +20,10 @@ namespace Coffee.BehaviourTree
 
         public abstract void Reset();
         
-        protected TreeBaseNode(BehaviourTree tree)
+        public TreeBaseNode(BehaviourTree tree, Context parentCtx)
         {
             parentTree = tree;
+            context = parentCtx;
         }
     }
 }

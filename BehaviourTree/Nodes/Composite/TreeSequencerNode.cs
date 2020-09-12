@@ -1,4 +1,6 @@
 ﻿
+using Coffee.BehaviourTree.Ctx;
+
 namespace Coffee.BehaviourTree.Composite
 {
     //Sequencer returns success if and only if ALL children were successful.
@@ -24,7 +26,8 @@ namespace Coffee.BehaviourTree.Composite
             return Result.Success;
         }
         
-        public TreeSequencerNode(BehaviourTree tree) : base(tree)
+        public TreeSequencerNode(BehaviourTree tree, Context parentCtx) : 
+            base(tree, parentCtx)
         {
         }
     }

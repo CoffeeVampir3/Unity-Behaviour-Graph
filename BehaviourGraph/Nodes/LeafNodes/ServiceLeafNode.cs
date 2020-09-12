@@ -3,6 +3,7 @@ using System.Reflection;
 using BehaviourGraph.Attributes;
 using BehaviourGraph.CodeLinks.AttributeCache;
 using Coffee.BehaviourTree;
+using Coffee.BehaviourTree.Ctx;
 using Coffee.BehaviourTree.Leaf;
 using Sirenix.Serialization;
 using UnityEngine;
@@ -19,16 +20,17 @@ namespace Coffee.Behaviour.Nodes.LeafNodes
         
         protected override void OnCreation()
         {
-            leafNode = new TreeServiceLeafNode(null);
+            leafNode = new TreeServiceLeafNode(null, null);
             thisTreeNode = leafNode;
         }
 
-        public override TreeBaseNode WalkGraphToCreateTree(BehaviourTree.BehaviourTree tree)
+        public override TreeBaseNode WalkGraphToCreateTree(BehaviourTree.BehaviourTree tree, Context currentContext)
         {
             if (AttributeCache<Service>.TryGetCachedMemberViaLookupValue(service.targetMethod, 
                     out var method))
             {
-                var node = new TreeServiceLeafNode(tree) {targetMethod = method as MethodInfo};
+                var node = new TreeServiceLeafNode(tree, currentContext) 
+                    {targetMethod = method as MethodInfo};
                 return node;
             }
 

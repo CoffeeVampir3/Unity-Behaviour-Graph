@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Coffee.BehaviourTree.Ctx;
 
 namespace Coffee.BehaviourTree.Composite
 {
@@ -21,7 +22,8 @@ namespace Coffee.BehaviourTree.Composite
             }
         }
         
-        protected TreeCompositeNode(BehaviourTree tree) : base(tree)
+        public TreeCompositeNode(BehaviourTree tree, Context parentCtx) : 
+            base(tree, parentCtx)
         {
         }
     }

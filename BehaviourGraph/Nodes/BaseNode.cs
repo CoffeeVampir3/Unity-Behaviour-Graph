@@ -1,5 +1,6 @@
 ﻿using System;
 using Coffee.BehaviourTree;
+using Coffee.BehaviourTree.Ctx;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
@@ -18,7 +19,8 @@ namespace Coffee.Behaviour.Nodes
 
         #region Coffee Nodes Impl
         
-        public abstract TreeBaseNode WalkGraphToCreateTree(BehaviourTree.BehaviourTree tree);
+        public abstract TreeBaseNode WalkGraphToCreateTree(BehaviourTree.BehaviourTree tree, 
+            Context currentContext);
         protected abstract void OnCreation();
         
         #endregion

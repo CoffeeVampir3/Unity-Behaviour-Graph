@@ -15,7 +15,6 @@ namespace Coffee.Behaviour.Nodes.Private
         
         protected TreeDecoratorNode WalkDecoratorNode(BehaviourTree.BehaviourTree tree, TreeDecoratorNode node)
         {
-            node.parentTree = tree;
             var nodePort = GetOutputPort("childNode");
             
             BaseNode connectionBaseNode = nodePort.Connection.node as BaseNode;
@@ -27,7 +26,7 @@ namespace Coffee.Behaviour.Nodes.Private
                 Debug.LogError("Behaviour graph node: " + this.name + 
                                " was not connected to a child.", this);
             }
-            node.child = connectionBaseNode.WalkGraphToCreateTree(tree);
+            node.child = connectionBaseNode.WalkGraphToCreateTree(tree, node.context);
             return node;
         }
         

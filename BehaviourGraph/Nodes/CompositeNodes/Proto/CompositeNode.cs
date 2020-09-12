@@ -31,7 +31,7 @@ namespace Coffee.Behaviour.Nodes.CompositeNodes
                     Debug.LogError("Behaviour graph node: " + this.name + " was not connected to a child.", this);
                 }
                 
-                treeNodes.Add(bn.WalkGraphToCreateTree(tree));
+                treeNodes.Add(bn.WalkGraphToCreateTree(tree, composite.context));
             }
             
             composite.SetChildren(treeNodes);
