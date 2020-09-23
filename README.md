@@ -15,6 +15,10 @@ Added some QoL features namely colored nodes and the service/Condition nodes hav
 
 Note that this graph depends on both the (Sirenix) Odin Inspector and xNode.
 
+# Quick Start:
+
+Extract files into any directory in your project, that's it. A note that this will automatically add a Resources folder to "Assets" and create a single file named "bgsms" that stores serialization data neccesary for runtime execution.
+
 # Documentation
 
 Currently the only documentation is living inside the code, the example should make it very clear how to utilize the graph.
