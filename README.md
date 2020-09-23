@@ -3,7 +3,7 @@
 ![Bhg Graph In Action](https://github.com/CoffeeVampir3/Unity-Behaviour-Graph/blob/screenshots/xcmVMqJWjm.gif)
 ![Bhg Graph Example](https://github.com/CoffeeVampir3/Unity-Behaviour-Graph/blob/screenshots/graphsneak.png)
 
-Alpha release party! Enjoy all you lovely peoples. The current branch is stable but still mutating, when documentation is finished I'll be finalizing the master branch and providing an experimental dev-branch for future changes.
+Alpha release party! Enjoy all you lovely peoples. The current branch has finalized, the current implementation should not mutate much from here. Experiments are living in the experimental branch if you're interested in what's on the horizon.
 
 (Name Pending) Behaviour Graph! Lightning quick, zero allocations, 100/7 amazing graph for absolutely 0 dollerydos. Get a copy of your very own (Unnamed Behaviour Graph) today!
 
