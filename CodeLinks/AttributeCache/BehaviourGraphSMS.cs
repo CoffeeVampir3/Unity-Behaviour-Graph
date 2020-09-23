@@ -37,6 +37,7 @@ namespace BehaviourGraph.CodeLinks.AttributeCache
 
         private SerializedMemberStore Create(BehaviourGraphSMS inst)
         {
+            AssetDatabase.CreateFolder("Assets", "Resources");
             AssetDatabase.CreateAsset(inst, @"Assets/Resources/" + inst.name + ".asset");
             AssetDatabase.SaveAssets();
             AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(inst));
