@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Name: ChasePlayer
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 856, y: -24}
+  position: {x: 1000, y: -24}
   ports:
     keys:
     - parents
@@ -186,7 +186,7 @@ MonoBehaviour:
   m_Name: ColorRed
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 856, y: -120}
+  position: {x: 1016, y: -136}
   ports:
     keys:
     - parents
@@ -658,7 +658,7 @@ MonoBehaviour:
   m_Name: MoveToWaypoint
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 856, y: 328}
+  position: {x: 1016, y: 328}
   ports:
     keys:
     - parents
@@ -727,7 +727,7 @@ MonoBehaviour:
   m_Name: Sequencer
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 600, y: -40}
+  position: {x: 760, y: -56}
   ports:
     keys:
     - parents
