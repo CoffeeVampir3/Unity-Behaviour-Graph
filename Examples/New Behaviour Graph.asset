@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: IsPlayerInRange
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 392, y: -40}
+  position: {x: 376, y: -40}
   ports:
     keys:
     - parents
@@ -829,7 +829,7 @@ MonoBehaviour:
   m_Name: IsPlayerNotNearby
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 648, y: 328}
+  position: {x: 632, y: 344}
   ports:
     keys:
     - parents
