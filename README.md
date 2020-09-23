@@ -17,7 +17,7 @@ Note that this graph depends on both the (Sirenix) Odin Inspector and xNode.
 
 # Quick Start:
 
-Extract files into any directory in your project, that's it. A note that this will automatically add a Resources folder to "Assets" and create a single file named "bgsms" that stores serialization data neccesary for runtime execution.
+Extract files into any directory in your project, that's it. Once files recompile you can create graphs by right clicking and adding a "Behaviour Graph" in the file explorer context menu. A note: upon installation this will automatically add a Resources folder to "Assets" and create a single file named "bgsms" that stores serialization data neccesary for runtime execution.
 
 # Documentation
 
