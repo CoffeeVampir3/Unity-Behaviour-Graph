@@ -7,6 +7,10 @@ Alpha release party! Enjoy all you lovely peoples. The current branch is stable 
 
 (Name Pending) Behaviour Graph! Lightning quick, zero allocations, 100/7 amazing graph for absolutely 0 dollerydos. Get a copy of your very own (Unnamed Behaviour Graph) today!
 
+# Change Notes:
+
+Added some QoL features namely colored nodes and the service/Condition nodes have reasonable sizing for their fields now.
+
 # Dependencies
 
 Note that this graph depends on both the (Sirenix) Odin Inspector and xNode.
