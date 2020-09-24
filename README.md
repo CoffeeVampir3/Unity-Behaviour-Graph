@@ -1,7 +1,7 @@
 # Unity-Behaviour-Graph
 
 ![Bhg Graph In Action](https://github.com/CoffeeVampir3/Unity-Behaviour-Graph/blob/screenshots/xcmVMqJWjm.gif)
-![Bhg Graph Example](https://github.com/CoffeeVampir3/Unity-Behaviour-Graph/blob/screenshots/graphsneak.png)
+![Bhg Graph Example](https://github.com/CoffeeVampir3/Unity-Behaviour-Graph/blob/screenshots/image.png)
 
 Alpha release party! Enjoy all you lovely peoples. The current branch has finalized, the current implementation should not mutate much from here. Experiments are living in the experimental branch if you're interested in what's on the horizon.
 
