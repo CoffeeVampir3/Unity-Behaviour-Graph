@@ -11,10 +11,10 @@ namespace Coffee.Behaviour.Nodes.CompositeNodes
     [Serializable]
     internal abstract class CompositeNode : BaseNode
     {
-        [InputAttribute(ShowBackingValue.Never)] public BaseNode[] parents = null;
+        [InputAttribute(ShowBackingValue.Never)] 
+        public BaseNode[] parents = null;
         
-        [Output(dynamicPortList = true)] 
-        //[Output] 
+        [Output(dynamicPortList = true, backingValue = ShowBackingValue.Never)]
         public BaseNode[] children = null;
 
         #region Walk tree Impl

@@ -1,4 +1,6 @@
-﻿using Coffee.Behaviour.Nodes.CompositeNodes;
+﻿#if UNITY_EDITOR
+
+using Coffee.Behaviour.Nodes.CompositeNodes;
 using UnityEngine;
 using XNodeEditor;
 
@@ -14,3 +16,5 @@ namespace Coffee.Behaviour.Nodes.LeafNodes
         }
     }
 }
+
+#endif
