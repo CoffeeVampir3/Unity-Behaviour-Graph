@@ -15,7 +15,12 @@ namespace Coffee.Behaviour.Nodes.CompositeNodes
         public BaseNode[] parents = null;
         
         [Output(dynamicPortList = true, backingValue = ShowBackingValue.Never)]
-        public BaseNode[] children = null;
+        public mew[] children = null;
+
+        public enum mew
+        {
+            Port
+        }
 
         #region Walk tree Impl
         

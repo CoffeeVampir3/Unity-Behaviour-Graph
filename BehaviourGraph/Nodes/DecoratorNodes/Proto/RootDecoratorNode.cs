@@ -9,7 +9,8 @@ namespace Coffee.Behaviour.Nodes.Private
     [Serializable]
     internal abstract class RootDecoratorNode : BaseNode
     {
-        [Output(ShowBackingValue.Never, ConnectionType.Override)] public BaseNode childNode;
+        [Output(ShowBackingValue.Never, ConnectionType.Override)] 
+        public BaseNode childNode;
         
         #region Walk Tree Impl
         
